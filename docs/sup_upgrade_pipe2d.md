@@ -7,7 +7,7 @@ After installing the pipeline, users can easily upgrade the 2D DRP packages with
     Rarely, a new version requires a new LSST stack. In that case, you will need to repeat the entire installation. \
     In either case, the upgrade process does not notify you about these changes, so it is always a good idea to check the [changelog](https://hscpfs.mtk.nao.ac.jp/pfs-drp-2d/changelog/) before upgrading.
 
-## Check available versions
+## Check available packages
 
 The first step is to set up the LSST environment and add the PFS repository server to the `EUPS_PKGROOT` environment variable:
 
@@ -31,7 +31,19 @@ setup sconsUtils
 eups distrib install pfs_pipe2d <version> -t current
 ```
 
-The `-t current` option tags the version you installed as the default choice when you run:
+This process will upgrade all the following packages:
+
+```text
+Subaru-PFS/datamodel
+Subaru-PFS/pfs_utils
+Subaru-PFS/drp_pfs_data
+Subaru-PFS/obs_pfs
+Subaru-PFS/drp_stella_data
+Subaru-PFS/drp_stella
+Subaru-PFS/pfs_pipe2d
+```
+
+The `-t current` option tags the `pfs_pipe2d` version you installed by this command as the default choice when you run:
 
 ```bash
 setup pfs_pipe2d
