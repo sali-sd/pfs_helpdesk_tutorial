@@ -1,7 +1,7 @@
 
 # PFS 2D Pipeline Overview
 
-The latest PFS 2D data reduction pipeline (DRP) is now based on the third generation (Gen3) LSST middleware. The PFS pipeline organizes data using key terms: 
+The latest PFS 2D data reduction pipeline (DRP) is now based on the third generation (Gen3) LSST middleware. The PFS pipeline organizes data using key terms:
 
 - `visit` refers to a unique exposure identifier.
 
@@ -11,7 +11,7 @@ The latest PFS 2D data reduction pipeline (DRP) is now based on the third genera
 
 - `catId` specifies the catalog source of an object.
 
-- `objId` is a unique (within a catalog) 64-bit identifier for an astronomical source. 
+- `objId` is a unique (within a catalog) 64-bit identifier for an astronomical source.
 
 - `pfsDesignId` encodes the fiber configuration.
 
@@ -62,13 +62,11 @@ The products should especially ackknowledge the efforts by Jim Bosch, Nate Lust,
 his helpful writeup on using Gen3 for the [MERIAN project](https://hackmd.io/@lsk/merian).
 Significant contributions have also been made by Robert Lupton, Kiyoto Yabe, and Masayuki Tanaka. 
 
-
 !!! note
     This tutorial is based on the documents, *PFS 2D-DRP Gen3 Transition* (by Paul Price) delivered on September 20, 2024 and the *PFS EDR2 Document* delivered on March 4, 2023. The process introduced in this tutorial mostly follows an [earlier tutorial](https://github.com/yirene/pipe2d_tutorial/blob/main/pipe2d_tutorial.md) for Gen2 pipeline, but some tweaks are included, especially considering that we have started the transition to Gen3 from October 2024. The installation, data reduction, and product retrieval implemented on Gen3 are demonstrated by Zhuoming Li and Yongming Liang. 
     
 !!! warning
     The configurations implemented in this tutorial may still be revised in the future for better compatibility. 
-
 
 <!-- !!! note Large-Scale Cluster
     The latest pipeline is expected to be installed on Large-Scale Cluster (LSC) at NAOJ, and the users can directly utilize the ready environment, with only minor preparations to set up local `drp_pfs_data` (from cloning it from PFS GitHub). -->

@@ -6,14 +6,15 @@
 
 First, we need to set up the 2D DRP environment:
 
-```
-$ source $WORKDIR/(username)/pfs/stack_28/loadLSST.bash
-$ setup pfs_pipe2d
+```bash
+source $WORKDIR/(username)/pfs/stack_28/loadLSST.bash
+setup pfs_pipe2d
 ```
 
 (Optional) Only when you are going to install curated calibs, and you are using a shared installation on a server, you will need to set up a local `drp_pfs_data` as follows:
-```
-$ setup -jr $WORKDIR/(username)/packages/drp_pfs_data
+
+```bash
+setup -jr $WORKDIR/(username)/packages/drp_pfs_data
 ```
 
 ## Repository Setup
@@ -25,8 +26,8 @@ For this tutorial, we will store the data repository in the `$DATASTORE` directo
 
 The first step is to copy the default `butler.yaml`:
 
-```
-$ cp $OBS_PFS_DIR/gen3/butler.yaml $WORKDIR/(username)/data/butler.yaml
+```bash
+cp $OBS_PFS_DIR/gen3/butler.yaml $WORKDIR/(username)/data/butler.yaml
 ```
 
 <!-- and we need to modify the `registry` section:
@@ -41,8 +42,8 @@ registry:
 
 Next, create this directory and set up the Gen3 configuration files:
 
-```
-$ butler create $DATASTORE --seed-config $OBS_PFS_DIR/gen3/butler.yaml --dimension-config $OBS_PFS_DIR/gen3/dimensions.yaml --override
+```bash
+butler create $DATASTORE --seed-config $OBS_PFS_DIR/gen3/butler.yaml --dimension-config $OBS_PFS_DIR/gen3/dimensions.yaml --override
 ```
 
 This specifies two configuration files that are important for the Gen3 middleware. `butler.yaml` contains the configuration
@@ -53,7 +54,7 @@ without extensive parallelization), but it is recommended to use a `PostgreSQL` 
 
 To use a `PostgreSQL` database, change the `registry` section, like the following:
 
-```
+```bash
 registry:
   db: postgresql+psycopg2://dbserver:5432/dbname
 ```
@@ -80,14 +81,14 @@ be used in the future.
 
 Next, register the instrument with `butler`. This also copies the camera configuration into the repository:
 
-```
-$ butler register-instrument $DATASTORE lsst.obs.pfs.PrimeFocusSpectrograph
+```bash
+butler register-instrument $DATASTORE lsst.obs.pfs.PrimeFocusSpectrograph
 ```
 
 The following commands import the defects files (and any other “curated” calibration files) from the `drp_pfs_data`
 package (you’ll need to be using your own copy of `drp_pfs_data`, not the shared version):
 
-```
-$ makePfsDefects --mko
-$ butler write-curated-calibrations $DATASTORE PFS
+```bash
+makePfsDefects --mko
+butler write-curated-calibrations $DATASTORE PFS
 ```
