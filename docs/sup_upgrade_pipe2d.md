@@ -48,3 +48,13 @@ The `-t current` option tags the `pfs_pipe2d` version you installed by this comm
 ```bash
 setup pfs_pipe2d
 ```
+
+## Integration Test
+
+It is good to confirm the new version functions as expected every time after the upgrade by re-running the integration test:
+
+```bash
+cd $WORKDIR/$(whoami)/packages/integrationTest
+rm -rf INTEGRATION_export
+pfs_integration_test.sh -c 4 .
+```
