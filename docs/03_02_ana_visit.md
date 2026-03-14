@@ -15,7 +15,7 @@ The `butler` interface, a key component of the LSST Science Pipelines, provides 
 To use the `butler`, you will need to set up PFS pipeline environment before launching the Python:
 
 ```
-$ source $WORKDIR/(username)/packages/stack_28/loadLSST.bash
+$ source $WORKDIR/$(whoami)/packages/stack_28/loadLSST.bash
 $ setup pfs_pipe2d
 ```
 
@@ -30,7 +30,7 @@ We will need to first initialize the `butler`:
 
 ```
 $DATASTORE = "$WORKDIR/pfs/data/datastore"
-$COLLECTION = 'u/(username)/20250218'
+$COLLECTION = 'u/$(whoami)/20250218'
 butler = Butler.from_config($DATASTORE, collection=[$COLLECTION])
 ```
 

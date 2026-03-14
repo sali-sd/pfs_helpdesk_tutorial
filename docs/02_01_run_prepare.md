@@ -7,14 +7,14 @@
 First, we need to set up the 2D DRP environment:
 
 ```bash
-source $WORKDIR/(username)/pfs/stack_28/loadLSST.bash
+source $WORKDIR/$(whoami)/pfs/stack_28/loadLSST.bash
 setup pfs_pipe2d
 ```
 
 (Optional) Only when you are going to install curated calibs, and you are using a shared installation on a server, you will need to set up a local `drp_pfs_data` as follows:
 
 ```bash
-setup -jr $WORKDIR/(username)/packages/drp_pfs_data
+setup -jr $WORKDIR/$(whoami)/packages/drp_pfs_data
 ```
 
 ## Repository Setup
@@ -27,7 +27,7 @@ For this tutorial, we will store the data repository in the `$DATASTORE` directo
 The first step is to copy the default `butler.yaml`:
 
 ```bash
-cp $OBS_PFS_DIR/gen3/butler.yaml $WORKDIR/(username)/data/butler.yaml
+cp $OBS_PFS_DIR/gen3/butler.yaml $WORKDIR/$(whoami)/data/butler.yaml
 ```
 
 <!-- and we need to modify the `registry` section:

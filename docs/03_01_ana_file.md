@@ -11,12 +11,12 @@ After running the PFS 2D DRP, data reduction are performed and the spectrum prod
 
 
 First, where can we find the product files? 
-In this assumed working directory and user rerun, the output files are located under `$WORKDIR/pfs/data/datastore/u/(username)/object/`. 
+In this assumed working directory and user rerun, the output files are located under `$WORKDIR/pfs/data/datastore/u/$(whoami)/object/`. 
 
 You can check by:
 
 ```
-ls $WORKDIR/pfs/data/datastore/u/(username)/object/
+ls $WORKDIR/pfs/data/datastore/u/$(whoami)/object/
 ```
 
 You may find a folder named by date and time, e.g., `20250218T070224Z`. This is one of the reruns for your `object` collection. 
