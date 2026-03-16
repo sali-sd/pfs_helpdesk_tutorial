@@ -1,10 +1,10 @@
 # Upgrade the Pipeline
 
-After installing the pipeline, users can easily upgrade the 2D DRP packages with the `eups` command. This fetches compiled tarball packages from the server hosted by the PFS team in Mitaka and installs them into the current LSST stack.
+After installing the pipeline, users can easily upgrade the 2D DRP packages with the `eups` command. This fetches prebuilt binary packages from the server hosted by the PFS team and installs them into the current LSST stack.
 
 !!! Attention
-    Occasionally, a new version requires a fresh `datastore` directory. In that case, you will need to rebuild the data directory. \
-    Rarely, a new version requires a new LSST stack. In that case, you will need to repeat the entire installation. \
+    Occasionally, the new version requires an updated `datastore` directory. In that case, you will need to rebuild the data directory. \
+    Rarely, the new version requires a new LSST stack. In that case, you will need to repeat the entire installation. \
     In either case, the upgrade process does not notify you about these changes, so it is always a good idea to check the [changelog](https://hscpfs.mtk.nao.ac.jp/pfs-drp-2d/changelog/) before upgrading.
 
 ## Check available packages
@@ -54,6 +54,8 @@ setup pfs_pipe2d
 It is good to confirm the new version functions as expected every time after the upgrade by re-running the integration test:
 
 ```bash
+source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
+setup pfs_pipe2d
 cd $WORKDIR/$(whoami)/packages/integrationTest
 rm -rf INTEGRATION_export
 pfs_integration_test.sh -c 4 .

@@ -63,7 +63,7 @@ cd $WORKDIR/$(whoami)/source/fluxmodeldata-ambre-20230608
 Then we should declare the `fluxmodeldata` package to `eups` by the following command:
 
 ```bash
-eups declare fluxmodeldata 20230608 -r /path/to/fluxmodeldata
+eups declare fluxmodeldata 20230608-full -t current -r /path/to/fluxmodeldata
 ```
 
 ## (Optional) Individual Users: Install `drp_pfs_data` Package
