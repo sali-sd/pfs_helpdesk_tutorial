@@ -10,7 +10,7 @@ Note that because PFS EDR2 is released internally, the figures will not contain 
 
 ---
 
-The `detectorMapQA` evaluates how well we identify and locate the fiber traces. We have a ‘default’ `detectorMap` based on calibration data, but each exposure may have slightly offset fiber traces and we adjust the `detectorMap` in an early phase of the pipeline processing. The adjustment is done against the detected positions of continuum/line emission and we reserve a small subset of them from the adjustment. We use these reserved lines to evaluate the `detectorMap` accuracy. 
+The `detectorMapQA` evaluates how well we identify and locate the fiber traces. We have a ‘default’ `detectorMap` based on calibration data, but each exposure may have slightly offset fiber traces and we adjust the `detectorMap` in an early phase of the pipeline processing. The adjustment is done against the detected positions of continuum/line emission and we reserve a small subset of them from the adjustment. We use these reserved lines to evaluate the `detectorMap` accuracy.
 
 ![detectorMapQA_x](img/qa_detectorMap_x.png)
 
@@ -30,7 +30,7 @@ This figure below is a summary figure for all the arms. The figure shows the dis
 ---
 
 From the extracted 1D spectra, fiber profiles, and `detectorMap`, we can reconstruct a 2D image. 
-The `extractionQA` primarily evaluates the residual image between a real 2D image (before 1D extraction) and a reconstructed 2D image based on the extracted spectra. If the extraction was perfect, the noise-normalized residual image would show Gaussian noise with mean=0 and sigma=1. Any deviation from the normal distribution with N(0,1) is an indication of poor extraction (and hence this test serves as a QA). 
+The `extractionQA` primarily evaluates the residual image between a real 2D image (before 1D extraction) and a reconstructed 2D image based on the extracted spectra. If the extraction was perfect, the noise-normalized residual image would show Gaussian noise with mean=0 and sigma=1. Any deviation from the normal distribution with N(0,1) is an indication of poor extraction (and hence this test serves as a QA).
 
 ![extractionQA](img/qa_extraction.png)
 

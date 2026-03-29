@@ -54,7 +54,7 @@ defineCombination.py $DATASTORE PFS someVisits 123 124 125
 
 Although we have provided here some silly examples, it is recommended that descriptive names be used for the combination (e.g., `ssp-cosmos-deep-march2025` or `ssp-ga-2025-2028`). Note that these combination names are shared, so if the name is not of general interest to all users of your data repository, then it might be good to prefix it with your username (e.g., `foobar/playingAround-20250318`).
 
-### Define Visit Groups
+<!-- ### Define Visit Groups
 
 Optimal cosmic-ray identification used by the `reduceExposure` pipeline (and those that extend it) requires identifying groups of visits of the same targets in similar conditions.
 There is an algorithm to automatically group all visits selected:
@@ -67,7 +67,7 @@ defineVisitGroup.py $DATASTORE PFS --where "visit.target_name = 'OBJECT'"
 defineVisitGroup.py $DATASTORE PFS --where "visit.day_obs = 20241025"
 ```
 
-If the algorithm produces undesirable results, the command has options that will allow you to specify a group explicitly.
+If the algorithm produces undesirable results, the command has options that will allow you to specify a group explicitly. -->
 
 ## Process the Data
 
@@ -80,10 +80,10 @@ Now we can run the pipeline process a specific single exposure:
 pipetask run \
 --register-dataset-types -j $CORES -b $DATASTORE \
 --instrument $INSTRUMENT \
--i PFS/raw/all,PFS/raw/pfsConfig,PFS/calib \
+-i PFS/defaults,"$RERUN"/calib \
 -o "$RERUN"/reduceExposure \
 -p '$DRP_STELLA_DIR/pipelines/reduceExposure.yaml' \
--d "combination = 'object'"
+-d "visit = 123456"
 ```
 
 Alternatively, you can run the science pipeline for an entire data collection:
@@ -93,13 +93,13 @@ Alternatively, you can run the science pipeline for an entire data collection:
 pipetask run \
 --register-dataset-types -j $CORES -b $DATASTORE \
 --instrument $INSTRUMENT \
--i PFS/raw/all,PFS/raw/pfsConfig,PFS/calib \
+-i PFS/defaults,"$RERUN"/calib \
 -o "$RERUN"/science \
 -p '$DRP_STELLA_DIR/pipelines/science.yaml' \
 -d "combination = 'object'"
 ```
 
-Notice that in the first case we’re running the `reduceExposure` pipeline, selecting the `object` combinations that we defined earlier. The `science` pipeline is similar.
+Notice that in the first case we’re running the `reduceExposure` pipeline on a selected exposure. The `science` pipeline is similar but on the `object` combinations that we defined earlier.
 
 Note that we do not have to run the `reduceExposure` pipeline before we run the `science` pipeline (a single command is sufficient to run the entire pipeline): the `science` pipeline knows how to produce all the necessary intermediate datasets itself, and the above two commands are completely independent: they do not share any intermediate datasets.
 
@@ -131,4 +131,4 @@ Note that the `objId` needs to be specified in the `parameters` dictionary, rath
         Be refrain from retrieving `pfsCoadd.single` in a loop, as it is **EXTREMELY inefficient**.
 
 !!! note
-        In LSST version 26.0.2, the `butler` command was `butler = Butler($DATASTORE, collection=["$RERUN/object"])`, but in the latest LSST version 28, this is recommended to be `butler = Butler.from_config($DATASTORE, collection=["$RERUN/object"])`. Although the former expression may still work, `mypy` will deny this construction with reporting "class Butler is an abstract class. Abstract classes must not be instantiated". <br> **In the next section for data analysis, we will only use the latest construction.**
+        In LSST version 26.0.2, the `butler` command was `butler = Butler($DATASTORE, collection=["$RERUN/object"])`, but in the later LSST versions, this is recommended to be `butler = Butler.from_config($DATASTORE, collection=["$RERUN/object"])`. Although the former expression may still work, `mypy` will deny this construction with reporting "class Butler is an abstract class. Abstract classes must not be instantiated". <br> **In the next section for data analysis, we will only use the latest construction.**
