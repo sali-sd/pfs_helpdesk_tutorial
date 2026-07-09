@@ -5,6 +5,9 @@ on:
     branches:
       - sali_july2026
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
