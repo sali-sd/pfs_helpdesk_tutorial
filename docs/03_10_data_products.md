@@ -23,7 +23,7 @@ needing to know the exact file paths on disk.
 ```python
 from lsst.daf.butler import Butler
 
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the datastore
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the datastore (PFS Filler Program)
 collections = "S25A_April2026"                        # named processing collection
 
 butler = Butler(repo, collections=collections)
@@ -39,8 +39,8 @@ print(f"Total visits in collection: {len(all_visits)}")
 **Loading a data product:**
 
 ```python
-pfsConfig = butler.get('pfsConfig', dict(visit=123476))
-pfsMerged = butler.get('pfsMerged', dict(visit=123476))
+pfsConfig = butler.get('pfsConfig', dict(visit=122041))
+pfsMerged = butler.get('pfsMerged', dict(visit=122041))
 ```
 
 The string passed to `butler.get()` (e.g. `'pfsConfig'`, `'pfsMerged'`) is the
@@ -51,7 +51,13 @@ the sections below.
 
 ## pfsConfig
 
-**Filename:** `pfsConfig-0x{pfsDesignId:016x}-{visit:06d}.fits`
+Filename format: `pfsConfig_PFS_{visit}_{collection}.fits`
+
+Example (PFS Filler Program, visit 122041):
+```
+/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsConfig/20250323/122041/
+    pfsConfig_PFS_122041_S25A_April2026.fits
+```
 
 `pfsConfig` records the *realised* fiber configuration for a specific exposure.
 It is the as-observed counterpart to `pfsDesign`, capturing where each fiber
@@ -100,24 +106,19 @@ for all fibers in a single spectrograph arm from a single exposure.
 Each active arm (`b`=Blue, `r`=Red, `n`=IR, `m`=Medium-resolution red) and each spectrograph module (1–4)
 produces a separate file. The wavelength grid is not required to be uniform — a wavelength array is stored per pixel.
 
-Files are named following the Gen3 butler datastore convention, e.g.:
+Filename format: `pfsArm_PFS_{visit}_{arm}{spectrograph}_{collection}.fits`
 
+One file is produced per arm and spectrograph module. Example (PFS Filler Program, visit 122041, blue `b`, medium `m`, and IR `n` arms across 4 spectrograph modules):
 ```
-pfsArm_PFS_{visit}_{arm}{spectrograph}_PFS_science_{proposal}_{collection}_{group}_{timestamp}.fits
+/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsArm/20250323/122041/
+    pfsArm_PFS_122041_b1_S25A_April2026.fits
+    pfsArm_PFS_122041_b2_S25A_April2026.fits
+    pfsArm_PFS_122041_b3_S25A_April2026.fits
+    pfsArm_PFS_122041_b4_S25A_April2026.fits
+    pfsArm_PFS_122041_m1_S25A_April2026.fits
+    ...
+    pfsArm_PFS_122041_n4_S25A_April2026.fits
 ```
-
-Example from a real reduction (visit 121998, proposal S25A, blue and red arms across 4 spectrographs):
-```
-pfsArm_PFS_121998_b1_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
-pfsArm_PFS_121998_b2_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
-pfsArm_PFS_121998_b3_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
-pfsArm_PFS_121998_b4_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
-pfsArm_PFS_121998_r1_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
-...
-```
-
-Here `brm` in the collection name indicates the blue, red and medium-resolution arms were processed;
-`reduceExposure.20260206` is the processing collection using calibrations from 2026-02-06.
 
 **FITS structure:**
 
@@ -146,60 +147,46 @@ The format is identical to `pfsArm`, with two differences:
 - The `WAVELENGTH` array may be a single shared array applied to all fibers
   (rather than one per fiber), if all fibers share the same wavelength sampling
 
-Files follow the Gen3 naming convention, e.g.:
+Filename format: `pfsMerged_PFS_{visit}_{collection}.fits`
 
+Example (PFS Filler Program, visit 122041):
 ```
-pfsMerged_PFS_{visit}_PFS_science_{proposal}_{collection}_{merge_group}_{timestamp}.fits
-```
-
-Example from a real reduction (visit 121998, proposal S25A):
-```
-pfsMerged_PFS_121998_PFS_science_S25A_reduceExposure_20260206_merge_group1_20260211T071650Z.fits
+/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsMerged/20250323/122041/
+    pfsMerged_PFS_122041_S25A_April2026.fits
 ```
 
 ---
 
 ## pfsCalibrated
 
-`pfsCalibrated` is a collection of wavelength-calibrated, sky-subtracted,
-flux-calibrated, arm-merged spectra from a single visit, stored as a single
-FITS file. It following is the general naming convention, e.g.:
+`pfsCalibrated` is the **actual file on disk** containing wavelength-calibrated, sky-subtracted,
+flux-calibrated, arm-merged spectra for all science objects in a single visit.
+The individual spectrum of a single object (i.e. one row/entry inside `pfsCalibrated`) is referred to as a **`pfsSingle`** spectrum.
 
-```
-pfsCalibrated_PFS_{visit}_PFS_science_{proposal}_{collection}_{group}_{timestamp}.fits
-```
+Filename format: `pfsCalibrated_PFS_{visit}_{collection}.fits`
 
-Example from a real reduction - visit 121998 from S25A semester:
+Example (PFS Filler Program, visit 122041):
 ```
-pfsCalibrated_PFS_121998_PFS_science_S25A_calibrated_20260206_group1_20260212T054929Z.fits
+/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCalibrated/20250323/122041/
+    pfsCalibrated_PFS_122041_S25A_April2026.fits
 ```
-
-The individual spectrum of a single object (i.e. one row/entry inside `pfsCalibrated`) within this file is referred to as a **`pfsSingle`** spectrum.
 
 ---
 
 ## pfsCoadd
 
-`pfsCoadd` is a collection of wavelength-calibrated, sky-subtracted,
-flux-calibrated, coadded spectra for a group of objects within a single catalog (`catId`),
-co-adding spectra across multiple visits. Due to limitations on file size, `pfsCoadd` files are split by `catId` and `objGroup`, so there
-can be multiple `pfsCoadd` files per `catId`. 
+`pfsCoadd` is the **actual file on disk** containing wavelength-calibrated, sky-subtracted,
+flux-calibrated, coadded spectra combining data across multiple visits.
+Files are split by `catId` and `objGroup`, so there are multiple `pfsCoadd` files per catalog.
+The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) is referred to as a **`pfsObject`** spectrum.
 
-The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) within this file is referred to as a **`pfsObject`** spectrum.
+Filename format: `pfsCoadd_PFS_selected_{proposal}_{catId}_{objGroup}_{collection}.fits`
 
-Files are named following the Gen3 butler datastore convention, e.g.:
-
+Example (PFS Filler Program, catId 10094, 32 object groups):
 ```
-pfsCoadd_PFS_selected_{proposal}_{catId}_{objGroup}_{instrument}_{type}_{proposal}_{collection}_{group}_{timestamp}.fits
+/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCoadd/10094/
+    pfsCoadd_PFS_selected_S25A_10094_1_S25A_April2026.fits
+    pfsCoadd_PFS_selected_S25A_10094_2_S25A_April2026.fits
+    ...
+    pfsCoadd_PFS_selected_S25A_10094_32_S25A_April2026.fits
 ```
-
-Example from a real reduction (catId 10091, proposal S25A, 70 object groups):
-```
-pfsCoadd_PFS_selected_S25A_10091_1_PFS_science_S25A_coadd_20260206_group1_20260213T045043Z.fits
-pfsCoadd_PFS_selected_S25A_10091_2_PFS_science_S25A_coadd_20260206_group1_20260213T045043Z.fits
-...
-pfsCoadd_PFS_selected_S25A_10091_70_PFS_science_S25A_coadd_20260206_group1_20260213T045043Z.fits
-```
-
-Here the incrementing number (1–70) is the `objGroup` index, and `coadd.20260206` is the
-processing collection using calibrations from 2026-02-06.
