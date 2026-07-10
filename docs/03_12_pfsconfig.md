@@ -69,7 +69,9 @@ visit     = 123476
 pfsConfig = butler.get('pfsConfig', dict(visit=visit))
 ```
 
-To go even further, the following code allows one to see the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify the butler data repository and collection name, along with the visit number (or increment through visits in the collection using a simple visit index):
+## Fiber Distribution
+
+The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify under **USER-DEFINED PARAMETERS** the butler data repository and collection name, along with the visit number (or increment through visits in the collection using a simple index):
 
 ```python
 import numpy as np
@@ -150,7 +152,7 @@ ax.minorticks_on()
 plt.show()
 ```
 
-**Example output** (visit 123476, collection `S25A_April2026`):
+**Output**:
 
 ```
 Total visits in Collections (S25A_April2026): 632
@@ -176,3 +178,78 @@ Top 5 faintest objects (g_ps1):
 ```
 
 ![Fiber positions for visit 123476](figures/pfsConfig_visit=123476.png)
+
+## Search Visits by Object ID
+
+If you have the `objId` of a specific object you have observed and would like to know details of that object, the following code prints a summary of all visits that contain that object, including its catalog ID and magnitude.
+
+```python
+import numpy as np
+from astropy.io import fits
+from lsst.daf.butler import Butler
+from pfs.datamodel import TargetType
+
+# ==== USER-DEFINED PARAMETERS ====
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
+collections = "S25A_April2026"                       # collection name
+objid       = 120731449862702300
+
+# ==== FIND ALL VISITS VIA PFSMERGED, THEN GET PFSCONFIG REFS ====
+butler     = Butler(repo, collections=collections)
+all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
+all_refs   = list(butler.registry.queryDatasets('pfsConfig',
+                  where=f"visit IN ({','.join(str(v) for v in all_visits)})"))
+print(f"Total visits in Collections ({collections}): {len(all_visits)}")
+
+# ==== FAST SCAN VIA DIRECT FITS READ ====
+objid_visits = []
+info_ref     = None
+
+for ref in all_refs:
+    uri = butler.getURI(ref)
+    with fits.open(uri.path) as hdul:
+        objids = hdul[1].data['objId']
+        if objid in objids:
+            objid_visits.append(ref.dataId['visit'])
+            if info_ref is None:
+                info_ref = ref
+
+if not objid_visits:
+    raise ValueError(f"objId {objid} not found in any pfsConfig in collections '{collections}'")
+
+objid_visits = sorted(set(objid_visits))
+print(f"\nObjId={objid} found in {len(objid_visits)} visit(s): {objid_visits}")
+
+# ==== GET FULL INFO FROM FIRST VISIT ====
+pfsConfig    = butler.get('pfsConfig', dict(visit=objid_visits[0]))
+sci          = pfsConfig.select(targetType=TargetType.SCIENCE, fiberStatus=1)
+sci_mask     = sci.objId == objid
+idx          = np.where(sci_mask)[0][0]
+filter_names = list(sci.filterNames[0])
+first_filter = filter_names[0]
+total_flux   = np.array([list(f) for f in sci.totalFlux], dtype=float)
+psf_flux     = np.array([list(f) for f in sci.psfFlux],   dtype=float)
+flux         = np.where((total_flux > 0) & np.isfinite(total_flux), total_flux, psf_flux)
+with np.errstate(divide='ignore', invalid='ignore'):
+    mag = np.where(flux > 0, -2.5 * np.log10(flux) + 31.4, np.nan)
+
+print(f"\nObject info (from visit {objid_visits[0]}):")
+print(f"  ObjId        = {int(sci.objId[idx])}")
+print(f"  CatId        = {int(sci.catId[idx])}")
+print(f"  Spectrograph = {int(sci.spectrograph[idx])}")
+print(f"  Mag ({first_filter}) = {mag[idx, 0]:.3f} AB")
+```
+
+**Output**:
+
+```
+Total visits in Collections (S25A_April2026): 632
+
+ObjId=120731449862702300 found in 4 visit(s): [123476, 123477, 123478, 123479]
+
+Object info (from visit 123476):
+  ObjId        = 120731449862702300
+  CatId        = 10094
+  Spectrograph = 3
+  Mag (g_ps1) = 21.635 AB
+```
