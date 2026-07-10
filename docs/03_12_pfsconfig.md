@@ -71,7 +71,7 @@ pfsConfig = butler.get('pfsConfig', dict(visit=visit))
 
 ## Fiber Distribution
 
-The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify under **USER-DEFINED PARAMETERS** the butler data repository and collection name, along with the visit number (or increment through visits in the collection using a simple index):
+The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify under **USER-DEFINED PARAMETERS** the 2d DRP data repository location and collection name, along with the visit number (or increment through visits in the collection using a simple index):
 
 ```python
 import numpy as np
