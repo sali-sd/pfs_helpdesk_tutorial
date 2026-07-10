@@ -46,6 +46,7 @@ actually ended up on the focal plane (as opposed to where it was intended to be)
 | `filterName` | — | Filter name specifying the transmission curve |
 
 The fluxes above are collected from catalogs such as HSC, PS1, GAIA.
+
 ---
 
 ## pfsArm
