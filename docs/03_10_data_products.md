@@ -45,16 +45,34 @@ actually ended up on the focal plane (as opposed to where it was intended to be)
 | `totalFlux` | nJy | Total flux (PSF for point sources; extended model for galaxies) |
 | `filterName` | — | Filter name specifying the transmission curve |
 
+The fluxes above are collected from catalogs such as HSC, PS1, GAIA.
 ---
 
 ## pfsArm
 
-**Filename:** `pfsArm-{visit:06d}-{arm}{spectrograph}.fits`
-
 `pfsArm` contains the **wavelength-calibrated, sky-subtracted**, but **not flux-calibrated** extracted spectra
 for all fibers in a single spectrograph arm from a single exposure.
-Each arm (`b`=Blue, `r`=Red, `n`=IR, `m`=Medium-resolution red) produces a separate file.
-The wavelength grid is not required to be uniform — a wavelength array is stored per pixel.
+Each active arm (`b`=Blue, `r`=Red, `n`=IR, `m`=Medium-resolution red) and each spectrograph module (1–4)
+produces a separate file. The wavelength grid is not required to be uniform — a wavelength array is stored per pixel.
+
+Files are named following the Gen3 butler datastore convention, e.g.:
+
+```
+pfsArm_PFS_{visit}_{arm}{spectrograph}_PFS_science_{proposal}_{collection}_{group}_{timestamp}.fits
+```
+
+Example from a real reduction (visit 121998, proposal S25A, blue and red arms across 4 spectrographs):
+```
+pfsArm_PFS_121998_b1_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
+pfsArm_PFS_121998_b2_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
+pfsArm_PFS_121998_b3_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
+pfsArm_PFS_121998_b4_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
+pfsArm_PFS_121998_r1_PFS_science_S25A_reduceExposure_20260206_brm_group1_20260210T014710Z.fits
+...
+```
+
+Here `brm` in the collection name indicates the blue, red and medium-resolution arms were processed;
+`reduceExposure.20260206` is the processing collection using calibrations from 2026-02-06.
 
 **FITS structure:**
 
@@ -71,14 +89,9 @@ The wavelength grid is not required to be uniform — a wavelength array is stor
 | #8 | CONFIG | Binary table | — | 1 row (pfsDesignId, visit) |
 | #9 | NOTES | Binary table | — | NFIBER rows |
 
-The `COVAR` HDU stores the near-diagonal part of the flux covariance matrix:
-diagonal (`±0`), first off-diagonal (`±1`), and second off-diagonal (`±2`) terms.
-
 ---
 
 ## pfsMerged
-
-**Filename:** `pfsMerged-{visit:06d}.fits`
 
 `pfsMerged` combines the spectra from all arms for a single visit into one file.
 It is **wavelength-calibrated and sky-subtracted**, but **not flux-calibrated**.
@@ -88,19 +101,30 @@ The format is identical to `pfsArm`, with two differences:
 - The `WAVELENGTH` array may be a single shared array applied to all fibers
   (rather than one per fiber), if all fibers share the same wavelength sampling
 
+Files follow the Gen3 naming convention, e.g.:
+
+```
+pfsMerged_PFS_{visit}_PFS_science_{proposal}_{collection}_{merge_group}_{timestamp}.fits
+```
+
+Example from a real reduction (visit 121998, proposal S25A):
+```
+pfsMerged_PFS_121998_PFS_science_S25A_reduceExposure_20260206_merge_group1_20260211T071650Z.fits
+```
+
 ---
 
 ## pfsCalibrated
 
 `pfsCalibrated` is a collection of wavelength-calibrated, sky-subtracted,
 flux-calibrated, arm-merged spectra from a single visit, stored as a single
-FITS file. It is produced by the Gen3 butler pipeline and named following the Gen3 datastore convention, e.g.:
+FITS file. It following is the general naming convention, e.g.:
 
 ```
 pfsCalibrated_PFS_{visit}_PFS_science_{proposal}_{collection}_{group}_{timestamp}.fits
 ```
 
-Example from a real reduction (visit 121998 from S25A semester:
+Example from a real reduction - visit 121998 from S25A semester:
 ```
 pfsCalibrated_PFS_121998_PFS_science_S25A_calibrated_20260206_group1_20260212T054929Z.fits
 ```
@@ -111,12 +135,12 @@ The individual spectrum of a single object (i.e. one row/entry inside `pfsCalibr
 
 ## pfsCoadd
 
-`pfsCoadd` is the **actual file on disk** containing wavelength-calibrated, sky-subtracted,
+`pfsCoadd` is a collection of wavelength-calibrated, sky-subtracted,
 flux-calibrated, coadded spectra for a group of objects within a single catalog (`catId`),
-combining data across multiple visits. Files are split by `catId` and `objGroup`, so there
-are multiple `pfsCoadd` files per catalog — one per object group. The individual coadded
-spectrum of a single object within this file is referred to as a **`pfsObject`** spectrum.
-`pfsObject` is not a standalone file — it is a logical unit (one row/entry) inside `pfsCoadd`.
+co-adding spectra across multiple visits. Due to limitations on file size, `pfsCoadd` files are split by `catId` and `objGroup`, so there
+can be multiple `pfsCoadd` files per `catId`. 
+
+The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) within this file is referred to as a **`pfsObject`** spectrum.
 
 Files are named following the Gen3 butler datastore convention, e.g.:
 
@@ -134,25 +158,3 @@ pfsCoadd_PFS_selected_S25A_10091_70_PFS_science_S25A_coadd_20260206_group1_20260
 
 Here the incrementing number (1–70) is the `objGroup` index, and `coadd.20260206` is the
 processing collection using calibrations from 2026-02-06.
-
-**FITS structure:**
-
-| HDU | Name | Type | Units | Description |
-|-----|------|------|-------|-------------|
-| #0 | PDU | Header | — | — |
-| #1 | TARGET | Binary table | — | One row per object (targetId, catId, tract, patch, objId, ra, dec, targetType) |
-| #2 | TARGETFLUX | Binary table | nJy | Per-object flux per filter (fiberId, filterName, fiberFlux) |
-| #3 | OBSERVATIONS | Binary table | — | Per-visit observation metadata (visit, arm, spectrograph, pfsDesignId, fiberId, pfiNominal, pfiCenter, obsTime, expTime) |
-| #4 | WAVELENGTH | Image/table | nm (vacuum) | Wavelength arrays |
-| #5 | FLUX | Image/table | nJy | Coadded flux |
-| #6 | MASK | Image/table | bitmask | Quality bitmask |
-| #7 | SKY | Image/table | nJy | Coadded sky spectra |
-| #8 | COVAR | Image/table | — | Near-diagonal covariance (3 arrays per spectrum) |
-| #9 | COVAR2 | Image/table | — | Low-resolution non-sparse covariance |
-| #10 | METADATA | Binary table | — | Per-object YAML key-value metadata |
-| #11 | FLUXTABLE | Binary table | nJy, nm | Un-resampled per-visit wavelength, flux, error, mask arrays |
-| #12 | NOTES | Binary table | — | Reduction notes |
-
-When all spectra share the same wavelength sampling (the typical case), the
-`WAVELENGTH`, `FLUX`, `MASK`, `SKY`, and `COVAR` HDUs are written as images,
-enabling FITS tile compression. Otherwise they are written as binary tables.
