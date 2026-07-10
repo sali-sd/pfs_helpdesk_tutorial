@@ -2,21 +2,22 @@
 
 ## Overview of PFS Data Products
 
-This page describes the main PFS spectroscopic data products produced by the 2D DRP pipeline.
-They are all FITS files and follow a strict naming convention based on observation identifiers.
+This page describes the main PFS spectroscopic data products produced by the 2D DRP pipeline. They are all FITS files and follow a strict naming convention based on observation identifiers.
+
+In this section we will show how PFS data products are stored, can be accessed and analysed using PFS data stored on the [PFS Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) as reference. Specifically we will use data from proposal ID S25A-000QF, which is part of the PFS Filler Program and available to everyone that signs up to the Science Platform. 
+
+While we use the above data for demonstration, the method of accessing and analysing PFS data using **Bulter** is universally applicable to all locally reduced data as well.
 
 ---
 
 ## Accessing PFS Data Products
 
-All PFS data products are stored in **collections** within a Gen3 butler repository.
-A collection is a named, logical grouping of datasets — typically tied to a specific
-processing run or observing programme — that allows the butler to locate the correct
-version of the data when multiple reductions exist in the same repository.
+PFS data is primary accessed using the [LSST Gen3 Butler](https://pipelines.lsst.io/modules/lsst.daf.butler/index.html),
+which provides a uniform interface for reading and writing pipeline products without needing to know the exact file names or paths of every PFS data product on disk.
 
-Data is accessed using the [LSST Gen3 Butler](https://pipelines.lsst.io/modules/lsst.daf.butler/index.html),
-which provides a uniform interface for reading and writing pipeline products without
-needing to know the exact file paths on disk.
+All PFS data products are stored in **collections** within a butler repository.
+A collection is a grouping of PFS data tied to a specific
+processing run or observing programme — that allows the butler to locate the correct version of the data seamlessly with a few specific commands.
 
 **Setting up the butler:**
 
