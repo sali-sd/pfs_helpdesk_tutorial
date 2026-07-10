@@ -16,11 +16,13 @@ nav:
     - (Optional) Build Calibs: 02_03_run_calib.md
     - Procees Science Data: 02_04_run_science.md
     # - Quality Assurance (QA): 02_05_run_qa.md
-  - Data Analysis:
+  - Data Analysis (Legacy):
     - File Access: 03_01_ana_file.md
     - Analyze Visit-level Data: 03_02_ana_visit.md
     - Analyze Coadd-level Data: 03_03_ana_coadd.md
     - Run 1D DRP: 03_04_ana_1d.md
+  - Data Analysis:
+    - PFS Data Products: 03_10_data_products.md
   - Q&A:
     - General: 04_00_faq_general.md
     # - Install 2D DRP: 04_01_faq_install.md
