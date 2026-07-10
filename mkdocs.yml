@@ -22,7 +22,7 @@ nav:
     - Analyze Coadd-level Data: 03_03_ana_coadd.md
     - Run 1D DRP: 03_04_ana_1d.md
   - Data Analysis:
-    - Overview: 03_10_overview.md
+    - Overview of PFS Data Products: 03_10_overview.md
     - Accessing PFS Data: 03_11_accessing.md
     - pfsConfig: 03_12_pfsconfig.md
     - pfsArm: 03_13_pfsarm.md
