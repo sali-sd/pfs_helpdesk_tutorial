@@ -92,18 +92,22 @@ The format is identical to `pfsArm`, with two differences:
 
 ## pfsCalibrated
 
-`pfsCalibrated` is a **visit-level bundle** of wavelength-calibrated, sky-subtracted, flux-calibrated,
-arm-merged spectra for all science objects in a single visit, stored in a single file.
-The individual spectrum for each object within this file is called **`pfsSingle`**.
+`pfsCalibrated` is the **actual file on disk** containing wavelength-calibrated, sky-subtracted,
+flux-calibrated, arm-merged spectra for all science objects in a single visit, stored as a single
+FITS file. It is produced by the Gen3 butler pipeline and named following the Gen3 datastore convention, e.g.:
 
-### pfsSingle (individual spectrum)
+```
+pfsCalibrated_PFS_{visit}_PFS_science_{proposal}_{collection}_{group}_{timestamp}.fits
+```
 
-**Filename:** `pfsSingle-{catId:05d}-{tract:05d}-{patch}-{objId:016x}-{visit:06d}.fits`
+Example from a real reduction (visit 121998, proposal S25A, observed 2025-03-23):
+```
+pfsCalibrated_PFS_121998_PFS_science_S25A_calibrated_20260206_group1_20260212T054929Z.fits
+```
 
-`pfsSingle` is the **wavelength-calibrated, sky-subtracted, flux-calibrated**, arm-merged spectrum
-for a single object from a single visit — one file per science target per visit. It shares the same FITS format
-as `pfsObject` (described below). The `pfsCalibrated` file is essentially a bundling
-of all `pfsSingle` spectra from a visit into one file, following the same format as `pfsCoadd`.
+The individual spectrum of a single object within this file is referred to as a **`pfsSingle`** spectrum.
+`pfsSingle` is not a standalone file — it is a logical unit (one row/entry) inside `pfsCalibrated`,
+sharing the same FITS format as `pfsObject` (described below).
 
 ---
 
