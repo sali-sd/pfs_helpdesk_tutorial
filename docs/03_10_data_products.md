@@ -1,7 +1,51 @@
 # PFS Data Products
 
+## Overview of PFS Data Products
+
 This page describes the main PFS spectroscopic data products produced by the 2D DRP pipeline.
 They are all FITS files and follow a strict naming convention based on observation identifiers.
+
+---
+
+## Accessing PFS Data Products
+
+All PFS data products are stored in **collections** within a Gen3 butler repository.
+A collection is a named, logical grouping of datasets — typically tied to a specific
+processing run or observing programme — that allows the butler to locate the correct
+version of the data when multiple reductions exist in the same repository.
+
+Data is accessed using the [LSST Gen3 Butler](https://pipelines.lsst.io/modules/lsst.daf.butler/index.html),
+which provides a uniform interface for reading and writing pipeline products without
+needing to know the exact file paths on disk.
+
+**Setting up the butler:**
+
+```python
+from lsst.daf.butler import Butler
+
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the datastore
+collections = "S25A_April2026"                        # named processing collection
+
+butler = Butler(repo, collections=collections)
+```
+
+**Querying available visits:**
+
+```python
+all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
+print(f"Total visits in collection: {len(all_visits)}")
+```
+
+**Loading a data product:**
+
+```python
+pfsConfig = butler.get('pfsConfig', dict(visit=123476))
+pfsMerged = butler.get('pfsMerged', dict(visit=123476))
+```
+
+The string passed to `butler.get()` (e.g. `'pfsConfig'`, `'pfsMerged'`) is the
+**dataset type name** — it corresponds directly to the product names described in
+the sections below.
 
 ---
 
