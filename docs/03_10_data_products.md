@@ -51,7 +51,7 @@ actually ended up on the focal plane (as opposed to where it was intended to be)
 
 **Filename:** `pfsArm-{visit:06d}-{arm}{spectrograph}.fits`
 
-`pfsArm` contains the wavelength-calibrated, **not flux-calibrated** extracted spectra
+`pfsArm` contains the **wavelength-calibrated, sky-subtracted**, but **not flux-calibrated** extracted spectra
 for all fibers in a single spectrograph arm from a single exposure.
 Each arm (`b`=Blue, `r`=Red, `n`=IR, `m`=Medium-resolution red) produces a separate file.
 The wavelength grid is not required to be uniform — a wavelength array is stored per pixel.
@@ -81,7 +81,7 @@ diagonal (`±0`), first off-diagonal (`±1`), and second off-diagonal (`±2`) te
 **Filename:** `pfsMerged-{visit:06d}.fits`
 
 `pfsMerged` combines the spectra from all arms for a single visit into one file.
-It is wavelength-calibrated but **not flux-calibrated**.
+It is **wavelength-calibrated and sky-subtracted**, but **not flux-calibrated**.
 The format is identical to `pfsArm`, with two differences:
 
 - Flux units are **electrons per nm** (rather than electrons)
@@ -92,16 +92,16 @@ The format is identical to `pfsArm`, with two differences:
 
 ## pfsCalibrated
 
-`pfsCalibrated` is a **visit-level bundle** of flux-calibrated, arm-merged spectra for
-all science objects in a single visit, stored in a single file. The individual spectrum
-for each object within this file is called **`pfsSingle`**.
+`pfsCalibrated` is a **visit-level bundle** of wavelength-calibrated, sky-subtracted, flux-calibrated,
+arm-merged spectra for all science objects in a single visit, stored in a single file.
+The individual spectrum for each object within this file is called **`pfsSingle`**.
 
 ### pfsSingle (individual spectrum)
 
 **Filename:** `pfsSingle-{catId:05d}-{tract:05d}-{patch}-{objId:016x}-{visit:06d}.fits`
 
-`pfsSingle` is the **flux-calibrated**, arm-merged spectrum for a single object from a
-single visit — one file per science target per visit. It shares the same FITS format
+`pfsSingle` is the **wavelength-calibrated, sky-subtracted, flux-calibrated**, arm-merged spectrum
+for a single object from a single visit — one file per science target per visit. It shares the same FITS format
 as `pfsObject` (described below). The `pfsCalibrated` file is essentially a bundling
 of all `pfsSingle` spectra from a visit into one file, following the same format as `pfsCoadd`.
 
@@ -119,8 +119,8 @@ single object within this file is called **`pfsObject`**.
 
 **Filename:** `pfsObject-{catId:05d}-{tract:05d}-{patch}-{objId:016x}-{nVisit%1000:03d}-0x{pfsVisitHash:016x}.fits`
 
-`pfsObject` is the **coadded, flux-calibrated spectrum** for a single object across
-multiple visits. The filename encodes the number of visits (`nVisit`, modulo 1000) and
+`pfsObject` is the **wavelength-calibrated, sky-subtracted, flux-calibrated, coadded spectrum**
+for a single object across multiple visits. The filename encodes the number of visits (`nVisit`, modulo 1000) and
 a 63-bit SHA-1 hash of the contributing visits (`pfsVisitHash`) to uniquely identify
 the combination. Files are organised on disk as `catId/tract/patch/pfsObject-*.fits`.
 
