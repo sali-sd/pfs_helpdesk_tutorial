@@ -1,16 +1,18 @@
 # pfsConfig
 
+## Overview
+
+`pfsConfig` records the *realized* fiber configuration for a specific **visit** (exposure).
+It is the observed counterpart to `pfsDesign`, capturing where each fiber
+actually ended up on the focal plane (as opposed to where it was intended to be). The pfsConfig files are the primary destination of all object related information, e.g. RA/Dec, catalog ID, target type, fiber status, object fluxes (from public catalogs).
+
 Filename format: `pfsConfig_PFS_{visit}_{collection}.fits`
 
-Example (PFS Filler Program, visit 122041):
+Example from proposal `S25A-000QF`, visit 122041 on the Science Platform:
 ```
 /shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsConfig/20250323/122041/
     pfsConfig_PFS_122041_S25A_April2026.fits
 ```
-
-`pfsConfig` records the *realised* fiber configuration for a specific exposure.
-It is the as-observed counterpart to `pfsDesign`, capturing where each fiber
-actually ended up on the focal plane (as opposed to where it was intended to be).
 
 **FITS structure:**
 
@@ -44,4 +46,6 @@ actually ended up on the focal plane (as opposed to where it was intended to be)
 | `totalFlux` | nJy | Total flux (PSF for point sources; extended model for galaxies) |
 | `filterName` | — | Filter name specifying the transmission curve |
 
-The fluxes above are collected from catalogs such as HSC, PS1, GAIA.
+The fluxes above are collected from public catalogs such as HSC SSP, PS1, GAIA.
+
+## Analysis

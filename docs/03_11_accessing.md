@@ -11,7 +11,7 @@ processing run or observing programme — that allows the butler to locate the c
 
 ## Setting up Butler
 
-Before any data can be analysed, one must first provide the location of the 2D DRP datastore repository where the reduced data products are stored. For our reference dataset (see [Overview of PFS Data Products](03_10_overview.md) for details), the datastore is located at `/shared/pfs/programs/S25A-000QF/2d/`:
+Before any data can be analyzed, one must first provide the location of the 2D DRP datastore repository where the reduced data products are stored. For our reference dataset (see [Overview of PFS Data Products](03_10_overview.md) for details), the datastore is located at `/shared/pfs/programs/S25A-000QF/2d/`:
 
 ```
 $ ls /shared/pfs/programs/S25A-000QF/2d/
@@ -27,9 +27,9 @@ The `butler.yaml` marks this directory as the root of the butler repository. Eac
 from lsst.daf.butler import Butler
 
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
-collections = "S25A_April2026"                        # collection name
+collections = "S25A_April2026"                       # collection name
 
 butler = Butler(repo, collections=collections)
 ```
 
-Now that **Butler** is ready, we can proceed to look at the individual data products.
+Now that butler is ready, we can proceed to look at the individual data products.
