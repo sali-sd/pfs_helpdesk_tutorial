@@ -92,83 +92,48 @@ The format is identical to `pfsArm`, with two differences:
 
 ## pfsCalibrated
 
-`pfsCalibrated` is the **actual file on disk** containing wavelength-calibrated, sky-subtracted,
-flux-calibrated, arm-merged spectra for all science objects in a single visit, stored as a single
+`pfsCalibrated` is a collection of wavelength-calibrated, sky-subtracted,
+flux-calibrated, arm-merged spectra from a single visit, stored as a single
 FITS file. It is produced by the Gen3 butler pipeline and named following the Gen3 datastore convention, e.g.:
 
 ```
 pfsCalibrated_PFS_{visit}_PFS_science_{proposal}_{collection}_{group}_{timestamp}.fits
 ```
 
-Example from a real reduction (visit 121998, proposal S25A, observed 2025-03-23):
+Example from a real reduction (visit 121998 from S25A semester:
 ```
 pfsCalibrated_PFS_121998_PFS_science_S25A_calibrated_20260206_group1_20260212T054929Z.fits
 ```
 
-The individual spectrum of a single object within this file is referred to as a **`pfsSingle`** spectrum.
-`pfsSingle` is not a standalone file — it is a logical unit (one row/entry) inside `pfsCalibrated`,
-sharing the same FITS format as `pfsObject` (described below).
+The individual spectrum of a single object (i.e. one row/entry inside `pfsCalibrated`) within this file is referred to as a **`pfsSingle`** spectrum.
 
 ---
 
 ## pfsCoadd
 
-`pfsCoadd` is the **multi-visit coadded** spectral data product, introduced with the
-LSST Gen3 middleware in late 2024. It bundles the coadded spectra of **many objects**
-(grouped by `catId` and `objGroup`) into a single file, making pipeline I/O far more
-efficient than the older per-object approach. The individual coadded spectrum for a
-single object within this file is called **`pfsObject`**.
+`pfsCoadd` is the **actual file on disk** containing wavelength-calibrated, sky-subtracted,
+flux-calibrated, coadded spectra for a group of objects within a single catalog (`catId`),
+combining data across multiple visits. Files are split by `catId` and `objGroup`, so there
+are multiple `pfsCoadd` files per catalog — one per object group. The individual coadded
+spectrum of a single object within this file is referred to as a **`pfsObject`** spectrum.
+`pfsObject` is not a standalone file — it is a logical unit (one row/entry) inside `pfsCoadd`.
 
-### pfsObject (individual spectrum)
+Files are named following the Gen3 butler datastore convention, e.g.:
 
-**Filename:** `pfsObject-{catId:05d}-{tract:05d}-{patch}-{objId:016x}-{nVisit%1000:03d}-0x{pfsVisitHash:016x}.fits`
+```
+pfsCoadd_PFS_selected_{proposal}_{catId}_{objGroup}_{instrument}_{type}_{proposal}_{collection}_{group}_{timestamp}.fits
+```
 
-`pfsObject` is the **wavelength-calibrated, sky-subtracted, flux-calibrated, coadded spectrum**
-for a single object across multiple visits. The filename encodes the number of visits (`nVisit`, modulo 1000) and
-a 63-bit SHA-1 hash of the contributing visits (`pfsVisitHash`) to uniquely identify
-the combination. Files are organised on disk as `catId/tract/patch/pfsObject-*.fits`.
+Example from a real reduction (catId 10091, proposal S25A, 70 object groups):
+```
+pfsCoadd_PFS_selected_S25A_10091_1_PFS_science_S25A_coadd_20260206_group1_20260213T045043Z.fits
+pfsCoadd_PFS_selected_S25A_10091_2_PFS_science_S25A_coadd_20260206_group1_20260213T045043Z.fits
+...
+pfsCoadd_PFS_selected_S25A_10091_70_PFS_science_S25A_coadd_20260206_group1_20260213T045043Z.fits
+```
 
-**FITS structure:**
-
-| HDU | Name | Type | Units | Dimensions |
-|-----|------|------|-------|------------|
-| #0 | PDU | Header | — | — |
-| #1 | FLUX | Image | nJy | NROW |
-| #2 | MASK | Image | bitmask | NROW |
-| #3 | TARGET | Binary table | — | NFILTER rows |
-| #4 | SKY | Image | nJy | NROW |
-| #5 | COVAR | Image | — | NROW × 3 |
-| #6 | COVAR2 | Image | — | NCOARSE × NCOARSE |
-| #7 | OBSERVATIONS | Binary table | — | NOBS rows |
-| #8 | FLUXTABLE | Binary table | nJy, nm | NOBS × NROW rows |
-| #9 | NOTES | Binary table | — | — |
-
-The `FLUX`, `MASK`, `SKY`, and `COVAR` HDUs use WCS cards (`CRPIX1`, `CRVAL1`) to
-define the wavelength axis, sampled at ~0.8 Å/pixel.
-The `FLUXTABLE` HDU stores the un-resampled, per-visit wavelength and intensity arrays
-and should be used for highest-precision analysis.
-
-**TARGET HDU keywords (minimum required):**
-
-| Keyword | Type | Description |
-|---------|------|-------------|
-| `catId` | INT | Catalog identifier |
-| `tract` | INT | Sky tract identifier |
-| `patch` | STRING | Sky patch identifier |
-| `objId` | INT | Object identifier |
-| `ra`, `dec` | DOUBLE | Object position (degrees) |
-| `targetType` | INT | Target type enum |
-
-### pfsCoadd (bundled file)
-
-**Filename:** `pfsCoadd-{catId:05d}-{objGroup:05d}.fits`
-
-**Filename:** `pfsCoadd-{catId:05d}-{objGroup:05d}.fits`
-
-`pfsCoadd` is the modern replacement for `pfsObject`, introduced with the LSST Gen3
-middleware in late 2024. Instead of one file per object, it bundles the coadded spectra
-of **many objects** (grouped by `catId` and `objGroup`) into a single file, making
-pipeline I/O far more efficient.
+Here the incrementing number (1–70) is the `objGroup` index, and `coadd.20260206` is the
+processing collection using calibrations from 2026-02-06.
 
 **FITS structure:**
 
