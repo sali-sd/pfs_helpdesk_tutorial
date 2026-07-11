@@ -2,23 +2,27 @@
 
 ## Overview
 
-`pfsCoZCandidates` is the LAM 1D output file. It bundles redshift candidates, classification results, line measurements, and quality flags for all objects in a single catalog (`catId`) into one file, following the same `pfsCoadd` structure.
+`pfsCoZCandidates` is the LAM 1D output file. It bundles redshift candidates, classification results, line measurements, and quality flags for all objects in a single catalog (`catId`), following the same `pfsCoadd` structure.
 
-The LAM 1D pipeline is run on each `pfsCoadd` basis — one `pfsCoZCandidates` file is produced per `catId`/`objGroup` combination (see the [pfsCoadd](03_16_pfscoadd.md) section). The results are stored in a directory tree where each folder is named `{catId}_{objGroup}`, and the FITS file lives inside a `data/` subdirectory.
+The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` file is produced per `catId`/`objGroup` combination (see the [pfsCoadd](03_16_pfscoadd.md) section). The results are stored in a directory tree where each folder is named `{catId}_{objGroup}`, and the FITS file lives inside a `data/` subdirectory.
 
 Example from proposal `S25A-000QF`, catId 10094 (32 object groups):
 ```
 /shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified/
-    10094_1/data/pfsCoZcandidates-10094.fits
-    10094_2/data/pfsCoZcandidates-10094.fits
+    10094_1/              ← directory: {catId}_{objGroup}
+        data/pfsCoZcandidates-10094.fits
+    10094_2/
+        data/pfsCoZcandidates-10094.fits
     ...
-    10094_32/data/pfsCoZcandidates-10094.fits
+    10094_32/
+        data/pfsCoZcandidates-10094.fits
 ```
 
-- Flux units for line measurements are **nJy** (continuum) and **10⁻³⁵ W/m²** (line flux)
-- Each object can have multiple redshift candidates ranked by probability (`cRank=0` is the best)
+- Flux units for line measurements are **nJy** (continuum) and **10⁻³⁵ W/m²** (line flux).
+- For each object a GALAXY, QSO and STAR template is fit, with the best indicated by the `class` column in the `CLASSIFICATION` HDU.
+- Each object can have multiple redshift candidates; the best is indicated by `cRank=0` in the object `CANDIDATES` HDUs.
 
-Filename format: `pfsCoZCandidates_PFS_{combination}_{catId}_{collection}.fits`
+Filename format: `{path_to_pfsCoZCandidates}/{catId}_{objGroup}/data/pfsCoZcandidates-{catId}.fits`
 
 
 **FITS structure:**
@@ -73,10 +77,10 @@ The same ranked-candidate structure applies to `QSO_CANDIDATES` (HDU #10) and `S
 
 ## Building a LAM 1D Object Table
 
-The following code builds a combined object table across all LAM 1D results in a collection. It works in three steps:
+The following code builds a combined object table across all LAM 1D results in a `collection` with the best object type and redshift/velocity values as indicated by the pipeline. It works in three steps:
 
-1. **Magnitude lookup** — iterates over all visits in the collection via `pfsMerged`, extracting per-object magnitudes from `pfsConfig` across all available filters
-2. **LAM 1D FITS reading** — reads all `pfsCoZCandidates` FITS files from a local LAM 1D output directory, extracting classification, redshift/velocity candidates (best ranked per object), warnings, and errors for each object
+1. **Magnitude lookup** — iterates over all visits in the collection via `pfsMerged`, extracting per-object magnitudes from `pfsConfig` across all available filters.
+2. **LAM 1D FITS reading** — reads all `pfsCoZCandidates` FITS files from for a given `collection`, extracting the best object classification, best redshift/velocity candidate (by highest probability), warnings, and errors for each object.
 3. **Combining and saving** — merges the magnitude lookup with the LAM 1D results into a single CSV file (`{collections}_all_lam1d.csv`), which can be used to browse objects by class, redshift, velocity, or objId
 
 After saving the CSV, the code plots **magnitude vs. redshift** (for GALAXY and QSO) and **magnitude vs. velocity** (for STAR), coloured by `catId`.
@@ -92,10 +96,10 @@ from astropy.io import fits
 from lsst.daf.butler import Butler
 from pfs.datamodel import TargetType
 
-# ==== INPUT PARAMETERS ====
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"
-collections = "S25A_April2026"
-lam1d_dir   = "/shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified" # Ensure this directory matches the COLLECTIONS
+# ==== USER-DEFINED PARAMETERS ====
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"                            # path to the 2d DRP repository
+collections = "S25A_April2026"                                                  # collection name
+lam1d_dir   = "/shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified"  # path to LAM 1D output (must match collections, i.e. S25A_April2026 here)
 
 # ==== HELPER: endian-safe FITS HDU to DataFrame ====
 def fits_to_df(hdu_data):

@@ -33,7 +33,7 @@ nav:
     - Installation: 04_09_lam1d_install.md
     - Overview of LAM 1D Data Products: 04_10_lam1d_overview.md
     - pfsCoZCandidates: 04_12_lam1d_zcandidates.md
-    - pfsCoadd Spectrum + LAM 1D Spectral Lines: 04_13_lam1d_coadd_lines.md
+    - pfsCoadd Spectrum + LAM 1D Model: 04_13_lam1d_coadd_lines.md
   - Q&A:
     - General: 04_00_faq_general.md
     # - Install 2D DRP: 04_01_faq_install.md
