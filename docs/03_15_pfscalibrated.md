@@ -35,7 +35,7 @@ Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
 
 ## Viewing pfsCalibrated Spectra
 
-The following plots the `pfsCalibrated` spectrum of a single object from a single visit (exposure). The spectrum is fully reduced and arm-merged, with flux in units of nJy. Instantiate *Butler* by providing the datastore `repo` and `collections`. Then specify a `visit` and `objid` to plot that object directly, or use `browse_index` to step through all science objects in a visit sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
+The following plots the `pfsCalibrated` spectrum of a single object from a single visit (exposure). The spectrum is fully reduced and arm-merged, with flux in units of nJy. Instantiate `Butler` by providing the datastore `repo` and `collections`. Then specify a `visit` and `objid` to plot that object directly, or use `browse_index` to step through all science objects in a visit sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
 
 ```python
 import numpy as np

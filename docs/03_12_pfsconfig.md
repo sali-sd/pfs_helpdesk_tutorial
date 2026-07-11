@@ -50,7 +50,7 @@ The fluxes above are collected from public catalogs such as HSC SSP, PS1, GAIA.
 
 ## Visit Analysis
 
-Here we show how to set up Butler, list all available visits in a collection, and load `pfsConfig` for a specific visit:
+Here we show how to set up `Butler`, list all available visits in a `collection`, and load `pfsConfig` for a specific visit:
 
 ```python
 from lsst.daf.butler import Butler
@@ -77,7 +77,7 @@ Visits: [122041, 122042, 122044, 122045, 122047, 122048, 122050, 122051, 122182,
 
 ## Fiber Distribution
 
-The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify under **USER-DEFINED PARAMETERS** the 2d DRP data repository location and collection name, along with the visit number (or increment through visits in the collection using a simple index):
+The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify under **USER-DEFINED PARAMETERS** the 2d DRP data repository location and `collection` name, along with the visit number (or increment through visits in the `collection` using a simple index):
 
 ```python
 import numpy as np

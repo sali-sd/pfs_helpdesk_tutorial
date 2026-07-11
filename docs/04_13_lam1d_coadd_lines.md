@@ -8,7 +8,7 @@ The code supports three modes of object selection:
 - **By class + redshift/velocity** — finds the object in the CSV closest to a target redshift (GALAXY/QSO) or velocity (STAR) provided.
 - **By class + `browse_index`** — steps through all objects of a given class sorted by descending redshift/velocity.
 
-Once an object is loaded, the code fetches the `pfsCoadd` spectrum via *Butler* and reads the corresponding LAM 1D FITS file directly from disk. The main plot shows the observed spectrum (black) and the LAM 1D model fit (red) with detected line positions marked. For GALAXY and QSO objects, up to four zoom panels below the main plot show the top-ranked lines by SNR, with the line name, SNR, and equivalent width displayed. A summary table of the top 10 lines by SNR is also printed to the terminal.
+Once an object is loaded, the code fetches the `pfsCoadd` spectrum via `Butler` and reads the corresponding LAM 1D FITS file directly from disk. The main plot shows the observed spectrum (black) and the LAM 1D model fit (red) with detected line positions marked. For GALAXY and QSO objects, up to four zoom panels below the main plot show the top-ranked lines by SNR, with the line name, SNR, and equivalent width displayed. A summary table of the top 10 lines by SNR is also printed to the terminal.
 
 ```python
 import os

@@ -79,7 +79,7 @@ The same ranked-candidate structure applies to `QSO_CANDIDATES` (HDU #10) and `S
 
 The following code builds a combined object table across all LAM 1D results in a `collection` with the best object type and redshift/velocity values as indicated by the pipeline. It works in three steps:
 
-1. **Magnitude lookup** — iterates over all visits in the collection via `pfsMerged`, extracting per-object magnitudes from `pfsConfig` across all available filters.
+1. **Magnitude lookup** — iterates over all visits in the `collection` via `pfsMerged`, extracting per-object magnitudes from `pfsConfig` across all available filters.
 2. **LAM 1D FITS reading** — reads all `pfsCoZCandidates` FITS files from for a given `collection`, extracting the best object classification, best redshift/velocity candidate (by highest probability), warnings, and errors for each object.
 3. **Combining and saving** — merges the magnitude lookup with the LAM 1D results into a single CSV file (`{collections}_all_lam1d.csv`), which can be used to browse objects by class, redshift, velocity, or objId
 

@@ -5,7 +5,7 @@
 `pfsCoadd` contains the wavelength-calibrated, sky-subtracted, flux-calibrated and **coadded** spectra combining data across multiple visits (exposures).
 Unlike the visit-based products, `pfsCoadd` files are organised by three dimensions:
 
-- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by Butler to locate coadd files and is embedded in every filename. While there is only one `combination` in the current dataset, in future processing runs the `combination` key will be used to separate out low resolution `brn` and medium resoluton `bmn` data.
+- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename. While there is only one `combination` in the current dataset, in future processing runs the `combination` key will be used to separate out low resolution `brn` and medium resoluton `bmn` data.
 - **`catId`** — the object catalog identifier; files are grouped into subdirectories by `catId`
 - **`objGroup`** — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
 
@@ -63,7 +63,7 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 
 ## Viewing pfsCoadd Spectra
 
-The following plots the `pfsCoadd` spectrum of a single object. Unlike the visit-based products, `pfsCoadd` has no `visit` dimension — objects are indexed by `combination`, `catId` and `objGroup` parameters instead, which the code automatically locates without needing to be specified by the user. Instantiate *Butler* by providing the datastore `repo` and `collections`. Then specify an `objid` to plot that object directly, or use `browse_index` to step through all science objects in the collections sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
+The following plots the `pfsCoadd` spectrum of a single object. Unlike the visit-based products, `pfsCoadd` has no `visit` dimension — objects are indexed by `combination`, `catId` and `objGroup` parameters instead, which the code automatically locates without needing to be specified by the user. Instantiate `Butler` by providing the datastore `repo` and `collections`. Then specify an `objid` to plot that object directly, or use `browse_index` to step through all science objects in the `collections` sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
 
 ```python
 import numpy as np
