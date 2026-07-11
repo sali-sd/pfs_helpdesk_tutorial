@@ -2,8 +2,7 @@
 
 ## Overview
 
-`pfsCalibrated` contains the wavelength-calibrated, sky-subtracted,
-**flux-calibrated**, arm-merged spectra for all objects in a single visit. The individual spectrum of a single object (i.e. one row/entry inside `pfsCalibrated`) is referred to as a **`pfsSingle`** spectrum. This is the fully reduced pipeline data product for a single exposure (i.e. before co-addition).
+`pfsCalibrated` contains the wavelength-calibrated, sky-subtracted, arm-merged and **flux-calibrated** spectra for all objects in a single visit. The individual spectrum of a single object (i.e. one row/entry inside `pfsCalibrated`) is referred to as a **`pfsSingle`** spectrum. This is the fully reduced pipeline data product for a single exposure (i.e. before co-addition).
 
 - Flux units are **nJy** (nano-Janskys)
 - The `WAVELENGTH` is stored in HDU #4 as an image or table (same format as pfsCoadd)

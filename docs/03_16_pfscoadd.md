@@ -2,29 +2,30 @@
 
 ## Overview
 
-`pfsCoadd` contains wavelength-calibrated, sky-subtracted, flux-calibrated, coadded spectra combining data across multiple visits.
+`pfsCoadd` contains the wavelength-calibrated, sky-subtracted, flux-calibrated and **coadded** spectra combining data across multiple visits (exposures).
 Unlike the visit-based products, `pfsCoadd` files are organised by three dimensions:
 
-- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by the Butler to locate coadd files and is embedded in every filename. While there is only one `combination` in the current dataset, in future processing runs the `combination` key will be used to separate out low resolution `brn` and medium resoluton `bmn` data. You can check all `combination` names in your `collections` as such:
-
-    ```python
-    from lsst.daf.butler import Butler
-
-    repo        = "/shared/pfs/programs/S25A-000QF/2d/"
-    collections = "S25A_April2026"
-
-    butler = Butler(repo, collections=collections)
-    combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
-    print(f"Available combinations in '{collections}': {combinations}")
-    ```
-
-    **Output**:
-    ```
-    Available combinations in 'S25A_April2026': ['selected_S25A']
-    ```
-
+- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by Butler to locate coadd files and is embedded in every filename. While there is only one `combination` in the current dataset, in future processing runs the `combination` key will be used to separate out low resolution `brn` and medium resoluton `bmn` data.
 - **`catId`** — the object catalog identifier; files are grouped into subdirectories by `catId`
-- **`objGroup`** — objects within a `catId` are further split into numbered groups, due to limitations of file sizes.
+- **`objGroup`** — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
+
+You can check all `combination` names in your `collections` as such:
+
+```python
+from lsst.daf.butler import Butler
+
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"
+collections = "S25A_April2026"
+
+butler = Butler(repo, collections=collections)
+combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
+print(f"Available combinations in '{collections}': {combinations}")
+```
+
+**Output**:
+```
+Available combinations in 'S25A_April2026': ['selected_S25A']
+```
 
 The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) is referred to as a **`pfsObject`** spectrum.
 
@@ -33,7 +34,7 @@ The individual coadded spectrum of a single object (i.e. one row/entry inside `p
 
 Filename format: `pfsCoadd_PFS_{combination}_{catId}_{objGroup}_{collection}.fits`
 
-Example from proposal `S25A-000QF`, catId 10094 on the Science Platform (32 object groups):
+Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler Program) on the Science Platform (32 object groups):
 ```
 /shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCoadd/10094/
     pfsCoadd_PFS_selected_S25A_10094_1_S25A_April2026.fits

@@ -2,7 +2,7 @@
 
 ## Overview
 
-`pfsMerged` combines the spectra from all arms for a single visit (exposure) into one file.
+`pfsMerged` combines the spectra from all arms into one merged spectrum per object. The arm-merged spectra of all fibers from a single visit (exposure) are then stored in one file.
 It is wavelength-calibrated and sky-subtracted, but **not flux-calibrated**.
 The format is identical to `pfsArm`, with two differences:
 
@@ -35,7 +35,7 @@ Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
 
 ## Viewing pfsMerged Spectra
 
-The following plots the `pfsMerged` spectrum of a single object from a single visit. This the the fully merged spectrum of all arms (red+blue+nir) combined. Instantiate *Butler* by providing the datastore `repo` and `collections`. Then specify a `visit` and `objid` to plot that object directly, or use `browse_index` to step through all science objects in a visit sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
+The following plots the `pfsMerged` spectrum of a single object from a single visit. This is the fully merged spectrum of all arms (red+blue+nir) combined. Instantiate *Butler* by providing the datastore `repo` and `collections`. Then specify a `visit` and `objid` to plot that object directly, or use `browse_index` to step through all science objects in a visit sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
 
 ```python
 import numpy as np
