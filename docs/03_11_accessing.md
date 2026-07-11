@@ -7,7 +7,7 @@ which provides a uniform interface for reading and writing pipeline products wit
 
 All PFS data products are stored in **collections** within a butler repository.
 A collection is a grouping of PFS data tied to a specific
-processing run or observing programme — that allows the butler to locate the correct version of the data seamlessly with a few specific commands.
+processing run or observing programme — that allows Butler to locate the correct version of the data seamlessly with a few specific commands.
 
 ## Setting up Butler
 
