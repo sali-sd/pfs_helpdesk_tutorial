@@ -16,11 +16,6 @@ nav:
     - (Optional) Build Calibs: 02_03_run_calib.md
     - Procees Science Data: 02_04_run_science.md
     # - Quality Assurance (QA): 02_05_run_qa.md
-  - Data Analysis (Legacy):
-    - File Access: 03_01_ana_file.md
-    - Analyze Visit-level Data: 03_02_ana_visit.md
-    - Analyze Coadd-level Data: 03_03_ana_coadd.md
-    - Run 1D DRP: 03_04_ana_1d.md
   - Data Analysis:
     - Overview of PFS Data Products: 03_10_overview.md
     - Accessing PFS Data: 03_11_accessing.md
@@ -31,6 +26,7 @@ nav:
     - pfsCoadd: 03_16_pfscoadd.md
   - LAM 1D:
     - Installation: 04_09_lam1d_install.md
+    - Running the Pipeline: 04_11_lam1d_running.md
     - Overview of LAM 1D Data Products: 04_10_lam1d_overview.md
     - pfsCoZCandidates: 04_12_lam1d_zcandidates.md
     - pfsCoadd Spectrum + LAM 1D Model: 04_13_lam1d_coadd_lines.md
