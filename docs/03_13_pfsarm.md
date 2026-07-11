@@ -37,7 +37,7 @@ Example from proposal `S25A-000QF`, visit 123476 on the Science Platform (blue `
 
 ## Viewing pfsArm Spectra
 
-The following plots the `pfsArm` spectrum of a single object from a single visit. Each arm is fetched and plotted individually with its own color. Specify a `visit` and `objid` to plot that object directly, or use `browse_index` to step through all science objects in a visit sorted by `objId`. The specific arms to be plotted can be selected and the spectra can be smoothed using a median filter if desired.
+The following plots the `pfsArm` spectrum of a single object from a single visit. Each arm is fetched and plotted individually with its own color. Instantiate *Butler* by providing the datastore `repo` and `collections`. Then specify a `visit` and `objid` to plot that object directly, or use `browse_index` to step through all science objects in a visit sorted by `objId`. The specific arms to be plotted can be selected and the spectra can be smoothed using a median filter if desired.
 
 ```python
 import numpy as np
