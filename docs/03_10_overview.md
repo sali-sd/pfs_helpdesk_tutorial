@@ -6,6 +6,6 @@ In this section we will show how PFS data products are stored, can be accessed a
 
 While we use the above data for demonstration, the method of accessing and analyzing PFS data products using **Butler** is universally applicable to all 2D DRP pipeline reduced data.
 
-While we will highlight the relevant parameters and properties of PFS data products, for a detailed description please refer to the [PFS Data Model documentation](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
+The relevant parameters and properties of PFS data products are highlighted as necessary, but for a detailed description please refer to the [PFS Data Model documentation](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
 
 Finally we note here that in this section we will provide explanations and code for quick analysis of PFS data products, we also encourage users to follow the [PFS Science Platform Getting-Started Notebook](https://hscpfs.mtk.nao.ac.jp/portal/) — a Jupyter Notebook that provides a step-by-step guide and a granular understanding of each PFS data product.
