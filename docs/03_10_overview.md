@@ -8,3 +8,4 @@ While we use the above data for demonstration, the method of accessing and analy
 
 Define Visit.
 Proviide simple way to check file structure.
+Link to Science Platform Tutorial Page.

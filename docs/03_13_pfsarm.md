@@ -6,6 +6,9 @@
 Each active arm (`b`=Blue, `r`=Red, `n`=IR, `m`=Medium-resolution red) and each spectrograph module (1–4)
 produces a separate file. The wavelength grid is not required to be uniform — a wavelength array is stored per pixel.
 
+- Flux units are **electrons**
+- The `WAVELENGTH` array is stored per pixel, per fiber (one array per fiber)
+
 Filename format: `pfsArm_PFS_{visit}_{arm}{spectrograph}_{collection}.fits`
 
 Example from proposal `S25A-000QF`, visit 123476 on the Science Platform (blue `b`, red `r`, and IR `n` arms across 4 spectrograph modules):

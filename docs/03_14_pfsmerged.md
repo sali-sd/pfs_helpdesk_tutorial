@@ -2,8 +2,8 @@
 
 ## Overview
 
-`pfsMerged` combines the spectra from all arms for a single visit into one file.
-It is **wavelength-calibrated and sky-subtracted**, but **not flux-calibrated**.
+`pfsMerged` combines the spectra from all arms for a single visit (exposure) into one file.
+It is wavelength-calibrated and sky-subtracted, but **not flux-calibrated**.
 The format is identical to `pfsArm`, with two differences:
 
 - Flux units are **electrons per nm** (rather than electrons)
