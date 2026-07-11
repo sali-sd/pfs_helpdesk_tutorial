@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_faq_install/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/01_04_upgrade_pipe2d/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>04 01 faq install - PFS Pipe2D</title>
+    <title>Upgrade the Pipeline - PFS Pipe2D</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,9 +13,9 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "04 01 faq install";
-        var mkdocs_page_input_path = "04_01_faq_install.md";
-        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_faq_install/";
+        var mkdocs_page_name = "Upgrade the Pipeline";
+        var mkdocs_page_input_path = "01_04_upgrade_pipe2d.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/01_04_upgrade_pipe2d/";
       </script>
     
     <!--[if lt IE 9]>
@@ -127,9 +127,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">04 01 faq install</li>
+      <li class="breadcrumb-item active">Upgrade the Pipeline</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_faq_install.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/01_04_upgrade_pipe2d.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -137,7 +137,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="upgrade-the-pipeline">Upgrade the Pipeline</h1>
+<p>After installing the pipeline, users can easily upgrade the 2D DRP packages with the <code>eups</code> command. This fetches prebuilt binary packages from the server hosted by the PFS team and installs them into the current LSST stack.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Occasionally, the new version requires an updated <code>datastore</code> directory. In that case, you will need to rebuild the data directory. \
+Rarely, the new version requires a new LSST stack. In that case, you will need to repeat the entire installation. \
+In either case, the upgrade process does not notify you about these changes, so it is always a good idea to check the <a href="https://hscpfs.mtk.nao.ac.jp/pfs-drp-2d/changelog/">changelog</a> before upgrading.</p>
+</div>
+<h2 id="check-available-packages">Check available packages</h2>
+<p>The first step is to set up the LSST environment and add the PFS repository server to the <code>EUPS_PKGROOT</code> environment variable:</p>
+<pre><code class="language-bash">source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
+EUPS_PKGROOT=&quot;https://hscpfs.mtk.nao.ac.jp/pfs-drp-2d/src|https://hscpfs.mtk.nao.ac.jp/pfs-drp-2d/Linux64|$EUPS_PKGROOT&quot;
+</code></pre>
+<p>To browse the available versions, use the following <code>eups</code> command:</p>
+<pre><code class="language-bash">eups distrib list pfs_pipe2d
+</code></pre>
+<h2 id="install-the-latest-version">Install the latest version</h2>
+<p>After identifying the latest version number of the <code>pfs_pipe2d</code> package, run the following commands to start the installation:</p>
+<pre><code class="language-bash">setup sconsUtils
+eups distrib install pfs_pipe2d &lt;version&gt; -t current
+</code></pre>
+<p>This process will upgrade all the following packages:</p>
+<pre><code class="language-text">Subaru-PFS/datamodel
+Subaru-PFS/pfs_utils
+Subaru-PFS/drp_pfs_data
+Subaru-PFS/obs_pfs
+Subaru-PFS/drp_stella_data
+Subaru-PFS/drp_stella
+Subaru-PFS/pfs_pipe2d
+</code></pre>
+<p>The <code>-t current</code> option tags the <code>pfs_pipe2d</code> version you installed by this command as the default choice when you run:</p>
+<pre><code class="language-bash">setup pfs_pipe2d
+</code></pre>
+<h2 id="integration-test">Integration Test</h2>
+<p>It is good to confirm the new version functions as expected every time after the upgrade by re-running the integration test:</p>
+<pre><code class="language-bash">source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
+setup pfs_pipe2d
+cd $WORKDIR/$(whoami)/packages/integrationTest
+rm -rf INTEGRATION_export
+pfs_integration_test.sh -c 4 .
+</code></pre>
               
             </div>
           </div><footer>

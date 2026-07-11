@@ -68,7 +68,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">File Access</a>
     <ul class="current">
@@ -81,6 +81,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -114,7 +131,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Data Analysis</li>
+          <li class="breadcrumb-item">Data Analysis (Legacy)</li>
       <li class="breadcrumb-item active">File Access</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_01_ana_file.md" class="icon icon-github"> Edit on GitHub</a>
@@ -134,9 +151,9 @@
 <p>While you can access files written to a datastore configured on a regular filesystem, it is recommended to use the data <code>butler</code>. The contents of the <code>datastore</code>, including filenames and locations, are an implementation detail of the data <code>butler</code>, and subject to change without notice.</p>
 </div>
 <p>First, where can we find the product files? 
-In this assumed working directory and user rerun, the output files are located under <code>$WORKDIR/pfs/data/datastore/u/(username)/object/</code>. </p>
+In this assumed working directory and user rerun, the output files are located under <code>$WORKDIR/pfs/data/datastore/u/$(whoami)/object/</code>. </p>
 <p>You can check by:</p>
-<pre><code>ls $WORKDIR/pfs/data/datastore/u/(username)/object/
+<pre><code>ls $WORKDIR/pfs/data/datastore/u/$(whoami)/object/
 </code></pre>
 <p>You may find a folder named by date and time, e.g., <code>20250218T070224Z</code>. This is one of the reruns for your <code>object</code> collection. 
 If you run the processing multiple times, different folders with specific timestamps will be created.</p>

@@ -76,7 +76,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -85,6 +85,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -134,41 +151,41 @@
 <hr />
 <p>The basic information of the PFS 2D DRP for this section includes:</p>
 <ol>
-<li>LSST version: v28 (as of 2025/03/17)</li>
-<li>pfs_pipe2d branch: master</li>
+<li>LSST version: v30 (as of 2026/03/15, started from <code>w.2026.07</code>)</li>
+<li>pfs_pipe2d branch: the latest weekly release</li>
 </ol>
 <p><strong>Step 1</strong>: We should fetch pfs_pipe2d Gen3:</p>
-<pre><code>$ cd $WORKDIR/(username)/
-$ git clone http://github.com/Subaru-PFS/pfs_pipe2d
+<pre><code class="language-bash">cd $WORKDIR/$(whoami)/
+git clone http://github.com/Subaru-PFS/pfs_pipe2d
 </code></pre>
 <p><strong>Step 2</strong>: We should check out to the lastest version:</p>
-<pre><code>$ cd pfs_pipe2d
-$ git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+<pre><code class="language-bash">cd pfs_pipe2d
+git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 </code></pre>
 <p><strong>Step 3</strong>: We should create the target folder and start the installation:</p>
-<pre><code>$ mkdir -p $WORKDIR/(username)/pfs/stack_28
-$ cd $WORKDIR/(username)/pfs_pipe2d/bin
-$ ./install_pfs.sh -t current $WORKDIR/(username)/pfs/stack_28
+<pre><code class="language-bash">mkdir -p $WORKDIR/$(whoami)/pfs/stack_30
+cd $WORKDIR/$(whoami)/pfs_pipe2d/bin
+./install_pfs.sh -t current $WORKDIR/$(whoami)/pfs/stack_30
 </code></pre>
 <h2 id="install-flux-model-data">Install Flux Model Data</h2>
 <hr />
 <p><strong>Step 1</strong>: Set up the pipe2d environment:</p>
 <p>Source the appropriate <code>loadLSST.*</code> script for your shell.</p>
-<pre><code>$ source $WORKDIR/(username)/packages/stack_28/loadLSST.bash
-$ setup pfs_pipe2d
+<pre><code class="language-bash">source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
+setup pfs_pipe2d
 </code></pre>
 <p><strong>Step 2</strong>: We should fetch the flux model data:</p>
-<pre><code class="language-bash">$ mkdir -p $WORKDIR/(username)/source/
-$ cd $WORKDIR/(username)/source/
-$ wget https://hscdata.mtk.nao.ac.jp/hsc_bin_dist/pfs/fluxmodeldata-ambre-20230608.tar.gz
-$ tar xzf fluxmodeldata-ambre-20230608.tar.gz -C .
+<pre><code class="language-bash">mkdir -p $WORKDIR/$(whoami)/source/
+cd $WORKDIR/$(whoami)/source/
+wget https://hscdata.mtk.nao.ac.jp/hsc_bin_dist/pfs/fluxmodeldata-ambre-20230608.tar.gz
+tar xzf fluxmodeldata-ambre-20230608.tar.gz -C .
 </code></pre>
 <p><strong>Step 3</strong>: We can start the installation process</p>
-<pre><code>$ cd $WORKDIR/(username)/source/fluxmodeldata-ambre-20230608
-$ ./install.py --prefix=$WORKDIR/(username)/packages/
+<pre><code class="language-bash">cd $WORKDIR/$(whoami)/source/fluxmodeldata-ambre-20230608
+./install.py --prefix=$WORKDIR/$(whoami)/packages/
 </code></pre>
 <p>Then we should declare the <code>fluxmodeldata</code> package to <code>eups</code> by the following command:</p>
-<pre><code>$ eups declare fluxmodeldata 20230608 -r /path/to/fluxmodeldata
+<pre><code class="language-bash">eups declare fluxmodeldata 20230608-full -t current -r /path/to/fluxmodeldata
 </code></pre>
 <h2 id="optional-individual-users-install-drp_pfs_data-package">(Optional) Individual Users: Install <code>drp_pfs_data</code> Package</h2>
 <hr />
@@ -178,11 +195,11 @@ $ ./install.py --prefix=$WORKDIR/(username)/packages/
 </div>
 <p>If the PFS pipeline was installed for all users on a server in a public directory, e.g., <code>$WORKDIR/pfs/</code>, then for individual users, a local version of <code>drp_pfs_data</code> package -- other than the one included in the <code>pfs_pipe2d</code> installation above -- is needed.</p>
 <p>We can install the local <code>drp_pfs_data</code> package as follows:</p>
-<pre><code>$ cd $WORKDIR/(username)/packages/
-$ git clone https://github.com/Subaru-PFS/drp_pfs_data.git --single-branch
-$ cd drp_pfs_data
-$ git fetch --tags
-$ git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+<pre><code class="language-bash">cd $WORKDIR/$(whoami)/packages/
+git clone https://github.com/Subaru-PFS/drp_pfs_data.git --single-branch
+cd drp_pfs_data
+git fetch --tags
+git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 </code></pre>
               
             </div>

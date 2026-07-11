@@ -61,7 +61,7 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Preparation</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#software-setup">Software Setup</a>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-setup">Environment Setup</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#repository-setup">Repository Setup</a>
     </li>
@@ -74,7 +74,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -83,6 +83,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -128,73 +145,67 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="preparation-of-running-pfs-2d-drp">Preparation of Running PFS 2D DRP</h1>
-<h2 id="software-setup">Software Setup</h2>
+<h2 id="environment-setup">Environment Setup</h2>
 <hr />
 <p>First, we need to set up the 2D DRP environment:</p>
-<pre><code>$ source $WORKDIR/(username)/pfs/stack_28/loadLSST.bash
-$ setup pfs_pipe2d
+<pre><code class="language-bash">source $WORKDIR/$(whoami)/pfs/stack_30/loadLSST.bash
+setup pfs_pipe2d
 </code></pre>
 <p>(Optional) Only when you are going to install curated calibs, and you are using a shared installation on a server, you will need to set up a local <code>drp_pfs_data</code> as follows:</p>
-<pre><code>$ setup -jr $WORKDIR/(username)/packages/drp_pfs_data
+<pre><code class="language-bash">setup -jr $WORKDIR/$(whoami)/packages/drp_pfs_data
 </code></pre>
 <h2 id="repository-setup">Repository Setup</h2>
 <hr />
 <p>The data repository is a directory containing data products and configuration files for the Gen3 middleware.
 For this tutorial, we will store the data repository in the <code>$DATASTORE</code> directory on a local disk. However, the LSST Gen3 middleware supports storing data products on remote storage and various cloud services.</p>
-<p>The first step is to copy the default <code>butler.yaml</code>:</p>
-<pre><code>$ cp $OBS_PFS_DIR/gen3/butler.yaml $WORKDIR/(username)/data/butler.yaml
+<p>The first step is to make a copy of the default <code>butler.yaml</code>:</p>
+<pre><code class="language-bash">cp $OBS_PFS_DIR/gen3/butler.yaml $WORKDIR/$(whoami)/data/butler.yaml
 </code></pre>
-<!-- and we need to modify the `registry` section:
-
-
-<pre><code>registry:
-  db: postgresql+psycopg2://localhost:5435/drp
-</code></pre>
-
-
-!!! note 
-    Remember to update this file every time when there is an update of pipeline. -->
-
-<p>Next, create this directory and set up the Gen3 configuration files:</p>
-<pre><code>$ butler create $DATASTORE --seed-config $OBS_PFS_DIR/gen3/butler.yaml --dimension-config $OBS_PFS_DIR/gen3/dimensions.yaml --override
-</code></pre>
-<p>This specifies two configuration files that are important for the Gen3 middleware. <code>butler.yaml</code> contains the configuration
-for the data <code>butler</code>, specifying the registry and how the pipeline will read and write the various data products.
-Most of this can be ignored by the pipeline user, except for the <code>registry</code> section, which specifies the location of the
-registry database. The default is to use a SQLite database in the repository directory (suitable for small-scale testing
-without extensive parallelization), but it is recommended to use a <code>PostgreSQL</code> database for shared data repositories or if you will be doing intensive processing with many cores.</p>
+<p>This file specifies two configuration files that are important for the Gen3 middleware. <code>butler.yaml</code> contains the configuration for the data <code>butler</code>, specifying the registry and how the pipeline will read and write the various data products.</p>
+<p>Most of this can be ignored by the pipeline user, except for the <code>registry</code> section, which specifies the location of the registry database. The default is to use a SQLite database in the repository directory (suitable for small-scale testing without extensive parallelization), but it is recommended to use a <code>PostgreSQL</code> database for shared data repositories or if you will be doing intensive processing with many cores.</p>
 <p>To use a <code>PostgreSQL</code> database, change the <code>registry</code> section, like the following:</p>
-<pre><code>registry:
+<pre><code class="language-bash">registry:
   db: postgresql+psycopg2://dbserver:5432/dbname
 </code></pre>
 <p><code>dimensions.yaml</code> contains the configuration for the dimensions of the data products. Dimensions are a very important
 concept in the LSST Gen3 middleware, as they are used to specify data products and control the parallelization levels of
 different operations. Some important dimensions are:</p>
 <ul>
-<li><code>instrument</code>: the instrument that produced the data. The datastore can contain data from multiple instruments,
-but we probably only care about the PFS instrument. Usually this will be PFS for data from Subaru, but in the
-case of the simulated data in the integration test it is <code>PFS-F</code> (the <code>F</code> stands for fake).</li>
+<li><code>instrument</code>: the instrument that produced the data. The datastore can contain data from multiple instruments, but we probably only care about the PFS instrument. Usually this will be PFS for data from Subaru, but in the case of the simulated data in the integration test it is <code>PFS-F</code> (the <code>F</code> stands for fake).</li>
 <li><code>visit</code>: the visit number. This is the unique identifier for an exposure.</li>
 <li><code>arm</code>: the spectrograph arm: <code>b</code>, <code>r</code>, <code>n</code>, or <code>m</code>.</li>
 <li><code>spectrograph</code>: the spectrograph module: 1, 2, 3, or 4.</li>
-<li><code>detector</code>: the detector number in the camera configuration. You shouldn’t need to worry about this dimension,
-since it is specified by the combination of arm and <code>spectrograph</code>.</li>
+<li><code>detector</code>: the detector number in the camera configuration. You shouldn’t need to worry about this dimension, since it is specified by the combination of arm and <code>spectrograph</code>.</li>
 <li><code>pfs_design_id</code>: the unique identifier for the PFS design. Note the spelling (not <code>pfsDesignId</code>), as this is a database table name.</li>
-<li><code>dither</code>: the slit dither. This is a new dimension that was not present in the Gen2 pipeline, which is used in
-creating fiber flats.</li>
-<li><code>cat_id</code>: the unique identifier for the catalog. Again, notice the spelling (not <code>catId</code>). There is no <code>obj_id</code>
-dimension, as the large number of objects would overwhelm the database.</li>
-<li><code>skymap</code>, <code>tract</code>, <code>patch</code>: these specify the sky tessellation. They are currently unused in the pipeline, but might
-be used in the future.</li>
+<li><code>dither</code>: the slit dither. This is a new dimension that was not present in the Gen2 pipeline, which is used in creating fiber flats.</li>
+<li><code>cat_id</code>: the unique identifier for the catalog. Again, notice the spelling (not <code>catId</code>). There is no <code>obj_id</code> dimension, as the large number of objects would overwhelm the database.</li>
+<li><code>skymap</code>, <code>tract</code>, <code>patch</code>: these specify the sky tessellation. They are currently unused in the pipeline, but might be used in the future.</li>
 </ul>
-<p>Next, register the instrument with <code>butler</code>. This also copies the camera configuration into the repository:</p>
-<pre><code>$ butler register-instrument $DATASTORE lsst.obs.pfs.PrimeFocusSpectrograph
+<p>Next, create this directory and set up the Gen3 configuration files:</p>
+<pre><code class="language-bash">export DATASTORE=&quot;$WORKDIR/$(whoami)/data/datastore&quot;
+butler create $DATASTORE --seed-config $WORKDIR/$(whoami)/data/butler.yaml --dimension-config $OBS_PFS_DIR/gen3/dimensions.yaml --override
 </code></pre>
-<p>The following commands import the defects files (and any other “curated” calibration files) from the <code>drp_pfs_data</code>
-package (you’ll need to be using your own copy of <code>drp_pfs_data</code>, not the shared version):</p>
-<pre><code>$ makePfsDefects --mko
-$ butler write-curated-calibrations $DATASTORE PFS
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please always to copy the latest default <code>butler.yaml</code> and modify it accordingly every time when there is an update of pipeline.</p>
+</div>
+<p>Then, register the instrument with <code>butler</code>. This also copies the camera configuration into the repository:</p>
+<pre><code class="language-bash">butler register-instrument $DATASTORE lsst.obs.pfs.PrimeFocusSpectrograph
 </code></pre>
+<p>The following commands import the defects files (and any other “curated” calibration files) from the <code>drp_pfs_data</code> package (you’ll need to be using your own copy of <code>drp_pfs_data</code>, not the shared version):</p>
+<pre><code class="language-bash">makePfsDefects --mko
+butler write-curated-calibrations $DATASTORE PFS --collection PFS/calib
+</code></pre>
+<p>This creates a <code>CALIBRATION</code> collection <code>PFS/calib</code> in the <code>butler</code>. It will be more flexible if we change it to a <code>CHAIN</code> collection:</p>
+<pre><code class="language-bash">butler remove-collections $DATASTORE PFS/calib # This command will prompt for confirmation
+butler collection-chain $DATASTORE PFS/calib PFS/calib/curated/19700101T000000Z,PFS/calib/curated/20200101T000000Z,PFS/calib/curated/20230401T000000Z,PFS/calib/curated/20230701T000000Z,PFS/calib/curated/20240815T000000Z,PFS/calib/unbounded
+</code></pre>
+<p>There are different kinds of <a href="https://pipelines.lsst.io/modules/lsst.daf.butler/organizing.html#collections">collections</a>:</p>
+<ul>
+<li><code>RUN</code> collection always associates the datasets.</li>
+<li><code>CALIBRATION</code> collections associate datasets with a timespan indicating the validity range.</li>
+<li><code>CHAINED</code> collections provide a search path through multiple collections.</li>
+</ul>
               
             </div>
           </div><footer>

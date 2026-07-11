@@ -68,7 +68,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -87,6 +87,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -120,7 +137,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Data Analysis</li>
+          <li class="breadcrumb-item">Data Analysis (Legacy)</li>
       <li class="breadcrumb-item active">Analyze Visit-level Data</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_02_ana_visit.md" class="icon icon-github"> Edit on GitHub</a>
@@ -142,7 +159,7 @@ The <code>butler</code> interface, a key component of the LSST Science Pipelines
 <p>As discussed in <a href="00_01_pfs_datamodel.md">PFS Datamodel Section</a>, each pipeline output file is defined in <a href="https://github.com/Subaru-PFS/datamodel/tree/master"><code>datamodel</code></a>. If you have a desperate reason not to use the <code>butler</code>, then the Python module from the datamodel repository can be used. The module allows you to read/write the pipeline files and is written deliberately to be independent of the LSST stack.</p>
 </div>
 <p>To use the <code>butler</code>, you will need to set up PFS pipeline environment before launching the Python:</p>
-<pre><code>$ source $WORKDIR/(username)/packages/stack_28/loadLSST.bash
+<pre><code>$ source $WORKDIR/$(whoami)/packages/stack_28/loadLSST.bash
 $ setup pfs_pipe2d
 </code></pre>
 <p>Then in your Python environment (e.g., a Jupyter notebook), you can import the necessary modules:</p>
@@ -151,7 +168,7 @@ from pfs.datamodel import TargetType
 </code></pre>
 <p>We will need to first initialize the <code>butler</code>:</p>
 <pre><code>$DATASTORE = &quot;$WORKDIR/pfs/data/datastore&quot;
-$COLLECTION = 'u/(username)/20250218'
+$COLLECTION = 'u/$(whoami)/20250218'
 butler = Butler.from_config($DATASTORE, collection=[$COLLECTION])
 </code></pre>
 <p>Let's assume we want to inspect a <code>visit=98336</code>:</p>
@@ -194,6 +211,10 @@ plt.show()
 </div>
 <p>You will have the figure showing spectra from the three arms (<code>b</code>, <code>r</code>, and <code>n</code>) without wavelength calibration in one figure:</p>
 <p><img alt="Output of pfsArm" src="../img/out_pfsArm.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The barycentric correction has been applied to <code>pfsArm</code> and all the subsequence files. Also, the wavelengths are all in vacuum.</p>
+</div>
 <h2 id="check-pfsmerged-data">Check <code>pfsMerged</code> data</h2>
 <hr />
 <p>If you want to inspect <code>pfsMerged</code>:</p>

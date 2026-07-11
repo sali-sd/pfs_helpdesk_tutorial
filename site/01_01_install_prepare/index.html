@@ -53,10 +53,10 @@
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Preparation</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#supported-machines-and-environments">Supported Machines and Environments</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#prerequires">Prerequires</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#setup-directory">Setup Directory</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a>
+        </ul>
     </li>
     </ul>
                     </li>
@@ -76,7 +76,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -85,6 +85,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -131,47 +148,14 @@
               
                 <h1 id="preparation">Preparation</h1>
 <h2 id="supported-machines-and-environments">Supported Machines and Environments</h2>
-<p>The current Gen3 2D DRP is supported on <code>CentOS 7</code> and <code>AlmaLinux 9</code> (recommended).
-The PFS 2D DRP pipeline is built upon the LSST pipeline, and requires that be installed. These pipelines use Python 3.11 features; lower python versions (python &ge; <code>3.9</code>) may be acceptable for using the <code>datamodel</code> package without the pipeline.</p>
-<p>The examples below assume use of <code>bash</code>, although the pipeline supports other shells as well.</p>
+<p>The current Gen3 2D DRP (later than <code>w.2026.07</code>) is supported on <code>AlmaLinux 9</code> (recommended).</p>
+<p>The PFS 2D DRP pipeline is built upon the LSST pipeline, and requires that be installed. These pipelines use Python 3.13 features; lower python versions (python &ge; <code>3.9</code>) may be acceptable for using the <code>datamodel</code> package without the pipeline.</p>
+<!-- The examples below assume use of `bash`, although the pipeline supports other shells as well. -->
+
 <p>Support for additional systems may be added in the future.</p>
-<h2 id="setup-directory">Setup Directory</h2>
-<hr />
-<p>We assume that the working directory is <code>$WORKDIR/(username)/</code>.</p>
-<p>First, we will need to create a folder for necessary dependencies.</p>
-<pre><code>$ mkdir $WORKDIR/(username)/bin
-</code></pre>
-<p>Then, to set up the default environment variable, we should add the following line to <code>~/.bashrc</code></p>
-<pre><code>$ export PATH=$WORKDIR/(username)/bin:$PATH
-</code></pre>
-<h2 id="install-dependencies">Install Dependencies</h2>
-<hr />
-<p><strong>Step 1</strong>: Fetch a tool of <code>yum</code></p>
-<p>There is a useful tool for installing dependencies in local environments: <a href="https://gitlab.com/caroff/user-yum.sh">user-yum</a>.
-It installs applications conveniently without the root privilege in <code>CentOS 7</code>.</p>
-<pre><code>$ cd $WORKDIR/(username)/bin
-$ git clone https://gitlab.com/caroff/user-yum.sh.git
-</code></pre>
-<p>You will find it handy if you change <code>Makefile</code> line 40 from
-<code>INSTALL_FLAG_PREFIX := +</code> to <code>INSTALL_FLAG_PREFIX :=</code></p>
-<p>Then insert the following lines to <code>~/.bash_profile</code>:</p>
-<pre><code class="language-bash"># Setting environment for $WORKDIR/(username)/bin/user-yum.sh/root
-ROOT_D=&quot;$WORKDIR/(username)/bin/user-yum.sh/root&quot;
-export PATH=$ROOT_D/usr/sbin:$ROOT_D/usr/bin:$ROOT_D/bin:$PATH
-L=&quot;/lib:/lib64:/usr/lib:/usr/lib64&quot;
-export LD_LIBRARY_PATH=$L:$ROOT_D/usr/lib:$ROOT_D/usr/lib64:$LD_LIBRARY_PATH
-</code></pre>
-<div class="admonition note user-yum">
-<p class="admonition-title">Note</p>
-<p>If you are the administrator of your local machine, you may skip this step and directly install the below dependencies with <code>sudo yum install ***</code>.</p>
-</div>
-<p><strong>Step 2</strong>: Install git LFS</p>
-<p>Git LFS must be installed to download large files from Git.</p>
-<pre><code>$ cd $WORKDIR/(username)/bin
-$ wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz
-$ tar xzf git-lfs-linux-amd64-v3.5.1.tar.gz
-$ cd git-lfs-3.5.1
-$ PREFIX=$WORKDIR/(username) ./install.sh
+<h3 id="prerequires">Prerequires</h3>
+<p>The LSST v30 prerequires are listed in the official <a href="https://pipelines.lsst.io/install/prereqs.html#system-prereqs">webpage</a>. For AlmaLinux 9, <code>patch</code> and <code>git</code> are required:</p>
+<pre><code class="language-bash">sudo dnf install patch git
 </code></pre>
               
             </div>

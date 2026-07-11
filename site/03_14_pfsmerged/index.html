@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_faq_install/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_14_pfsmerged/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>04 01 faq install - PFS Pipe2D</title>
+    <title>pfsMerged - PFS Pipe2D</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,9 +13,9 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "04 01 faq install";
-        var mkdocs_page_input_path = "04_01_faq_install.md";
-        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_faq_install/";
+        var mkdocs_page_name = "pfsMerged";
+        var mkdocs_page_input_path = "03_14_pfsmerged.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_14_pfsmerged/";
       </script>
     
     <!--[if lt IE 9]>
@@ -80,7 +80,7 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Data Analysis</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
@@ -89,7 +89,9 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">pfsMerged</a>
+    <ul class="current">
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
                     </li>
@@ -127,9 +129,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">04 01 faq install</li>
+          <li class="breadcrumb-item">Data Analysis</li>
+      <li class="breadcrumb-item active">pfsMerged</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_faq_install.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_14_pfsmerged.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -137,10 +140,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="pfsmerged">pfsMerged</h1>
+<p><code>pfsMerged</code> combines the spectra from all arms for a single visit into one file.
+It is <strong>wavelength-calibrated and sky-subtracted</strong>, but <strong>not flux-calibrated</strong>.
+The format is identical to <code>pfsArm</code>, with two differences:</p>
+<ul>
+<li>Flux units are <strong>electrons per nm</strong> (rather than electrons)</li>
+<li>The <code>WAVELENGTH</code> array may be a single shared array applied to all fibers
+  (rather than one per fiber), if all fibers share the same wavelength sampling</li>
+</ul>
+<p>Filename format: <code>pfsMerged_PFS_{visit}_{collection}.fits</code></p>
+<p>Example (PFS Filler Program, visit 122041):</p>
+<pre><code>/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsMerged/20250323/122041/
+    pfsMerged_PFS_122041_S25A_April2026.fits
+</code></pre>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_13_pfsarm/" class="btn btn-neutral float-left" title="pfsArm"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03_15_pfscalibrated/" class="btn btn-neutral float-right" title="pfsCalibrated">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -166,6 +186,10 @@
         </span>
     
     
+      <span><a href="../03_13_pfsarm/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03_15_pfscalibrated/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

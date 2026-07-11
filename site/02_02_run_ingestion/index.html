@@ -67,6 +67,12 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#ingestion-to-butler">Ingestion to butler</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dataset">Dataset</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-default-collection">The Default Collection</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
@@ -74,7 +80,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -83,6 +89,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -130,24 +153,24 @@
                 <h1 id="data-ingestion">Data Ingestion</h1>
 <h2 id="data-archive">Data Archive</h2>
 <hr />
-<p>When working with local data, you must first download them from the Subaru data archive for your open-use programs, specifically from the <a href="https://stars2.naoj.hawaii.edu">STARS2</a> database. The archive provides access to science images, calibration data, and <code>PfsConfig</code> files.</p>
+<p>When working with local data, you must first download it from the Subaru data archive for your open-use program, specifically from the <a href="https://stars2.naoj.hawaii.edu">STARS2</a> database. The archive provides access to science images, calibration data, and <code>PfsConfig</code> files.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Details on data retrieval will be provided by the STARS team on the day following your observation.</p>
 </div>
-<p>In principle, you need to download a TAR file from the STARS2 website. After that, follow the steps below to extract and access the data on UNIX or macOS:</p>
-<pre><code class="language-Python"># Step 1: Create a directory for downloads
-$ mkdir /download_dir 
+<p>Typically, you will download a TAR file from the STARS2 website. After that, follow the steps below to extract and access the data on UNIX or macOS:</p>
+<pre><code class="language-bash"># Step 1: Create a directory for downloads
+mkdir $WORKDIR/$(whoami)/download_dir 
 # Step 2: Copy the downloaded TAR file to the directory
-$ cp S2Query.tar /download_dir 
+cp S2Query.tar $WORKDIR/$(whoami)/download_dir 
 # Step 3: Navigate to the directory
-$ cd /download_dir 
+cd $WORKDIR/$(whoami)/download_dir 
 # Step 4: Extract the TAR file
-$ tar -xvf S2Query.tar 
+tar -xvf S2Query.tar 
 # Step 5: Run the unpacking script
-$ ./zadmin/unpack.py
+./zadmin/unpack.py
 </code></pre>
-<p>Platform-Specific Instructions:</p>
+<p>Platform-specific instructions:</p>
 <ul>
 <li>
 <p>UNIX: Use wget for downloading.</p>
@@ -159,81 +182,91 @@ $ ./zadmin/unpack.py
 <p>Windows: An FTP manager is required for data transfer.</p>
 </li>
 </ul>
+<p>You will also need the <code>pfsConfig</code> files created for your program. These custom <code>pfsConfig</code> files are available under your program directory, for example, <code>/shared/pfs/programs/S25A-000QF/2d/customPfsConfig</code>. Copy these files to your local disk and then ingest them.</p>
 <h2 id="ingestion-to-butler">Ingestion to <code>butler</code></h2>
 <hr />
-<p>We can ingest data into the <code>butler</code> repository. 
-There are two kinds of data that we need to ingest: raw images and the <code>PfsConfig</code> files. 
-These are ingested using two separate commands:</p>
-<pre><code class="language-bash"># Assume that we define a database to be ingested (DATASTORE) and the directory with the input data (DATADIR):
-DATASTORE=&quot;$WORKDIR/pfs/data/datastore&quot;
-DATADIR=&quot;$WORKDIR/pfs/data&quot;
+<p>You can ingest data into the <code>butler</code> repository.
+There are two types of data that need to be ingested: raw images and <code>PfsConfig</code> files.</p>
+<p>These are ingested using two separate commands:</p>
+<pre><code class="language-bash"># Assume that we define the destination datastore (`DATASTORE`) and the directory containing the input data (`DATADIR`):
+DATASTORE=&quot;$WORKDIR/$(whoami)/data/datastore&quot;
+DATADIR=&quot;$WORKDIR/$(whoami)/data&quot;
 
-# Ingest the raw images taken on Oct. 2024
-$ butler ingest-raws $DATASTORE $DATADIR/raw/2024-10-*/*/PFS[A-B]*.fits --ingest-task lsst.obs.pfs.gen3.PfsRawIngestTask --transfer link --fail-fast
-# Ingest the PfsConfig files for the Oct. 2024 run
-$ ingestPfsConfig.py $DATASTORE PFS PFS/raw/pfsConfig $DATADIR/raw/2024-10-*/pfsConfig/pfsConfig-*.fits --transfer link
+# Ingest the raw images taken in March 2026
+butler ingest-raws $DATASTORE $DATADIR/raw/2026-03-*/*/PFS*.fits --ingest-task lsst.obs.pfs.gen3.PfsRawIngestTask --transfer link --fail-fast
+# Ingest the PfsConfig files for the March 2026 run
+ingestPfsConfig.py $DATASTORE PFS PFS/raw/pfsConfig $DATADIR/raw/2026-03-*/pfsConfig/pfsConfig-*.fits --transfer link
 </code></pre>
-<p>In case of <code>PFSF</code> files used by the observatroy, they are the same to <code>pfsConfig</code> files, and the similar command works:</p>
-<pre><code class="language-bash">$ ingestPfsConfig.py $DATASTORE PFS PFS/raw/pfsConfig $DATADIR/raw/2024-10-*/pfsConfig/PFSF*.fits --transfer link
+<p>If you are using <code>PFSF</code> files provided by the observatory, they are equivalent to <code>pfsConfig</code> files, and a similar command can be used:</p>
+<pre><code class="language-bash">ingestPfsConfig.py $DATASTORE PFS PFS/raw/pfsConfig $DATADIR/raw/2026-03-*/pfsConfig/PFSF*.fits --transfer link
 </code></pre>
-<p>The details of ingested data can be refered to the <a href="../05_01_app_datamodel/">Appendix</a> or the <a href="https://github.com/Subaru-PFS/datamodel/tree/master">datamodel</a>. </p>
-<p>For example, the file names have the meanings:</p>
+<p>For details on the ingested data, refer to the <a href="../05_01_app_datamodel/">Appendix</a> or the <a href="https://github.com/Subaru-PFS/datamodel/tree/master">datamodel</a>.</p>
+<p>For example, the filenames have the following meanings:</p>
 <ul>
 <li>
 <p><strong>PFSA12345611.fits</strong>:</p>
 <blockquote>
-<p>Raw <code>science</code> exposure, <code>visit=123456</code>, taken on the <code>site=summit</code> with <code>spectrograph=1</code> using the blue arm (<code>armNum=1</code>) </p>
+<p>A raw <code>science</code> exposure with <code>visit=123456</code>, taken at <code>site=summit</code> with <code>spectrograph=1</code> using the blue arm (<code>armNum=1</code>).</p>
 </blockquote>
 </li>
 <li>
-<p><strong>PFSB12345623.fits</strong>: </p>
+<p><strong>PFSB12345623.fits</strong>:</p>
 <blockquote>
-<p>Raw <code>up-the-ramp</code> exposure, <code>visit=123456</code>, taken at the <code>site=summit</code> with <code>spectrograph=2</code> using the IR arm (<code>armNum=3</code>)</p>
+<p>A raw <code>up-the-ramp</code> exposure with <code>visit=123456</code>, taken at <code>site=summit</code> with <code>spectrograph=2</code> using the IR arm (<code>armNum=3</code>).</p>
 </blockquote>
 </li>
 <li>
 <p><strong>pfsConfig-0xad349fe21234abcd-123456.fits</strong>:</p>
 <blockquote>
-<p>The realisation of a <code>PfsDesign</code> with <code>pfsDesignId=ad349fe21234abcd</code> for <code>visit=123456</code>.</p>
+<p>A realization of a <code>PfsDesign</code> with <code>pfsDesignId=ad349fe21234abcd</code> for <code>visit=123456</code>.</p>
 </blockquote>
 </li>
 <li>
-<p><strong>PFSF12345600.fits</strong>: </p>
+<p><strong>PFSF12345600.fits</strong>:</p>
 <blockquote>
-<p>The realisation of a <code>PfsDesign</code> used by the observatory for <code>visit=123456</code>. In the final two digits, <code>00</code> means the original full <code>PfsConfig</code> (<code>PFSF</code>) file; <code>01</code>-<code>99</code> are for the customized <code>PFSF</code> with the fibers belonging to only a specific proposal ID and calibration fibers (sky, flux, and etc.). The observatory will provide the customized <code>PFSF</code> file with <code>01</code>-<code>99</code> in the final two digits. If the <code>PFSF</code> file contain only one proposal ID or calibration frame the <code>00</code> files will be distributed. The ingestion process is similar to that for a <code>PfsConfig</code> file.</p>
+<p>A realization of a <code>PfsDesign</code> used by the observatory for <code>visit=123456</code>. In the final two digits, <code>00</code> indicates the original full <code>PfsConfig</code> (<code>PFSF</code>) file; <code>01</code>-<code>99</code> indicate customized <code>PFSF</code> files containing fibers associated with a specific proposal ID together with calibration fibers (for example, sky and flux fibers). The observatory will provide the customized <code>PFSF</code> files with <code>01</code>-<code>99</code> in the final two digits. If the <code>PFSF</code> file contains only one proposal ID or one calibration frame, the <code>00</code> file will be distributed. The ingestion procedure is the same as for a <code>PfsConfig</code> file.</p>
 </blockquote>
 </li>
 </ul>
 <p>The parameters in the commands include:</p>
 <ul>
-<li><code>--transfer</code>: The method by which data is added to the repository, including <code>link</code>, <code>copy</code>, and <code>move</code>, which specify whether the data is symlinked, duplicated, or physically relocated, respectively. </li>
-<li><code>--fail-fast</code>: The process will immediately stop the ingestion process if an error occurs. This is useful for debugging. If this is not considered a useful feature, exclude this option.</li>
+<li><code>--transfer</code>: The method used to add data to the repository. The options include <code>link</code>, <code>copy</code>, and <code>move</code>, which specify whether the data is symlinked, duplicated, or physically relocated, respectively.</li>
+<li><code>--fail-fast</code>: Stops the ingestion process immediately if an error occurs. This is useful for debugging. If you do not need this behavior, omit this option.</li>
 </ul>
-<p>The ingestion process places the files (referred to as “datasets” in the <code>butler</code>) in the repository and records them in the registry database. Each file is placed in a <strong>collection</strong>, which can be thought of as a <em>directory</em> in the <code>butler</code> (and in the case of the datastore on a traditional filesystem, it is implemented as a directory).
-The raw data is placed in the collection &lt;instrument&gt;/raw/all, while we’ve specified above that the <code>PfsConfig</code> files are placed in the collection <code>PFS/raw/pfsConfig</code>.</p>
-<p>There are different kinds of <a href="https://pipelines.lsst.io/modules/lsst.daf.butler/organizing.html#collections">collections</a>:</p>
+<p>The ingestion process places the files (referred to as "datasets" in the <code>butler</code>) in the repository and records them in the registry database. Each file is placed in a <strong>collection</strong>, which can be thought of as a directory-like grouping in the <code>butler</code> (and, when using a traditional filesystem datastore, it is implemented as a directory).</p>
+<p>The raw data is placed in the collection <code>PFS/raw/sps</code>, while the <code>PfsConfig</code> files are placed in the collection <code>PFS/raw/pfsConfig</code>.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>When ingesting data into <code>DATASTORE</code>, all files for a single visit should be ingested with a single command. For example, the following commands ingest two files from <code>visit=123456</code> separately and will fail:</p>
+<pre><code class="language-bash"># The second command will fail
+butler ingest-raws $DATASTORE $DATADIR/raw/2026-03-18/sps/PFSA12345601.fits --ingest-task lsst.obs.pfs.gen3.PfsRawIngestTask --transfer link --fail-fast
+butler ingest-raws $DATASTORE $DATADIR/raw/2026-03-18/sps/PFSA12345602.fits --ingest-task lsst.obs.pfs.gen3.PfsRawIngestTask --transfer link --fail-fast
+</code></pre>
+<p>The correct approach is to use wildcards so that all files from <code>visit=123456</code> are included at once:</p>
+<pre><code class="language-bash">butler ingest-raws $DATASTORE $DATADIR/raw/2026-03-18/*/PFS*123456*.fits --ingest-task lsst.obs.pfs.gen3.PfsRawIngestTask --transfer link --fail-fast
+</code></pre>
+<p>If you need to re-ingest one or more visits, you can prune the previously ingested data and then repeat the procedure above:</p>
+<pre><code class="language-bash">butler prune-datasets $DATASTORE PFS/raw/sps --datasets=raw --unstore --where=&quot;instrument='PFS' AND visit=123456&quot;
+# Additional dimensions can be specified by using an SQL expression
+butler prune-datasets $DATASTORE PFS/raw/sps --datasets=raw --unstore --where=&quot;instrument='PFS' AND visit IN (123456,123457) AND arm='n' AND spectrograph='3'&quot;
+</code></pre>
+<h2 id="dataset">Dataset</h2>
+<p>Each dataset is specified by a <code>dataId</code>, which is a dictionary of key-value pairs representing the dimensions.</p>
+<p>For example,</p>
 <ul>
-<li><code>RUN</code> collection always associates the datasets. </li>
-<li><code>CALIBRATION</code> collections associate datasets with a timespan indicating the validity range. </li>
-<li><code>CHAINED</code> collections provide a search path through multiple collections.</li>
+<li>A <code>raw</code> image may have a <code>dataId</code> such as {'<code>instrument</code>': '<code>PFS</code>', '<code>visit</code>': <code>123</code>, '<code>arm</code>': '<code>r</code>', '<code>spectrograph</code>': <code>3</code>}.</li>
+<li>A <code>PfsConfig</code> file is valid for an entire exposure, so it may have a <code>dataId</code> such as {'<code>instrument</code>': '<code>PFS</code>', '<code>visit</code>': <code>123</code>}.</li>
 </ul>
-<p>Each dataset is specified by a “<code>dataId</code>”, which is a dictionary of key-value pairs representing the dimensions.</p>
-<p>For example, </p>
-<ul>
-<li><code>raw</code> image may have a <code>dataId</code> like {'<code>instrument</code>': '<code>PFS</code>', '<code>visit</code>': <code>123</code>, '<code>arm</code>': '<code>r</code>', '<code>spectrograph</code>': <code>3</code>}. </li>
-<li><code>PfsConfig</code> file is valid for an entire exposure, so may have a <code>dataId</code> like {'<code>instrument</code>': '<code>PFS</code>', '<code>visit</code>': <code>123</code>}.</li>
-</ul>
-<p><strong>IMPORTANT</strong>: In general, users should treat the files in the datastore as a <code>butler</code> implementation detail, and use the <code>butler</code> commands and Python API to access the data products. 
-There are some kinds of datastores that do not use a traditional filesystem (e.g., the S3 datastore), and so the files may not be directly accessible.</p>
+<p><strong>IMPORTANT</strong>: In general, users should treat the files in the datastore as a <code>butler</code> implementation detail, and use the <code>butler</code> commands and Python API to access the data products.</p>
+<p>There are some kinds of datastores that do not use a traditional filesystem (e.g., the S3 datastore), and so the files may not be directly accessible.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The registry database tracks all files in the datastore. Do not delete files from the datastore without using the appropriate <code>butler</code> commands.</p>
 </div>
 <p>You can see what raw datasets are in the datastore with the following command:</p>
-<pre><code>$ butler query-datasets $DATASTORE --collections PFS/raw/all
+<pre><code class="language-bash">butler query-datasets $DATASTORE --collections PFS/raw/sps
 </code></pre>
 <p>The result looks something like this:</p>
-<pre><code>type     run                         id                 instrument arm dither pfs_design_id spectrograph detector   visit
+<pre><code class="language-bash">type     run                         id                 instrument arm dither pfs_design_id spectrograph detector   visit
 ---- ------------- ------------------------------------ ---------- --- ------ ------------- ------------ -------- --------
 raw  PFS/raw/all 27217522-a357-5071-a32b-af97b5b8bee6          PFS   b  0.0             1            1        0        0
 raw  PFS/raw/all 0ce0cbea-fe7c-589e-8259-30060bf20500          PFS   b  0.0             1            1        0        1
@@ -242,14 +275,19 @@ raw  PFS/raw/all 570092eb-f571-5631-8d20-11acbeabc640          PFS   r  0.0     
 raw  PFS/raw/all f8e3ae71-2cdf-5e55-bc42-4a4fb913770c          PFS   r  0.0             4            1        1        27
 </code></pre>
 <p>Datasets can be accessed from Python using the <code>butler</code> API:</p>
-<pre><code>from lsst.daf.butler import Butler
+<pre><code class="language-bash">from lsst.daf.butler import Butler
 
-butler = Butler.from_config($DATASTORE, collections=&quot;PFS/raw/all&quot;)
+butler = Butler.from_config($DATASTORE, collections=&quot;PFS/raw/sps&quot;)
 raw = butler.get(&quot;raw&quot;, instrument=&quot;PFS&quot;, visit=12, arm=&quot;r&quot;, spectrograph=1)
 rawImage = raw.getImage()
 </code></pre>
-<p>The raw data returned from the <code>butler</code> is of type <code>PfsRaw</code>, which provides a common interface for both CCD and NIR detectors.
-You can use <code>butler.get("raw.exposure", ...)</code> to get the exposure from the raw data directly.</p>
+<p>The raw data returned from the <code>butler</code> is of type <code>PfsRaw</code>, which provides a common interface for both CCD and NIR detectors.</p>
+<p>You can use <code>butler.get("raw.exposure", ...)</code> to get the exposure from the raw data directly.</p>
+<h2 id="the-default-collection">The Default Collection</h2>
+<p>You can create a <code>CHAIN</code> collection, <code>PFS/defaults</code>, to combine all of the collections created earlier:</p>
+<pre><code class="language-bash">butler collection-chain $DATASTORE PFS/defaults PFS/raw/pfsConfig PFS/raw/sps PFS/calib
+</code></pre>
+<p>This is the collection that users will probably use for most pipeline tasks.</p>
               
             </div>
           </div><footer>

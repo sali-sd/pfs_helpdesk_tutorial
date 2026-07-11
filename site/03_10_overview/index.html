@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_faq_install/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_10_overview/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>04 01 faq install - PFS Pipe2D</title>
+    <title>Overview of PFS Data Products - PFS Pipe2D</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,9 +13,9 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "04 01 faq install";
-        var mkdocs_page_input_path = "04_01_faq_install.md";
-        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_faq_install/";
+        var mkdocs_page_name = "Overview of PFS Data Products";
+        var mkdocs_page_input_path = "03_10_overview.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_10_overview/";
       </script>
     
     <!--[if lt IE 9]>
@@ -80,8 +80,10 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Data Analysis</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Overview of PFS Data Products</a>
+    <ul class="current">
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
                     </li>
@@ -127,9 +129,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">04 01 faq install</li>
+          <li class="breadcrumb-item">Data Analysis</li>
+      <li class="breadcrumb-item active">Overview of PFS Data Products</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_faq_install.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_10_overview.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -137,10 +140,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="overview-of-pfs-data-products">Overview of PFS Data Products</h1>
+<p>This section describes the main PFS spectroscopic data products produced by the 2D DRP pipeline. They are all stored as FITS files and follow a strict naming convention based on observation identifiers.</p>
+<p>In this section we will show how PFS data products are stored, can be accessed and analyzed using <strong>Butler</strong>. Data on the <a href="https://hscpfs.mtk.nao.ac.jp/portal/">PFS Science Platform</a> will be used as reference, specifically data products from proposal ID <code>S25A-000QF</code>, which is part of the <strong>PFS Filler Program</strong> and available to everyone that signs up to the Science Platform.</p>
+<p>While we use the above data for demonstration, the method of accessing and analyzing PFS data products using <strong>Butler</strong> is universally applicable to all 2D DRP pipeline reduced data.</p>
+<p>Define Visit.
+Proviide simple way to check file structure.</p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_04_ana_1d/" class="btn btn-neutral float-left" title="Run 1D DRP"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03_11_accessing/" class="btn btn-neutral float-right" title="Accessing PFS Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -166,6 +178,10 @@
         </span>
     
     
+      <span><a href="../03_04_ana_1d/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03_11_accessing/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_faq_install/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_11_accessing/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>04 01 faq install - PFS Pipe2D</title>
+    <title>Accessing PFS Data - PFS Pipe2D</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,9 +13,9 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "04 01 faq install";
-        var mkdocs_page_input_path = "04_01_faq_install.md";
-        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_faq_install/";
+        var mkdocs_page_name = "Accessing PFS Data";
+        var mkdocs_page_input_path = "03_11_accessing.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_11_accessing/";
       </script>
     
     <!--[if lt IE 9]>
@@ -80,10 +80,16 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Data Analysis</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Accessing PFS Data</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#lsst-butler">LSST Butler</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setting-up-butler">Setting up Butler</a>
+    </li>
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
                     </li>
@@ -127,9 +133,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">04 01 faq install</li>
+          <li class="breadcrumb-item">Data Analysis</li>
+      <li class="breadcrumb-item active">Accessing PFS Data</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_faq_install.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_11_accessing.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -137,10 +144,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="accessing-pfs-data-products">Accessing PFS Data Products</h1>
+<h2 id="lsst-butler">LSST Butler</h2>
+<p>PFS data is primarily accessed using the <a href="https://pipelines.lsst.io/modules/lsst.daf.butler/index.html">LSST Gen3 Butler</a>,
+which provides a uniform interface for reading and writing pipeline products without needing to know the exact file names or paths of every PFS data product on disk.</p>
+<p>All PFS data products are stored in <strong>collections</strong> within a butler repository.
+A collection is a grouping of PFS data tied to a specific
+processing run or observing programme — that allows the butler to locate the correct version of the data seamlessly with a few specific commands.</p>
+<h2 id="setting-up-butler">Setting up Butler</h2>
+<p>Before any data can be analyzed, one must first provide the location of the 2D DRP datastore repository where the reduced data products are stored. For our reference dataset (see <a href="../03_10_overview/">Overview of PFS Data Products</a> for details), the datastore is located at <code>/shared/pfs/programs/S25A-000QF/2d/</code>:</p>
+<pre><code>$ ls /shared/pfs/programs/S25A-000QF/2d/
+
+S25A_April2026      butler.yaml      customPfsConfig  run21_June2025   run22_July2025
+S25A_November2025   butler.yaml.bak  gen3.sqlite3     run23_August2025 run24_November2025
+run25_February2026  run26_June2026
+</code></pre>
+<p>The <code>butler.yaml</code> marks this directory as the root of the butler repository. Each sub-directory (e.g. <code>S25A_April2026</code>, <code>run26_June2026</code>) corresponds to a different <strong>collection</strong> — a named set of data products from a particular processing run or observing semester. We will use <code>S25A_April2026</code> as our reference collection going forward, which contains all reduced data observed during the S25A semester (Feb-July 2025) and reduced on April 2026. As improvements to the pipeline are made, newer reductions will be available in the future.</p>
+<pre><code class="language-python">from lsst.daf.butler import Butler
+
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
+collections = &quot;S25A_April2026&quot;                       # collection name
+
+butler = Butler(repo, collections=collections)
+</code></pre>
+<p>Now that butler is ready, we can proceed to look at the individual data products.</p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_10_overview/" class="btn btn-neutral float-left" title="Overview of PFS Data Products"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03_12_pfsconfig/" class="btn btn-neutral float-right" title="pfsConfig">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -166,6 +200,10 @@
         </span>
     
     
+      <span><a href="../03_10_overview/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03_12_pfsconfig/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

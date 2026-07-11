@@ -68,7 +68,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -77,6 +77,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -129,7 +146,7 @@ Note that because PFS EDR2 is released internally, the figures will not contain 
 </div>
 <h2 id="qa-for-detector-map-detectormapqa">QA for Detector Map (detectorMapQA)</h2>
 <hr />
-<p>The <code>detectorMapQA</code> evaluates how well we identify and locate the fiber traces. We have a ‘default’ <code>detectorMap</code> based on calibration data, but each exposure may have slightly offset fiber traces and we adjust the <code>detectorMap</code> in an early phase of the pipeline processing. The adjustment is done against the detected positions of continuum/line emission and we reserve a small subset of them from the adjustment. We use these reserved lines to evaluate the <code>detectorMap</code> accuracy. </p>
+<p>The <code>detectorMapQA</code> evaluates how well we identify and locate the fiber traces. We have a ‘default’ <code>detectorMap</code> based on calibration data, but each exposure may have slightly offset fiber traces and we adjust the <code>detectorMap</code> in an early phase of the pipeline processing. The adjustment is done against the detected positions of continuum/line emission and we reserve a small subset of them from the adjustment. We use these reserved lines to evaluate the <code>detectorMap</code> accuracy.</p>
 <p><img alt="detectorMapQA_x" src="../img/qa_detectorMap_x.png" /></p>
 <p>The example figure below shows offsets in the x- (or spatial) direction across a detector using a sky exposure. This corresponds to r1.
 The central panel shows the spatial offset on the detector plane with the amount of offset color-coded. The top and right panels respectively show the offset as a function of fiber and wavelength. In these two subpanels, the points are sorted into used (orange) and reserved (blue) lines. The used lines are used to adjust the <code>detectorMap</code>, while the reserved are not. Thus, the reserved lines give a fair estimate of the accuracy. In the central panel, only the reserved lines are plotted. The plot shows a good calibration; there is no region of systematic positive/negative points in the central panel. The numbers in the top-right corner give the median and scatter of the observed residual. </p>
@@ -140,7 +157,7 @@ The central panel shows the spatial offset on the detector plane with the amount
 <h2 id="qa-for-spectrum-extraction-extractionqa">QA for Spectrum Extraction (extractionQA)</h2>
 <hr />
 <p>From the extracted 1D spectra, fiber profiles, and <code>detectorMap</code>, we can reconstruct a 2D image. 
-The <code>extractionQA</code> primarily evaluates the residual image between a real 2D image (before 1D extraction) and a reconstructed 2D image based on the extracted spectra. If the extraction was perfect, the noise-normalized residual image would show Gaussian noise with mean=0 and sigma=1. Any deviation from the normal distribution with N(0,1) is an indication of poor extraction (and hence this test serves as a QA). </p>
+The <code>extractionQA</code> primarily evaluates the residual image between a real 2D image (before 1D extraction) and a reconstructed 2D image based on the extracted spectra. If the extraction was perfect, the noise-normalized residual image would show Gaussian noise with mean=0 and sigma=1. Any deviation from the normal distribution with N(0,1) is an indication of poor extraction (and hence this test serves as a QA).</p>
 <p><img alt="extractionQA" src="../img/qa_extraction.png" /></p>
 <p>This figure is from a quartz exposure.
 From left to right, each panel shows a real 2D image (<code>calExp</code>) around a particular fiber, the residual from the corresponding reconstructed 2D image in units of electrons/sec/nm, the residual in terms of chi, the average chi residual for each row around the fiber (using 7 pixels around the spatial center), and the differences in center positions (dX) and widths (dσ/σ) measured with Gaussian fitting. In the leftmost panel (<code>calExp</code>), the object here is very bright and the scaling adopted here makes it difficult to see neighboring fibers.</p>

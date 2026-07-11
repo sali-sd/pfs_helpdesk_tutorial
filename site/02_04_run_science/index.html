@@ -73,11 +73,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#combination-for-science-data">Combination for Science Data</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#define-visit-groups">Define Visit Groups</a>
-    </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#process-science-data_1">Process Science Data</a>
+    <li class="toctree-l2"><a class="reference internal" href="#process-the-data">Process the Data</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#introduction-to-reduction-steps">Introduction to Reduction Steps</a>
     </li>
@@ -86,7 +84,7 @@
     </ul>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -95,6 +93,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -145,7 +160,7 @@
 <p>With the calibration products built, we can now process the science data. There are a few pipelines available:</p>
 <ul>
 <li>
-<p><strong>observing</strong>: </p>
+<p><strong>observing</strong>:</p>
 <blockquote>
 <p>It processes a visit through merging arms, producing <code>postISRCCD</code>, <code>pfsArm</code>, <code>lines</code>, <code>detectorMap</code>, <code>pfsMerged</code>, <code>sky1d</code>, and <code>fiberNorms</code>.
 This uses a basic, single-exposure cosmic-ray identification algorithm, which is not as reliable as the one used by <code>reduceExposure</code>. It is intended for use while observing, when visit groupings aren't known.
@@ -153,7 +168,7 @@ The <code>fiberNorms</code> dataset is only produced for quartz exposures; Unlik
 </blockquote>
 </li>
 <li>
-<p><strong>reduceExposure</strong>: </p>
+<p><strong>reduceExposure</strong>:</p>
 <blockquote>
 <p>It processes a visit through merging arms, producing <code>postISRCCD</code>, <code>pfsArm</code>, <code>lines</code>, <code>detectorMap</code>, <code>pfsMerged</code>, and <code>sky1d</code>.
 This can be used to process quartz exposures (or science exposures when flux calibration is not wanted).</p>
@@ -162,71 +177,77 @@ This can be used to process quartz exposures (or science exposures when flux cal
 <li>
 <p><strong>calibrateExposure</strong>:</p>
 <blockquote>
-<p>It adds the flux calibration to <code>reduceExposure</code>, producing <code>pfsFluxReference</code>, <code>fluxCal</code> and <code>pfsCalibrated</code>. 
-This can be used to process single science exposures. This is not demonstrated below, but its use is similar to that for <code>reduceExposure</code>.</p>
+<p>It adds the flux calibration to <code>reduceExposure</code>, producing <code>pfsFluxReference</code>, <code>fluxCal</code> and <code>pfsCalibrated</code>. \
+  This can be used to process single science exposures. This is not demonstrated below, but its use is similar to that for <code>reduceExposure</code>.</p>
 </blockquote>
 </li>
 <li>
-<p><strong>science</strong>: </p>
+<p><strong>science</strong>:</p>
 <blockquote>
-<p>It adds the spectral coaddition, producing <code>pfsCoadd</code>. 
-This can be used to process multiple science exposures together.</p>
+<p>It adds the spectral coaddition, producing <code>pfsCoadd</code>. \
+  This can be used to process multiple science exposures together.</p>
 </blockquote>
 </li>
 </ul>
 <h2 id="define-collections">Define Collections</h2>
 <hr />
-<p>Because we need to be able to distinguish coadds formed from different combinations of visits, it’s necessary to define the inputs to the coaddition before running the <code>science</code> pipeline. 
-This is not required for the <code>reduceExposure</code> or <code>calibrateExposure</code> pipelines, but defining the inputs can provide a convenient way to reference them.. </p>
+<p>Because we need to be able to distinguish coadds formed from different combinations of visits, it’s necessary to define the inputs to the coaddition before running the <code>science</code> pipeline.</p>
+<p>This is not required for the <code>reduceExposure</code> or <code>calibrateExposure</code> pipelines, but defining the inputs can provide a convenient way to reference them.</p>
 <h3 id="combination-for-science-data">Combination for Science Data</h3>
 <p>For the science data (e.g., <code>OBJECT</code> data), the combination can be defined as</p>
 <pre><code class="language-bash"># Define by data type:
-$ defineCombination.py $DATASTORE PFS object --where &quot;visit.target_name = 'OBJECT'&quot;
+defineCombination.py $DATASTORE PFS object --where &quot;visit.target_name = 'OBJECT'&quot;
 
 # Define by specifying the observation dates:
-$ defineCombination.py $DATASTORE PFS run20241025 --where &quot;visit.day_obs = 20241025&quot;
+defineCombination.py $DATASTORE PFS run20241025 --where &quot;visit.day_obs = 20241025&quot;
 </code></pre>
-<p>A combination can be defined with a <code>--where</code> option, which takes a query string like for the <code>-d</code> option of <code>pipetask run</code>. 
-Alternatively, a combination can be defined by simply listing the exposure identifiers or specifying the observing dates:</p>
+<p>A combination can be defined with a <code>--where</code> option, which takes a query string like for the <code>-d</code> option of <code>pipetask run</code>.</p>
+<p>Alternatively, a combination can be defined by simply listing the exposure identifiers or specifying the observing dates:</p>
 <pre><code class="language-bash"># Define by listing visit identifiers
-$ defineCombination.py $DATASTORE PFS someVisits 123 124 125
+defineCombination.py $DATASTORE PFS someVisits 123 124 125
 </code></pre>
 <p>Although we have provided here some silly examples, it is recommended that descriptive names be used for the combination (e.g., <code>ssp-cosmos-deep-march2025</code> or <code>ssp-ga-2025-2028</code>). Note that these combination names are shared, so if the name is not of general interest to all users of your data repository, then it might be good to prefix it with your username (e.g., <code>foobar/playingAround-20250318</code>).</p>
-<h3 id="define-visit-groups">Define Visit Groups</h3>
-<p>Optimal cosmic-ray identification used by the <code>reduceExposure</code> pipeline (and those that extend it) requires identifying groups of visits of the same targets in similar conditions.
-There is an algorithm to automatically group all visits selected:</p>
+<!-- ### Define Visit Groups
+
+Optimal cosmic-ray identification used by the `reduceExposure` pipeline (and those that extend it) requires identifying groups of visits of the same targets in similar conditions.
+There is an algorithm to automatically group all visits selected:
+
+
 <pre><code class="language-bash"># Select by data type:
-$ defineVisitGroup.py $DATASTORE PFS --where &quot;visit.target_name = 'OBJECT'&quot;
+defineVisitGroup.py $DATASTORE PFS --where &quot;visit.target_name = 'OBJECT'&quot;
 
 # Select by specifying the observation dates:
-$ defineVisitGroup.py $DATASTORE PFS --where &quot;visit.day_obs = 20241025&quot;
+defineVisitGroup.py $DATASTORE PFS --where &quot;visit.day_obs = 20241025&quot;
 </code></pre>
-<p>If the algorithm produces undesirable results, the command has options that will allow you to specify a group explicitly.</p>
-<h2 id="process-science-data_1">Process Science Data</h2>
+
+
+If the algorithm produces undesirable results, the command has options that will allow you to specify a group explicitly. -->
+
+<h2 id="process-the-data">Process the Data</h2>
 <hr />
 <p>Now we can run the pipeline process a specific single exposure:</p>
-<pre><code># Single Exposure
+<pre><code class="language-bash"># Single Exposure
 pipetask run \
 --register-dataset-types -j $CORES -b $DATASTORE \
 --instrument $INSTRUMENT \
--i PFS/raw/all,PFS/raw/pfsConfig,PFS/calib \
+-i PFS/defaults,&quot;$RERUN&quot;/calib \
 -o &quot;$RERUN&quot;/reduceExposure \
 -p '$DRP_STELLA_DIR/pipelines/reduceExposure.yaml' \
--d &quot;combination = 'object'&quot;
+-d &quot;visit = 123456&quot;
 </code></pre>
 <p>Alternatively, you can run the science pipeline for an entire data collection:</p>
-<pre><code># Science Pipeline
+<pre><code class="language-bash"># Science Pipeline
 pipetask run \
 --register-dataset-types -j $CORES -b $DATASTORE \
 --instrument $INSTRUMENT \
--i PFS/raw/all,PFS/raw/pfsConfig,PFS/calib \
+-i PFS/defaults,&quot;$RERUN&quot;/calib \
 -o &quot;$RERUN&quot;/science \
 -p '$DRP_STELLA_DIR/pipelines/science.yaml' \
 -d &quot;combination = 'object'&quot;
 </code></pre>
-<p>Notice that in the first case we’re running the <code>reduceExposure</code> pipeline, selecting the <code>object</code> combinations that we defined earlier. The <code>science</code> pipeline is similar.</p>
-<p>Note that we do not have to run the <code>reduceExposure</code> pipeline before we run the <code>science</code> pipeline (a single command is sufficient to run the entire pipeline): the <code>science</code> pipeline knows how to produce all the necessary intermediate datasets itself, and the above two commands are completely independent: they do not share any intermediate datasets. 
-However, we could have first run the <code>reduceExposure</code> pipeline and then fed its outputs into the <code>science</code> pipeline by including <code>$RERUN/reduceExposure</code> in the list of input collections for the <code>science</code> pipeline.</p>
+<p>Notice that in the first case we’re running the <code>reduceExposure</code> pipeline on a selected exposure. The <code>science</code> pipeline is similar but on the <code>object</code> combinations that we defined earlier.</p>
+<p>Note that we do not have to run the <code>reduceExposure</code> pipeline before we run the <code>science</code> pipeline (a single command is sufficient to run the entire pipeline): the <code>science</code> pipeline knows how to produce all the necessary intermediate datasets itself, and the above two commands are completely independent: they do not share any intermediate datasets.</p>
+<p>However, we could have first run the <code>reduceExposure</code> pipeline and then fed its outputs into the <code>science</code> pipeline by including <code>$RERUN/reduceExposure</code> in the list of input collections for the <code>science</code> pipeline.</p>
 <h2 id="introduction-to-reduction-steps">Introduction to Reduction Steps</h2>
 <p><span style="color:red"><strong>NOTE: This section is work in progress.</strong></span></p>
 <hr />
@@ -240,12 +261,14 @@ pfsObject = butler.get(&quot;pfsCoadd.single&quot;, cat_id=1, combination=&quot;
 </code></pre>
 <p>Note that the <code>objId</code> needs to be specified in the <code>parameters</code> dictionary, rather than as a separate argument to the <code>get</code> method because it’s a parameter for the formatter that reads the dataset and not a dimension of the dataset itself.</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning<p>Be refrain from retrieving <code>pfsCoadd.single</code> in a loop, as it is <strong>EXTREMELY inefficient</strong>.</p>
-</p>
+<p class="admonition-title">Warning</p>
+<pre><code>Be refrain from retrieving `pfsCoadd.single` in a loop, as it is **EXTREMELY inefficient**.
+</code></pre>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note<p>In LSST version 26.0.2, the <code>butler</code> command was <code>butler = Butler($DATASTORE, collection=["$RERUN/object"])</code>, but in the latest LSST version 28, this is recommended to be <code>butler = Butler.from_config($DATASTORE, collection=["$RERUN/object"])</code>. Although the former expression may still work, <code>mypy</code> will deny this construction with reporting "class Butler is an abstract class. Abstract classes must not be instantiated". <br> <strong>In the next section for data analysis, we will only use the latest construction.</strong></p>
-</p>
+<p class="admonition-title">Note</p>
+<pre><code>In LSST version 26.0.2, the `butler` command was `butler = Butler($DATASTORE, collection=["$RERUN/object"])`, but in the later LSST versions, this is recommended to be `butler = Butler.from_config($DATASTORE, collection=["$RERUN/object"])`. Although the former expression may still work, `mypy` will deny this construction with reporting "class Butler is an abstract class. Abstract classes must not be instantiated". &lt;br&gt; **In the next section for data analysis, we will only use the latest construction.**
+</code></pre>
 </div>
               
             </div>

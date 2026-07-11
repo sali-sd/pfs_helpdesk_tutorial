@@ -70,7 +70,7 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
                     </li>
@@ -79,6 +79,23 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -125,17 +142,17 @@
               
                 <h1 id="setup-environment-and-run-integration-test">Setup Environment and Run Integration Test</h1>
 <p>After the process is complete, run the following commands to set up the environment (choose the appropriate <code>loadLSST</code> script according to your shell):</p>
-<pre><code>$ source $WORKDIR/(username)/packages/stack_28/loadLSST.bash
-$ setup pfs_pipe2d
+<pre><code class="language-bash">source $WORKDIR/$(whoami)/packages/stack_28/loadLSST.bash
+setup pfs_pipe2d
 </code></pre>
 <p>(Optional) In most cases, users can directly use the shared installation of <code>drp_pfs_data</code>. Only in case that one wants to install curated calibs, then for individual users, he should replace the default <code>drp_pfs_data</code> package with a local version:</p>
-<pre><code>$ setup -jr $WORKDIR/(username)/packages/drp_pfs_data
+<pre><code class="language-bash">setup -jr $WORKDIR/$(whoami)/packages/drp_pfs_data
 </code></pre>
 <p>The integration test provides a check that the pipeline has been installed and is working properly. It is not a necessary part of the installation. It takes about half an hour to run.</p>
 <p>Start the integration test in a new directory:</p>
-<pre><code>$ mkdir -p /$WORKDIR/(username)/packages/integrationTest
-$ cd $WORKDIR/(username)/packages/integrationTest
-$ pfs_integration_test.sh -c 4 .
+<pre><code class="language-bash">mkdir -p /$WORKDIR/$(whoami)/packages/integrationTest
+cd $WORKDIR/$(whoami)/packages/integrationTest
+pfs_integration_test.sh -c 4 .
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

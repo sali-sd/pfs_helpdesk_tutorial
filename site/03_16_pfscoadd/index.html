@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_faq_install/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_16_pfscoadd/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>04 01 faq install - PFS Pipe2D</title>
+    <title>pfsCoadd - PFS Pipe2D</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,9 +13,9 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "04 01 faq install";
-        var mkdocs_page_input_path = "04_01_faq_install.md";
-        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_faq_install/";
+        var mkdocs_page_name = "pfsCoadd";
+        var mkdocs_page_input_path = "03_16_pfscoadd.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_16_pfscoadd/";
       </script>
     
     <!--[if lt IE 9]>
@@ -80,7 +80,7 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Data Analysis</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
@@ -93,7 +93,9 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">pfsCoadd</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -127,9 +129,10 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">04 01 faq install</li>
+          <li class="breadcrumb-item">Data Analysis</li>
+      <li class="breadcrumb-item active">pfsCoadd</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_faq_install.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_16_pfscoadd.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -137,10 +140,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="pfscoadd">pfsCoadd</h1>
+<p><code>pfsCoadd</code> is the <strong>actual file on disk</strong> containing wavelength-calibrated, sky-subtracted,
+flux-calibrated, coadded spectra combining data across multiple visits.
+Files are split by <code>catId</code> and <code>objGroup</code>, so there are multiple <code>pfsCoadd</code> files per catalog.
+The individual coadded spectrum of a single object (i.e. one row/entry inside <code>pfsCoadd</code>) is referred to as a <strong><code>pfsObject</code></strong> spectrum.</p>
+<p>Filename format: <code>pfsCoadd_PFS_selected_{proposal}_{catId}_{objGroup}_{collection}.fits</code></p>
+<p>Example (PFS Filler Program, catId 10094, 32 object groups):</p>
+<pre><code>/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCoadd/10094/
+    pfsCoadd_PFS_selected_S25A_10094_1_S25A_April2026.fits
+    pfsCoadd_PFS_selected_S25A_10094_2_S25A_April2026.fits
+    ...
+    pfsCoadd_PFS_selected_S25A_10094_32_S25A_April2026.fits
+</code></pre>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_15_pfscalibrated/" class="btn btn-neutral float-left" title="pfsCalibrated"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04_00_faq_general/" class="btn btn-neutral float-right" title="General">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -166,6 +185,10 @@
         </span>
     
     
+      <span><a href="../03_15_pfscalibrated/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04_00_faq_general/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_faq_install/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/sup_legacy_version/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>04 01 faq install - PFS Pipe2D</title>
+    <title>Pipeline Installation - PFS Pipe2D</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,9 +13,9 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "04 01 faq install";
-        var mkdocs_page_input_path = "04_01_faq_install.md";
-        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_faq_install/";
+        var mkdocs_page_name = "Pipeline Installation";
+        var mkdocs_page_input_path = "sup_legacy_version.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/sup_legacy_version/";
       </script>
     
     <!--[if lt IE 9]>
@@ -127,9 +127,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">04 01 faq install</li>
+      <li class="breadcrumb-item active">Pipeline Installation</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_faq_install.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/sup_legacy_version.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -137,7 +137,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="pipeline-installation">Pipeline Installation</h1>
+<h2 id="install-legacy-pipeline">Install Legacy Pipeline</h2>
+<p>The legacy 2D DRP pipeline (versions up to <code>w.2026.06</code>) can be isntalled on CentOS 7, only if there is a good reason for that -- such as reading out a legacy <code>datastore</code> directory.</p>
+<h2 id="setup-directory">Setup Directory</h2>
+<hr />
+<p>We assume that the working directory is <code>$WORKDIR/$(whoami)/</code>.</p>
+<p>First, we will need to create a folder for necessary dependencies.</p>
+<pre><code class="language-bash">mkdir $WORKDIR/$(whoami)/bin
+</code></pre>
+<p>Then, to set up the default environment variable, we should add the following line to <code>~/.bashrc</code></p>
+<pre><code class="language-bash">export PATH=$WORKDIR/$(whoami)/bin:$PATH
+</code></pre>
+<h2 id="install-dependencies">Install Dependencies</h2>
+<hr />
+<p><strong>Step 1</strong>: Fetch a tool of <code>yum</code></p>
+<p>There is a useful tool for installing dependencies in local environments: <a href="https://gitlab.com/caroff/user-yum.sh">user-yum</a>.
+It installs applications conveniently without the root privilege in <code>CentOS 7</code>.</p>
+<pre><code class="language-bash">cd $WORKDIR/$(whoami)/bin
+git clone https://gitlab.com/caroff/user-yum.sh.git
+</code></pre>
+<p>You will find it handy if you change <code>Makefile</code> line 40 from
+<code>INSTALL_FLAG_PREFIX := +</code> to <code>INSTALL_FLAG_PREFIX :=</code></p>
+<p>Then insert the following lines to <code>~/.bash_profile</code>:</p>
+<pre><code class="language-bash"># Setting environment for $WORKDIR/$(whoami)/bin/user-yum.sh/root
+ROOT_D=&quot;$WORKDIR/$(whoami)/bin/user-yum.sh/root&quot;
+export PATH=$ROOT_D/usr/sbin:$ROOT_D/usr/bin:$ROOT_D/bin:$PATH
+L=&quot;/lib:/lib64:/usr/lib:/usr/lib64&quot;
+export LD_LIBRARY_PATH=$L:$ROOT_D/usr/lib:$ROOT_D/usr/lib64:$LD_LIBRARY_PATH
+</code></pre>
+<div class="admonition note user-yum">
+<p class="admonition-title">Note</p>
+<p>If you are the administrator of your local machine, you may skip this step and directly install the below dependencies with <code>sudo yum install ***</code>.</p>
+</div>
+<p><strong>Step 2</strong>: Install dependencies
+If using <code>user-yum.sh</code>:</p>
+<pre><code class="language-bash">cd $WORKDIR/$(whoami)/bin/user-yum.sh/user-yum.sh/
+make blas bzip2-devel cmake freetype-devel gcc-c++ gcc-gfortran glib2-devel libuuid-devel libXt-devel ncurses-devel openssl-devel readline-devel zlib-dev
+make install
+</code></pre>
+<p><strong>Step 3</strong>: Install git LFS</p>
+<p>Git LFS must be installed to download large files from Git.</p>
+<pre><code class="language-bash">cd $WORKDIR/$(whoami)/bin
+wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz
+tar xzf git-lfs-linux-amd64-v3.5.1.tar.gz
+cd git-lfs-3.5.1
+PREFIX=$WORKDIR/$(whoami) ./install.sh
+</code></pre>
+<h2 id="installation-of-pfs_pipe2d">Installation of pfs_pipe2d</h2>
+<p>The rest part of installation is identical to the latest version.</p>
               
             </div>
           </div><footer>
