@@ -36,7 +36,7 @@ drp_1dpipe -j 20 -n0 \
 | `-n0`                    | No limit on the number of spectra per bunch — processes all spectra in the input file in one go. Increase if memory is limited.                                           |
 | `--workdir`              | Path to the working directory containing calibration files (`calibration/`, `LSF/`, templates, line catalogs etc.)                                                        |
 | `--coadd_file`           | Full path to the input `pfsCoadd` FITS file containing the coadded spectra to process                                                                                     |
-| `-o`                     | Output directory where results (`pfsZcandidates` FITS files) will be written. Created automatically if it does not exist.                                                 |
+| `-o`                     | Output directory where results (`pfsCoZcandidates` FITS files) will be written. Created automatically if it does not exist.                                               |
 | `-p`                     | Full path to the JSON parameter file controlling algorithm settings (wavelength range, LSF file, line fitting options etc.)                                               |
 | `--scheduler` (optional) | Job scheduler: `local` (default), `pbs`, or `slurm`. Use `pbs` or `slurm` for cluster batch submission.                                                                   |
 | `--loglevel` (optional)  | Logging verbosity: `DEBUG`, `INFO` (default), `WARNING`, `ERROR`, `CRITICAL`                                                                                              |
@@ -65,7 +65,7 @@ Access requires PFS project credentials.
 
 ## Outputs
 
-The pipeline writes one `pfsZcandidates` FITS file per `pfsCoadd` input file into the output directory (`-o`). Each file contains redshift candidates, probability distributions, and line measurements for all spectra in the input file.
+The pipeline writes one `pfsCoZcandidates` FITS file per `pfsCoadd` input file into the output directory (`-o`). Each file contains redshift candidates, probability distributions, and line measurements for all spectra in the input file.
 
 Log files are written to `<output>/log/` and can be monitored during the run:
 
