@@ -25,7 +25,7 @@ nav:
     - pfsCalibrated: 03_15_pfscalibrated.md
     - pfsCoadd: 03_16_pfscoadd.md
   - LAM 1D:
-    - Installation: 04_09_lam1d_install.md
+    - Installing the Pipeline: 04_09_lam1d_install.md
     - Running the Pipeline: 04_11_lam1d_running.md
     - Overview of LAM 1D Data Products: 04_10_lam1d_overview.md
     - pfsCoZCandidates: 04_12_lam1d_zcandidates.md
