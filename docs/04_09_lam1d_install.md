@@ -14,13 +14,13 @@ An installation script and full documentation are available at:
 
 **Operating system:** AlmaLinux 9 (tested and supported)
 
-**Required tools** (must be present before running the install script):
+**Required tools** (other than Anaconda, all others should be included in AlmaLinux 9 by default):
 
 | Tool           | Purpose                                               |
 | -------------- | ----------------------------------------------------- |
 | `conda`        | Python environment management (Miniconda or Anaconda) |
 | `gcc` / `g++`  | C++ compiler for building native libraries            |
-| `cmake` ≥ 3.15 | Build system (included in AlmaLinux 9)                |
+| `cmake` ≥ 3.15 | Build system                                          |
 | `make`         | Build tool                                            |
 | `git`          | Cloning source repositories                           |
 | `curl`         | Downloading source tarballs                           |
