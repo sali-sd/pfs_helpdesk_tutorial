@@ -95,10 +95,10 @@ The script performs the following steps automatically:
 The version installed can be changed by editing the variables at the top of `install_lam1d_pipeline.sh` before running it:
 
 ```bash
-D1D_VERSION="1.18.0"      # drp_1d version number (used for local directory naming)
-D1D_BRANCH="pfs-1.18.0"   # drp_1d git tag (always prefixed with "pfs-")
-D1DP_VERSION="1.18.0"     # drp_1dpipe version number
-D1DP_BRANCH="1.18.0"      # drp_1dpipe git tag
+D1D_VERSION="1.18.0"      # drp_1d version number (used for local directory naming only)
+D1D_BRANCH="pfs-1.18.0"   # drp_1d git tag used for checkout (always prefixed with "pfs-")
+D1DP_VERSION="1.18.0"     # drp_1dpipe version number (used for local directory naming only)
+D1DP_BRANCH="1.18.0"      # drp_1dpipe git tag used for checkout
 ```
 
 To find available versions, check the tags on each repository:
