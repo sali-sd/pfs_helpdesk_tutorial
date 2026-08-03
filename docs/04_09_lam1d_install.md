@@ -113,4 +113,4 @@ To find available versions, check the tags on each repository:
 
 ## Alternative: Docker installation
 
-A `Dockerfile-almalinux9` is provided in the [drp_1dpipe repository](https://github.com/Subaru-PFS/drp_1dpipe) for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access, making it better suited to personal machines than shared HPC clusters. Full build and run instructions are available in the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation).
+A `Dockerfile-almalinux9` is provided in the [drp_1dpipe repository](https://github.com/Subaru-PFS/drp_1dpipe) for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access, making it better suited to personal machines than shared HPC clusters.
