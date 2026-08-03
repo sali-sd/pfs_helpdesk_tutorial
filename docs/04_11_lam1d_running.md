@@ -77,8 +77,6 @@ Calibration files (templates, line catalogs, LSF files, IGM/ISM tables) are requ
 https://pfs.ipmu.jp/internal/devarch/lam-drp1d/
 ```
 
-Access requires PFS project credentials.
-
 ---
 
 
@@ -87,7 +85,7 @@ Access requires PFS project credentials.
 
 The pipeline writes one `pfsCoZcandidates` FITS file per `pfsCoadd` input file into the output directory (`-o`). Each file contains redshift candidates, probability distributions, and line measurements for all spectra in the input file.
 
-For a full description of the output data format and all output products, see the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
+For a full description of the output data products, see the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
 
 Log files are written to `<output>/log/` and can be monitored during the run:
 

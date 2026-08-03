@@ -75,7 +75,7 @@ The script performs the following steps automatically:
 1. **Checks prerequisites** — verifies all required tools are available
 2. **Creates a conda environment** — `pfs-pipeline-1.18.0` with Python 3.11
 3. **Builds C++ dependencies from source** (all installed into the conda environment, no root needed):
-  - PCRE2 10.42 — regex library required by SWIG
+    - PCRE2 10.42 — regex library required by SWIG
     - SWIG 4.1.1 — generates Python bindings for the C++ code
     - Boost 1.74.0 — C++ utility libraries
     - OpenBLAS 0.3.19 — optimised linear algebra (built with multi-architecture support)
@@ -131,4 +131,4 @@ To find available versions, check the tags on each repository:
 
 ## Alternative: Docker installation
 
-A `Dockerfile-almalinux9` is provided in the [drp_1dpipe repository](https://github.com/Subaru-PFS/drp_1dpipe) for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access, making it better suited to personal machines than shared clusters. Installation instructions are provided in the above pipeline repository page. 
+A `Dockerfile-almalinux9` is provided in the [drp_1dpipe repository](https://github.com/Subaru-PFS/drp_1dpipe) for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access. Installation instructions are provided in the above pipeline repository page.
