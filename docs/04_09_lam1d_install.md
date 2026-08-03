@@ -4,6 +4,9 @@ The LAM 1D pipeline (`drp_1dpipe` / `pylibamazed`) is the Subaru PFS 1D data red
 
 - **Pipeline**: [drp_1dpipe](https://github.com/Subaru-PFS/drp_1dpipe)
 - **Core library**: [drp_1d (pylibamazed)](https://github.com/Subaru-PFS/drp_1d)
+- **Datamodel**: [datamodel.txt](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt)
+
+See the above pipeline repos and datamodel for a full description of pipeline input parameters and output data products.
 
 An installation script and full documentation are available at:
 **[https://github.com/sali-sd/PFS-LAM1D-Installation](https://github.com/sali-sd/PFS-LAM1D-Installation)**
@@ -16,6 +19,7 @@ An installation script and full documentation are available at:
 
 **Required tools** (other than Anaconda, all others should be included in AlmaLinux 9 by default):
 
+
 | Tool           | Purpose                                               |
 | -------------- | ----------------------------------------------------- |
 | `conda`        | Python environment management (Miniconda or Anaconda) |
@@ -25,6 +29,7 @@ An installation script and full documentation are available at:
 | `git`          | Cloning source repositories                           |
 | `curl`         | Downloading source tarballs                           |
 | `unzip`        | Extracting zip archives                               |
+
 
 **Disk space:** ~10 GB free in your home directory
 
@@ -65,7 +70,7 @@ The script performs the following steps automatically:
 1. **Checks prerequisites** — verifies all required tools are available
 2. **Creates a conda environment** — `pfs-pipeline-1.18.0` with Python 3.11
 3. **Builds C++ dependencies from source** (all installed into the conda environment, no root needed):
-    - PCRE2 10.42 — regex library required by SWIG
+  - PCRE2 10.42 — regex library required by SWIG
     - SWIG 4.1.1 — generates Python bindings for the C++ code
     - Boost 1.74.0 — C++ utility libraries
     - OpenBLAS 0.3.19 — optimised linear algebra (built with multi-architecture support)
@@ -83,10 +88,12 @@ The script performs the following steps automatically:
 
 ## Install locations
 
-| Location                                | Contents                                                                        |
-| --------------------------------------- | ------------------------------------------------------------------------------- |
-| `~/anaconda3/envs/pfs-pipeline-1.18.0/` | Conda environment with all installed software                                   |
-| `~/pfs-pipeline-src/`                   | Downloaded source tarballs and build files (can be deleted after installation)  |
+
+| Location                                | Contents                                                                       |
+| --------------------------------------- | ------------------------------------------------------------------------------ |
+| `~/anaconda3/envs/pfs-pipeline-1.18.0/` | Conda environment with all installed software                                  |
+| `~/pfs-pipeline-src/`                   | Downloaded source tarballs and build files (can be deleted after installation) |
+
 
 ---
 
@@ -113,4 +120,4 @@ To find available versions, check the tags on each repository:
 
 ## Alternative: Docker installation
 
-A `Dockerfile-almalinux9` is provided in the [drp_1dpipe repository](https://github.com/Subaru-PFS/drp_1dpipe) for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access, making it better suited to personal machines than shared HPC clusters.
+A `Dockerfile-almalinux9` is provided in the [drp_1dpipe repository](https://github.com/Subaru-PFS/drp_1dpipe) for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access, making it better suited to personal machines than shared clusters. Installation instructions are provided in the above pipeline repository page. 
