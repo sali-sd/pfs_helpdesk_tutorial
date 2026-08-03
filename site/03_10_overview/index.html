@@ -68,17 +68,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_02_ana_visit/">Analyze Visit-level Data</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
-                    </li>
-                </ul>
                 <p class="caption"><span class="caption-text">Data Analysis</span></p>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Overview of PFS Data Products</a>
@@ -96,6 +85,19 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_09_lam1d_install/">Installation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_11_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_10_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_12_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_13_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -142,15 +144,26 @@
               
                 <h1 id="overview-of-pfs-data-products">Overview of PFS Data Products</h1>
 <p>This section describes the main PFS spectroscopic data products produced by the 2D DRP pipeline. They are all stored as FITS files and follow a strict naming convention based on observation identifiers.</p>
-<p>In this section we will show how PFS data products are stored, can be accessed and analyzed using <strong>Butler</strong>. Data on the <a href="https://hscpfs.mtk.nao.ac.jp/portal/">PFS Science Platform</a> will be used as reference, specifically data products from proposal ID <code>S25A-000QF</code>, which is part of the <strong>PFS Filler Program</strong> and available to everyone that signs up to the Science Platform.</p>
-<p>While we use the above data for demonstration, the method of accessing and analyzing PFS data products using <strong>Butler</strong> is universally applicable to all 2D DRP pipeline reduced data.</p>
-<p>Define Visit.
-Proviide simple way to check file structure.</p>
+<p>We will show how PFS data products are stored, can be accessed and analyzed using <code>Butler</code>. Data on the <a href="https://hscpfs.mtk.nao.ac.jp/portal/">PFS Science Platform</a> will be used as reference, specifically data products from proposal ID <code>S25A-000QF</code>, which is part of the <strong>PFS Filler Program</strong> and available to everyone that signs up to the Science Platform. The method of accessing and analyzing PFS data products using <code>Butler</code> is universally applicable to all 2D DRP pipeline reduced data.</p>
+<p>As a reference, the following are all the pipeline data products:</p>
+<pre><code>apCorr                 fitFluxCal_log             mergeArms_config    pfsCoaddLsf
+calibs                 fitFluxCal_metadata        mergeArms_log       pfsConfig
+coaddSpectra_config    fitFluxReference_config    mergeArms_metadata  pfsFluxReference
+coaddSpectra_log       fitFluxReference_log       objectGroupMap      pfsMerged
+coaddSpectra_metadata  fitFluxReference_metadata  packages            pfsMergedLsf
+cosmicray_config       fluxCal                    pfsArm              reduceExposure_config
+cosmicray_log          isr_config                 pfsArmLsf           reduceExposure_log
+cosmicray_metadata     isr_log                    pfsCalibrated       reduceExposure_metadata
+detectorMap            isr_metadata               pfsCalibratedLsf    sky1d
+fitFluxCal_config      lam1d_modified             pfsCoadd
+</code></pre>
+<p>Most of these files are not of much significance to the user as they are intermediate pipeline and QA products. The relevant PFS data products and their properties for the science user will be highlighted going forward, but for a detailed description please refer to the <a href="https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt">PFS Data Model documentation</a>.</p>
+<p>Finally we note here that in this section we will provide explanations and code for quick analysis of PFS data products out of the box; the user is also encouraged to follow the <a href="https://hscpfs.mtk.nao.ac.jp/portal/">PFS Science Platform Getting-Started Notebook</a> — a Jupyter Notebook that provides a step-by-step guide and a granular understanding of each data product.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../03_04_ana_1d/" class="btn btn-neutral float-left" title="Run 1D DRP"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../02_04_run_science/" class="btn btn-neutral float-left" title="Procees Science Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../03_11_accessing/" class="btn btn-neutral float-right" title="Accessing PFS Data">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -178,7 +191,7 @@ Proviide simple way to check file structure.</p>
         </span>
     
     
-      <span><a href="../03_04_ana_1d/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../02_04_run_science/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../03_11_accessing/" style="color: #fcfcfc">Next &raquo;</a></span>

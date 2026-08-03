@@ -68,17 +68,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Data Analysis (Legacy)</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_01_ana_file/">File Access</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_02_ana_visit/">Analyze Visit-level Data</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_03_ana_coadd/">Analyze Coadd-level Data</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03_04_ana_1d/">Run 1D DRP</a>
-                    </li>
-                </ul>
                 <p class="caption"><span class="caption-text">Data Analysis</span></p>
                 <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
@@ -100,6 +89,19 @@
                     <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_09_lam1d_install/">Installation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_11_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_10_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_12_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_13_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Q&A</span></p>
@@ -148,9 +150,9 @@
 <h2 id="lsst-butler">LSST Butler</h2>
 <p>PFS data is primarily accessed using the <a href="https://pipelines.lsst.io/modules/lsst.daf.butler/index.html">LSST Gen3 Butler</a>,
 which provides a uniform interface for reading and writing pipeline products without needing to know the exact file names or paths of every PFS data product on disk.</p>
-<p>All PFS data products are stored in <strong>collections</strong> within a butler repository.
-A collection is a grouping of PFS data tied to a specific
-processing run or observing programme — that allows the butler to locate the correct version of the data seamlessly with a few specific commands.</p>
+<p>All PFS data products are stored in <code>collections</code> within a <code>Butler</code> repository.
+A <code>collection</code> is a grouping of PFS data tied to a specific
+processing run or observing programme — that allows <code>Butler</code> to locate the correct version of the data seamlessly with a few specific commands.</p>
 <h2 id="setting-up-butler">Setting up Butler</h2>
 <p>Before any data can be analyzed, one must first provide the location of the 2D DRP datastore repository where the reduced data products are stored. For our reference dataset (see <a href="../03_10_overview/">Overview of PFS Data Products</a> for details), the datastore is located at <code>/shared/pfs/programs/S25A-000QF/2d/</code>:</p>
 <pre><code>$ ls /shared/pfs/programs/S25A-000QF/2d/
@@ -159,7 +161,7 @@ S25A_April2026      butler.yaml      customPfsConfig  run21_June2025   run22_Jul
 S25A_November2025   butler.yaml.bak  gen3.sqlite3     run23_August2025 run24_November2025
 run25_February2026  run26_June2026
 </code></pre>
-<p>The <code>butler.yaml</code> marks this directory as the root of the butler repository. Each sub-directory (e.g. <code>S25A_April2026</code>, <code>run26_June2026</code>) corresponds to a different <strong>collection</strong> — a named set of data products from a particular processing run or observing semester. We will use <code>S25A_April2026</code> as our reference collection going forward, which contains all reduced data observed during the S25A semester (Feb-July 2025) and reduced on April 2026. As improvements to the pipeline are made, newer reductions will be available in the future.</p>
+<p>The <code>butler.yaml</code> marks this directory as the root of the butler repository. Each sub-directory (e.g. <code>S25A_April2026</code>, <code>run26_June2026</code>) corresponds to a different <code>collection</code> — a named set of data products from a particular processing run or observing semester. We will use <code>S25A_April2026</code> as our reference <code>collection</code> going forward, which contains all reduced data observed during the S25A semester (Feb-July 2025) and reduced on April 2026. As improvements to the pipeline are made, newer reductions will be available in the future.</p>
 <pre><code class="language-python">from lsst.daf.butler import Butler
 
 repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
@@ -167,7 +169,7 @@ collections = &quot;S25A_April2026&quot;                       # collection name
 
 butler = Butler(repo, collections=collections)
 </code></pre>
-<p>Now that butler is ready, we can proceed to look at the individual data products.</p>
+<p>Now that <code>Butler</code> is ready, we can proceed to look at the individual data products.</p>
               
             </div>
           </div><footer>

@@ -28,7 +28,10 @@ drp_1dpipe -j 20 -n0 \
 
 ---
 
+
+
 ## Main parameters
+
 
 | Parameter                | Description                                                                                                                                                               |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -41,7 +44,10 @@ drp_1dpipe -j 20 -n0 \
 | `--scheduler` (optional) | Job scheduler: `local` (default), `pbs`, or `slurm`. Use `pbs` or `slurm` for cluster batch submission.                                                                   |
 | `--loglevel` (optional)  | Logging verbosity: `DEBUG`, `INFO` (default), `WARNING`, `ERROR`, `CRITICAL`                                                                                              |
 
+
 ---
+
+
 
 ## Config file
 
@@ -61,6 +67,8 @@ Once the pipeline is running, the full set of parameters used (defaults + overri
 
 ---
 
+
+
 ## Calibration files
 
 Calibration files (templates, line catalogs, LSF files, IGM/ISM tables) are required and must be passed via `--workdir`. The calibration files for version `1.18.0` are included in the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation), though these files may be updated over time. The latest calibration files are available at:
@@ -72,6 +80,8 @@ https://pfs.ipmu.jp/internal/devarch/lam-drp1d/
 Access requires PFS project credentials.
 
 ---
+
+
 
 ## Outputs
 
@@ -85,3 +95,4 @@ Log files are written to `<output>/log/` and can be monitored during the run:
 tail -f <output>/log/scheduler.log
 tail -f <output>/log/pre_process.log
 ```
+

@@ -1,17 +1,18 @@
 # Installing the LAM 1D Pipeline
 
-The LAM 1D pipeline (`drp_1dpipe` / `pylibamazed`) is the Subaru PFS 1D data reduction pipeline developed by LAM (Laboratoire d'Astrophysique de Marseille). It performs redshift fitting and line measurements on coadded PFS spectra.
+The LAM 1D pipeline is the PFS 1D data reduction pipeline developed by LAM (Laboratoire d'Astrophysique de Marseille). It performs redshift fitting and line measurements on coadded PFS spectra.
 
 - **Pipeline**: [drp_1dpipe](https://github.com/Subaru-PFS/drp_1dpipe)
 - **Core library**: [drp_1d (pylibamazed)](https://github.com/Subaru-PFS/drp_1d)
 - **Datamodel**: [datamodel.txt](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt)
 
-See the above pipeline repos and datamodel for a full description of pipeline input parameters and output data products.
+See the above pipeline repositories and datamodel page for a full description of the pipeline, its input parameters and output data products.
 
-An installation script and full documentation are available at:
-**[https://github.com/sali-sd/PFS-LAM1D-Installation](https://github.com/sali-sd/PFS-LAM1D-Installation)**
+An installation script and full documentation are available at: **[https://github.com/sali-sd/PFS-LAM1D-Installation](https://github.com/sali-sd/PFS-LAM1D-Installation)**
 
 ---
+
+
 
 ## Requirements
 
@@ -38,6 +39,8 @@ An installation script and full documentation are available at:
 
 ---
 
+
+
 ## Installation
 
 Download the installation script from the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation):
@@ -63,6 +66,8 @@ drp_1dpipe --version
 
 ---
 
+
+
 ## What the script does
 
 The script performs the following steps automatically:
@@ -86,6 +91,8 @@ The script performs the following steps automatically:
 
 ---
 
+
+
 ## Install locations
 
 
@@ -96,6 +103,8 @@ The script performs the following steps automatically:
 
 
 ---
+
+
 
 ## Selecting a pipeline version
 
@@ -117,6 +126,8 @@ To find available versions, check the tags on each repository:
     `drp_1d` tags are always prefixed with `pfs-` (e.g. `pfs-1.18.0`), while `drp_1dpipe` tags are not (e.g. `1.18.0`).
 
 ---
+
+
 
 ## Alternative: Docker installation
 
