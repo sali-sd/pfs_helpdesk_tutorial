@@ -45,9 +45,30 @@ drp_1dpipe -j 20 -n0 \
 
 ## Config file
 
-The `-p` parameter points to a JSON file that controls algorithm settings such as the wavelength range, LSF file, and line fitting options. A working template (`parameters_ex.json`) covering all three source types (galaxy, star, QSO) is provided in the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation) and can be modified as needed.
+The `-p` parameter points to a JSON file that controls algorithm settings. The full list of available parameters and their default values is defined in [`drp_1dpipe/auxdir/parameters_sgq.json`](https://github.com/Subaru-PFS/drp_1dpipe/blob/master/drp_1dpipe/auxdir/parameters_sgq.json) on the pipeline GitHub page.
 
-If no config file is provided, the pipeline runs with default parameters.
+The user does not need to specify all parameters — only the ones they want to override. Any parameter not included in the config file will fall back to the pipeline's default values.
+
+A working example config file (`parameters_ex.json`) is provided in the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation). It explicitly sets the following parameters:
+
+- `lambdaRange` — wavelength range to fit (e.g. `[4000, 12000]`)
+- `lsf.gaussianVariableWidthFileName` — path to the LSF file within the calibration directory
+- Full redshift solver settings for all three source types: galaxy, star, and QSO (template directories, redshift ranges, fitting methods, line catalogs etc.)
+
+All other parameters not listed in the file are left to the pipeline defaults.
+
+### Confirming parameters used
+
+Once the pipeline has run, the full set of parameters actually used (combining defaults and any user overrides) is written to `parameters.json` in the output directory:
+
+```
+<output>/
+├── config.json
+├── data/
+├── log/
+├── parameters.json    ← full parameter list used for this run
+└── report.json
+```
 
 ---
 
