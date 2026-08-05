@@ -36,10 +36,10 @@ drp_1dpipe -j 20 -n0 \
 | Parameter                | Description                                                                                                                                                               |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `-j <cores>`             | Number of CPU cores to use in parallel. Use `$(nproc)` to use all available cores, or specify a number (e.g. `-j 20`). Each spectrum takes about 8–10 minutes to process. |
-| `-n0`                    | No limit on the number of spectra per bunch — processes all spectra in the input file in one go. Increase if memory is limited.                                           |
+| `-n0`                    | No limit on the number of spectra per bunch — processes all spectra in the input file in one go. Specify a smaller number (e.g. `-n 100`) if memory is limited.           |
 | `--workdir`              | Path to the working directory. Must contain a `calibration/` subdirectory with `LSF/`, `templates/`, `linecatalogs/` etc. inside it.                                      |
 | `--coadd_file`           | Full path to the input `pfsCoadd` FITS file containing the coadded spectra to process                                                                                     |
-| `-o`                     | Output directory where results (`pfsCoZcandidates` FITS files) will be written.                                                                                           |
+| `-o`                     | Output directory where results (`pfsCoZCandidates` FITS files) will be written.                                                                                           |
 | `-p`                     | Full path to the JSON parameter file controlling pipeline parameters (wavelength range, line fitting options etc.)                                                        |
 | `--scheduler` (optional) | Job scheduler: `local` (default), `pbs`, or `slurm`. Use `pbs` or `slurm` for cluster batch submission.                                                                   |
 | `--loglevel` (optional)  | Logging verbosity: `DEBUG`, `INFO` (default), `WARNING`, `ERROR`, `CRITICAL`                                                                                              |
@@ -49,7 +49,7 @@ drp_1dpipe -j 20 -n0 \
 
 
 
-## Config file
+## Parameter file
 
 The full list of available parameters and their default values is defined in [drp_1dpipe/auxdir/parameters_sgq.json](https://github.com/Subaru-PFS/drp_1dpipe/blob/master/drp_1dpipe/auxdir/parameters_sgq.json) on the pipeline GitHub page. The user only needs to specify parameters they want to override — any parameter not included in the parameter file falls back to the pipeline's default values.
 
@@ -71,10 +71,10 @@ Once the pipeline is running, the full set of parameters used (defaults + overri
 
 ## Calibration files
 
-Calibration files (templates, line catalogs, LSF files, IGM/ISM tables) are required and must be passed via `--workdir`. The calibration files for version `1.18.0` are included in the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation), though these files may be updated over time. The latest calibration files are available at:
+Calibration files (templates, line catalogs, LSF files, IGM/ISM tables) are required and must be passed via `--workdir`. The latest calibration files are available at:
 
 ```
-https://pfs.ipmu.jp/internal/devarch/lam-drp1d/
+https://hscpfs.mtk.nao.ac.jp/nextcloud/s/jEqyZmicHXCNsi6?opendetails=
 ```
 
 ---
@@ -83,7 +83,7 @@ https://pfs.ipmu.jp/internal/devarch/lam-drp1d/
 
 ## Outputs
 
-The pipeline writes one `pfsCoZcandidates` FITS file per `pfsCoadd` input file into the output directory (`-o`). Each file contains redshift candidates, probability distributions, and line measurements for all spectra in the input file.
+The pipeline writes one `pfsCoZCandidates` FITS file per `pfsCoadd` input file into the output directory (`-o`). Each file contains redshift candidates, probability distributions, and line measurements for all spectra in the input file.
 
 For a full description of the output data products, see the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
 
