@@ -83,14 +83,25 @@ https://hscpfs.mtk.nao.ac.jp/nextcloud/s/jEqyZmicHXCNsi6?opendetails=
 
 ## Outputs
 
-The pipeline writes one `pfsCoZCandidates` FITS file per `pfsCoadd` input file into the output directory (`-o`). Each file contains redshift candidates, probability distributions, and line measurements for all spectra in the input file.
+A successful run populates the output directory (`-o`) with the following:
 
-For a full description of the output data products, see the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
-
-Log files are written to `<output>/log/` and can be monitored during the run:
-
-```bash
-tail -f <output>/log/scheduler.log
-tail -f <output>/log/pre_process.log
 ```
+<output>/
+├── config.json
+├── parameters.json
+├── report.json
+├── data/
+│   └── pfsCoZcandidates-<catId>.fits
+└── log/
+```
+
+
+| Path                                 | Description                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data/pfsCoZcandidates-<catId>.fits` | Main science product — one FITS file per `pfsCoadd` input, containing redshift candidates, probability distributions, and line measurements for all spectra. See [pfsCoZCandidates](04_12_lam1d_zcandidates.md) and the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt). |
+| `config.json`                        | Run configuration written by the pipeline (working directory, log directory, scheduler, concurrency, input `coadd_file`, output directory, parameter file path, stellar mode, etc.).                                                                                                                        |
+| `parameters.json`                    | Full set of pipeline parameters actually used for the run (defaults plus any overrides from `-p`).                                                                                                                                                                                                          |
+| `report.json`                        | Summary of the run: object counts and fractions by class (galaxy / qso / star), redshift-error counts/fractions per class, and aggregate line-measurement stats (line counts, positive-flux lines, etc.).                                                                                                   |
+| `log/`                               | Log files for the run (scheduler, pre-processing, per-bunch jobs, merge). Useful for monitoring progress, e.g. `tail -f <output>/log/scheduler.log`.                                                                                                                                                        |
+
 
