@@ -55,7 +55,7 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 | #5 | FLUX | Image/table | nJy | NWAVELENGTH × NOBJECT |
 | #6 | MASK | Image/table | bitmask | NWAVELENGTH × NOBJECT |
 | #7 | SKY | Image/table | nJy | NWAVELENGTH × NOBJECT |
-| #8 | COVAR | Image/table | — | NWAVELENGTH × NOBJECT × 3 |
+| #8 | COVAR | Image/table | nJy² | NWAVELENGTH × NOBJECT × 3 |
 | #9 | COVAR2 | Image/table | — | NCOARSE × NCOARSE |
 | #10 | METADATA | Binary table | — | NOBJECT rows |
 | #11 | FLUXTABLE | Binary table | — | NOBJECT × NOBS × NWAVELENGTH rows |

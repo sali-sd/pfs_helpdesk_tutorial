@@ -29,7 +29,7 @@ Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
 | #4 | MASK | Image | bitmask | NROW × NFIBER |
 | #5 | SKY | Image | electrons/nm | NROW × NFIBER |
 | #6 | NORM | Image | electrons/nm | NROW × NFIBER |
-| #7 | COVAR | Image | — | NROW × 3 × NFIBER |
+| #7 | COVAR | Image | (e/nm)² | NROW × 3 × NFIBER |
 | #8 | CONFIG | Binary table | — | 1 row (pfsDesignId, visit) |
 | #9 | NOTES | Binary table | — | NFIBER rows |
 
