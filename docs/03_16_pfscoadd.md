@@ -46,8 +46,6 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 | #12 | NOTES        | Binary table | —           | NNOTES rows                       |
 
 
-
-
 ## Finding All Combinations in Collections
 
 You can check all `combination` names in your `collections` as such:
@@ -68,8 +66,6 @@ print(f"Available combinations in '{collections}': {combinations}")
 ```
 Available combinations in 'S25A_April2026': ['selected_S25A']
 ```
-
-
 
 ## A Note about Combinations on the Science Platform
 
@@ -94,11 +90,9 @@ print(f"Available combinations in '{collections}': {combinations}")
 Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
 ```
 
-
-
 ## Viewing pfsCoadd Spectra
 
-The following plots the `pfsCoadd` spectrum of a single object. Unlike the visit-based products, `pfsCoadd` has no `visit` dimension — objects are indexed by `combination`, `catId` and `objGroup` parameters instead, which the code automatically locates without needing to be specified by the user. Instantiate `Butler` by providing the datastore `repo` and `collections`. Then specify an `objid` to plot that object directly, or use `browse_index` to step through all science objects in the `collections` sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
+The following plots the `pfsCoadd` spectrum of a single object. Unlike the visit-based products, `pfsCoadd` has no `visit` dimension — objects are indexed by `combination`, `catId` and `objGroup` instead. Instantiate `Butler` by providing the datastore `repo` and `collections`, and set `combination` to the combination you want to plot (see above for how to find available combinations). The code then automatically locates the corresponding `catId` and `objGroup`. Specify an `objid` to plot that object directly, or use `browse_index` to step through all science objects in the `collections` sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
 
 ```python
 import numpy as np
