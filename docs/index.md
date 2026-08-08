@@ -118,6 +118,7 @@ Examples of the FITS header for PFS data are accessible from the list below.
 
 ---
 
+- Masayuki Tanaka et al., ["Prime Focus Spectrograph on the Subaru Telescope: Overview of Science Operations", arXiv:2606.14012 (2026)](https://ui.adsabs.harvard.edu/abs/2026arXiv260614012T/abstract)
 - Naoyuki Tamura et al., ["Prime Focus Spectrograph (PFS) for Subaru Telescope: progressing final steps to science operation", SPIE 13096, 1309605 (2024)](https://ui.adsabs.harvard.edu/abs/2024SPIE13096E..05T/abstract)
 - Naoyuki Tamura et al., ["Prime Focus Spectrograph (PFS) for the Subaru Telescope: its start of the last development phase", SPIE 12184, 1218410 (2022)](https://ui.adsabs.harvard.edu/abs/2022SPIE12184E..10T/abstract)
 - Shiang-Yu Wang et al., ["Prime focus spectrograph (PFS) for the Subaru Telescope: the prime focus instrument", SPIE 12184, 121846R (2022)](https://ui.adsabs.harvard.edu/abs/2022SPIE12184E..6RW/abstract)

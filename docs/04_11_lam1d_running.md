@@ -61,10 +61,6 @@ A working example parameter file (`parameters_ex.json`) is provided in the [PFS-
 
 All other parameters fall back to the pipeline defaults.
 
-### Confirming parameters used
-
-Once the pipeline is running, the full set of parameters used (defaults + overrides) is written to `parameters.json` in the output directory, alongside `config.json`, `data/`, `log/`, and `report.json`.
-
 ---
 
 
