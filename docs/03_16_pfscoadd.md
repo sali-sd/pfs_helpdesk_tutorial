@@ -9,24 +9,6 @@ Unlike the visit-based products, `pfsCoadd` files are organised by three dimensi
 - **`catId`** — the object catalog identifier; files are grouped into subdirectories by `catId`
 - **`objGroup`** — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
 
-You can check all `combination` names in your `collections` as such:
-
-```python
-from lsst.daf.butler import Butler
-
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"
-collections = "S25A_April2026"
-
-butler = Butler(repo, collections=collections)
-combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
-print(f"Available combinations in '{collections}': {combinations}")
-```
-
-**Output**:
-```
-Available combinations in 'S25A_April2026': ['selected_S25A']
-```
-
 The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) is referred to as a **`pfsObject`** spectrum.
 
 - Flux units are **nJy** (nano-Janskys)
@@ -60,6 +42,26 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 | #10 | METADATA | Binary table | — | NOBJECT rows |
 | #11 | FLUXTABLE | Binary table | — | NOBJECT × NOBS × NWAVELENGTH rows |
 | #12 | NOTES | Binary table | — | NNOTES rows |
+
+## Finding All Combinations in Collections
+
+You can check all `combination` names in your `collections` as such:
+
+```python
+from lsst.daf.butler import Butler
+
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"
+collections = "S25A_April2026"
+
+butler = Butler(repo, collections=collections)
+combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
+print(f"Available combinations in '{collections}': {combinations}")
+```
+
+**Output**:
+```
+Available combinations in 'S25A_April2026': ['selected_S25A']
+```
 
 ## Viewing pfsCoadd Spectra
 
