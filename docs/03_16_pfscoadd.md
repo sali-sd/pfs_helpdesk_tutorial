@@ -5,7 +5,7 @@
 `pfsCoadd` contains the wavelength-calibrated, sky-subtracted, flux-calibrated and **coadded** spectra combining data across multiple visits (exposures).
 Unlike the visit-based products, `pfsCoadd` files are organised by three dimensions:
 
-- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename. While there is only one `combination` in the current dataset, in future processing runs the `combination` key will be used to separate out low resolution `brn` and medium resoluton `bmn` data.
+- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename.
 - **`catId`** — the object catalog identifier; files are grouped into subdirectories by `catId`
 - **`objGroup`** — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
 
@@ -17,6 +17,7 @@ The individual coadded spectrum of a single object (i.e. one row/entry inside `p
 Filename format: `pfsCoadd_PFS_{combination}_{catId}_{objGroup}_{collection}.fits`
 
 Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler Program) on the Science Platform (32 object groups):
+
 ```
 /shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCoadd/10094/
     pfsCoadd_PFS_selected_S25A_10094_1_S25A_April2026.fits
@@ -27,21 +28,25 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 
 **FITS structure:**
 
-| HDU | Name | Type | Units | Dimensions |
-|-----|------|------|-------|------------|
-| #0 | PDU | Header | — | — |
-| #1 | TARGET | Binary table | — | NOBJECT rows |
-| #2 | TARGETFLUX | Binary table | — | NFLUX rows |
-| #3 | OBSERVATIONS | Binary table | — | NOBS rows |
-| #4 | WAVELENGTH | Image/table | nm (vacuum) | NWAVELENGTH × NOBJECT |
-| #5 | FLUX | Image/table | nJy | NWAVELENGTH × NOBJECT |
-| #6 | MASK | Image/table | bitmask | NWAVELENGTH × NOBJECT |
-| #7 | SKY | Image/table | nJy | NWAVELENGTH × NOBJECT |
-| #8 | COVAR | Image/table | nJy² | NWAVELENGTH × NOBJECT × 3 |
-| #9 | COVAR2 | Image/table | — | NCOARSE × NCOARSE |
-| #10 | METADATA | Binary table | — | NOBJECT rows |
-| #11 | FLUXTABLE | Binary table | — | NOBJECT × NOBS × NWAVELENGTH rows |
-| #12 | NOTES | Binary table | — | NNOTES rows |
+
+| HDU | Name         | Type         | Units       | Dimensions                        |
+| --- | ------------ | ------------ | ----------- | --------------------------------- |
+| #0  | PDU          | Header       | —           | —                                 |
+| #1  | TARGET       | Binary table | —           | NOBJECT rows                      |
+| #2  | TARGETFLUX   | Binary table | —           | NFLUX rows                        |
+| #3  | OBSERVATIONS | Binary table | —           | NOBS rows                         |
+| #4  | WAVELENGTH   | Image/table  | nm (vacuum) | NWAVELENGTH × NOBJECT             |
+| #5  | FLUX         | Image/table  | nJy         | NWAVELENGTH × NOBJECT             |
+| #6  | MASK         | Image/table  | bitmask     | NWAVELENGTH × NOBJECT             |
+| #7  | SKY          | Image/table  | nJy         | NWAVELENGTH × NOBJECT             |
+| #8  | COVAR        | Image/table  | nJy²        | NWAVELENGTH × NOBJECT × 3         |
+| #9  | COVAR2       | Image/table  | —           | NCOARSE × NCOARSE                 |
+| #10 | METADATA     | Binary table | —           | NOBJECT rows                      |
+| #11 | FLUXTABLE    | Binary table | —           | NOBJECT × NOBS × NWAVELENGTH rows |
+| #12 | NOTES        | Binary table | —           | NNOTES rows                       |
+
+
+
 
 ## Finding All Combinations in Collections
 
@@ -59,9 +64,37 @@ print(f"Available combinations in '{collections}': {combinations}")
 ```
 
 **Output**:
+
 ```
 Available combinations in 'S25A_April2026': ['selected_S25A']
 ```
+
+
+
+## A Note about Combinations on the Science Platform
+
+- The dataset being explored in this tutorial on the Science Platform - `Proposal ID: S25A-000QF`, `Collection: S25A_April2026`, only has one combination as seen above - `selected_S25A`.
+- This means that all visits (exposures) for each object were combined and placed placed into the above `combination` without any further discrimination.
+- However, from `run26_June2026` onwards (i.e. from the June 2026 processing run) all data will be split into two `combinations` called `brn` and `bmn`, which separately combine the low resolution red-arm and medium resolution red-arm data respectively. You can see this demonstrated below:
+
+```python
+from lsst.daf.butler import Butler
+
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"
+collections = "run26_June2026"
+
+butler = Butler(repo, collections=collections)
+combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
+print(f"Available combinations in '{collections}': {combinations}")
+```
+
+**Output**:
+
+```
+Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
+```
+
+
 
 ## Viewing pfsCoadd Spectra
 
@@ -77,13 +110,14 @@ from pfs.datamodel import TargetType
 # ==== USER-DEFINED PARAMETERS ====
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
 collections = "S25A_April2026"                       # collection name
+combination  = "selected_S25A"      # Set to the combination you want to plot
 objid        = 120731449862702300    # If set, plots this object directly. If None uses browse_index
 browse_index = 0                     # Used only if objid is None; steps through SCIENCE objects by index
 MEDIAN_FILTER_SIZE = 1               # 1 = no filtering, increment for smoothing as desired
 arms               = ['b', 'r']      # options: 'b', 'r', 'n' or any combination of arms to plot
 
 # ==== PFSCOADD PLOTTING FUNCTION ====
-def plot_pfscoadd(repo, collections, objid, browse_index, MEDIAN_FILTER_SIZE, arms):
+def plot_pfscoadd(repo, collections, combination, objid, browse_index, MEDIAN_FILTER_SIZE, arms):
 
     ARM_RANGES = {
         'b': (380,  650),
@@ -96,9 +130,13 @@ def plot_pfscoadd(repo, collections, objid, browse_index, MEDIAN_FILTER_SIZE, ar
     if not datarefs:
         raise ValueError(f"No pfsCoadd datasets found in collections '{collections}'")
 
-    combination = datarefs[0].dataId['combination']
-    cat_ids     = sorted({ref.dataId['cat_id'] for ref in datarefs})
+    # ==== VALIDATE COMBINATION ====
+    all_combinations = sorted({ref.dataId['combination'] for ref in datarefs})
+    if combination not in all_combinations:
+        raise ValueError(f"combination '{combination}' not found. Available: {all_combinations}")
 
+    cat_ids = sorted({ref.dataId['cat_id'] for ref in datarefs
+                      if ref.dataId['combination'] == combination})
     # ==== RESOLVE OBJID ====
     if objid is None:
         all_objids = []
@@ -174,11 +212,13 @@ def plot_pfscoadd(repo, collections, objid, browse_index, MEDIAN_FILTER_SIZE, ar
 plot_pfscoadd(
     repo               = repo,
     collections        = collections,
+    combination        = combination,
     objid              = objid,
     browse_index       = browse_index,
     MEDIAN_FILTER_SIZE = MEDIAN_FILTER_SIZE,
     arms               = arms,
 )
+
 ```
 
 **Output**:
