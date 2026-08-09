@@ -46,6 +46,8 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 | #12 | NOTES        | Binary table | —           | NNOTES rows                       |
 
 
+
+
 ## Finding All Combinations in Collections
 
 You can check all `combination` names in your `collections` as such:
@@ -66,6 +68,8 @@ print(f"Available combinations in '{collections}': {combinations}")
 ```
 Available combinations in 'S25A_April2026': ['selected_S25A']
 ```
+
+
 
 ## A Note about Combinations on the Science Platform
 
@@ -89,6 +93,8 @@ print(f"Available combinations in '{collections}': {combinations}")
 ```
 Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
 ```
+
+
 
 ## Viewing pfsCoadd Spectra
 

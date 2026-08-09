@@ -3,7 +3,7 @@
 After the process is complete, run the following commands to set up the environment (choose the appropriate `loadLSST` script according to your shell):
 
 ```bash
-source $WORKDIR/$(whoami)/packages/stack_28/loadLSST.bash
+source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
 setup pfs_pipe2d
 ```
 
