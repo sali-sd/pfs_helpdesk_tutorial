@@ -7,6 +7,7 @@
 The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` file is produced per `catId`/`objGroup` combination (see the [pfsCoadd](03_16_pfscoadd.md) section). The results are stored in a directory tree where each folder is named `{catId}_{objGroup}`, and the FITS file lives inside a `data/` subdirectory.
 
 Example from proposal `S25A-000QF`, catId 10094 (32 object groups):
+
 ```
 /shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified/
     10094_1/              ← directory: {catId}_{objGroup}
@@ -24,58 +25,65 @@ Example from proposal `S25A-000QF`, catId 10094 (32 object groups):
 
 Filename format: `{path_to_pfsCoZCandidates}/{catId}_{objGroup}/data/pfsCoZcandidates-{catId}.fits`
 
-
 **FITS structure:**
 
-| HDU | Name | Type | Description |
-|-----|------|------|-------------|
-| #0 | PDU | Header | Version keywords (D1D_VER, D1DP_VER, etc.) |
-| #1 | TARGET | Binary table | Object identifiers (targetId, catId, objId, ra, dec, targetType) |
-| #2 | WARNINGS | Binary table | Per-solver warning bitmasks |
-| #3 | ERRORS | Binary table | Per-solver error codes and messages |
-| #4 | CLASSIFICATION | Binary table | Best classification (GALAXY/QSO/STAR) with probabilities |
-| #5 | GALAXY_CANDIDATES | Binary table | Galaxy redshift candidates (ranked) |
-| #6 | GALAXY_MODELS | Image/table | Best-fit galaxy model spectra (nJy) |
-| #7 | GALAXY_REDSHIFT_GRID | Binary table | Redshift grid used for galaxy PDF |
-| #8 | GALAXY_LN_PDF | Image | ln(probability) marginalised over galaxy templates |
-| #9 | GALAXY_LINES | Binary table | Galaxy emission/absorption line measurements |
-| #10 | QSO_CANDIDATES | Binary table | QSO redshift candidates (ranked) |
-| #11 | QSO_MODELS | Image/table | Best-fit QSO model spectra (nJy) |
-| #12 | QSO_REDSHIFT_GRID | Binary table | Redshift grid used for QSO PDF |
-| #13 | QSO_LN_PDF | Image | ln(probability) marginalised over QSO templates |
-| #14 | QSO_LINES | Binary table | QSO emission/absorption line measurements |
-| #15 | STAR_CANDIDATES | Binary table | Stellar radial velocity candidates (ranked) |
-| #16 | STAR_MODELS | Image/table | Best-fit stellar model spectra (nJy) |
-| #17 | STAR_VELOCITY_GRID | Binary table | Velocity grid used for stellar PDF |
-| #18 | STAR_LN_PDF | Image | ln(probability) marginalised over stellar templates |
-| #19 | QUALITY | Binary table | Quality metrics (OII doublet SNR, valid pixel count, etc.) |
+
+| HDU | Name                 | Type         | Description                                                      |
+| --- | -------------------- | ------------ | ---------------------------------------------------------------- |
+| #0  | PDU                  | Header       | Version keywords (D1D_VER, D1DP_VER, etc.)                       |
+| #1  | TARGET               | Binary table | Object identifiers (targetId, catId, objId, ra, dec, targetType) |
+| #2  | WARNINGS             | Binary table | Per-solver warning bitmasks                                      |
+| #3  | ERRORS               | Binary table | Per-solver error codes and messages                              |
+| #4  | CLASSIFICATION       | Binary table | Best classification (GALAXY/QSO/STAR) with probabilities         |
+| #5  | GALAXY_CANDIDATES    | Binary table | Galaxy redshift candidates (ranked)                              |
+| #6  | GALAXY_MODELS        | Image/table  | Best-fit galaxy model spectra (nJy)                              |
+| #7  | GALAXY_REDSHIFT_GRID | Binary table | Redshift grid used for galaxy PDF                                |
+| #8  | GALAXY_LN_PDF        | Image        | ln(probability) marginalised over galaxy templates               |
+| #9  | GALAXY_LINES         | Binary table | Galaxy emission/absorption line measurements                     |
+| #10 | QSO_CANDIDATES       | Binary table | QSO redshift candidates (ranked)                                 |
+| #11 | QSO_MODELS           | Image/table  | Best-fit QSO model spectra (nJy)                                 |
+| #12 | QSO_REDSHIFT_GRID    | Binary table | Redshift grid used for QSO PDF                                   |
+| #13 | QSO_LN_PDF           | Image        | ln(probability) marginalised over QSO templates                  |
+| #14 | QSO_LINES            | Binary table | QSO emission/absorption line measurements                        |
+| #15 | STAR_CANDIDATES      | Binary table | Stellar radial velocity candidates (ranked)                      |
+| #16 | STAR_MODELS          | Image/table  | Best-fit stellar model spectra (nJy)                             |
+| #17 | STAR_VELOCITY_GRID   | Binary table | Velocity grid used for stellar PDF                               |
+| #18 | STAR_LN_PDF          | Image        | ln(probability) marginalised over stellar templates              |
+| #19 | QUALITY              | Binary table | Quality metrics (OII doublet SNR, valid pixel count, etc.)       |
+
+
+
 
 ## Key Columns
 
 **CLASSIFICATION (HDU #4):**
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `targetId` | 16-bit INT | Links to TARGET HDU |
-| `class` | STRING | Best classification: `GALAXY`, `QSO`, or `STAR` |
-| `probaGalaxy` | FLOAT | Probability of being a galaxy |
-| `probaQSO` | FLOAT | Probability of being a QSO |
-| `probaStar` | FLOAT | Probability of being a star |
+
+| Column        | Type       | Description                                     |
+| ------------- | ---------- | ----------------------------------------------- |
+| `targetId`    | 16-bit INT | Links to TARGET HDU                             |
+| `class`       | STRING     | Best classification: `GALAXY`, `QSO`, or `STAR` |
+| `probaGalaxy` | FLOAT      | Probability of being a galaxy                   |
+| `probaQSO`    | FLOAT      | Probability of being a QSO                      |
+| `probaStar`   | FLOAT      | Probability of being a star                     |
+
 
 **GALAXY_CANDIDATES (HDU #5) — key columns:**
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `cRank` | 32-bit INT | Candidate rank; 0 = best |
-| `redshift` | 32-bit FLOAT | Best-fit redshift |
-| `redshiftError` | 32-bit FLOAT | Redshift uncertainty |
+
+| Column          | Type         | Description                  |
+| --------------- | ------------ | ---------------------------- |
+| `cRank`         | 32-bit INT   | Candidate rank; 0 = best     |
+| `redshift`      | 32-bit FLOAT | Best-fit redshift            |
+| `redshiftError` | 32-bit FLOAT | Redshift uncertainty         |
 | `redshiftProba` | 32-bit FLOAT | PDF peak area (dz = ±3×10⁻³) |
-| `subClass` | STRING | Sub-classification |
-| `continuumFile` | STRING | Continuum template used |
+| `subClass`      | STRING       | Sub-classification           |
+| `continuumFile` | STRING       | Continuum template used      |
+
 
 The same ranked-candidate structure applies to `QSO_CANDIDATES` (HDU #10) and `STAR_CANDIDATES` (HDU #15), with `velocity` replacing `redshift` for stars.
 
-## Building a LAM 1D Object Table
+## Build LAM 1D Object Table & Plot Magnitude vs Redshift/Velocity
 
 The following code builds a combined object table across all LAM 1D results in a `collection` with the best object type and redshift/velocity values as indicated by the pipeline. It works in three steps:
 
@@ -86,7 +94,7 @@ The following code builds a combined object table across all LAM 1D results in a
 After saving the CSV, the code plots **magnitude vs. redshift** (for GALAXY and QSO) and **magnitude vs. velocity** (for STAR), coloured by `catId`.
 
 ```python
-# ==== LAM1D PIPELINE: MAGNITUDE + OBJECT TABLE ====
+# ==== LAM1D OBJECT TABLE + MAGNITUDE VS REDSHIFT/VELOCITY PLOT ====
 
 # This code builds a magnitude table for all objects in COLLECTIONS and combines it with
 # LAM1D redshift/classification outputs (where available) into a single CSV file.
@@ -103,7 +111,7 @@ from pfs.datamodel import TargetType
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"
 collections = "run26_June2026"
 
-# ==== STEP 1: BUILD MAGNITUDE LOOKUP ====
+# ==== FIND OBJECT MAGNITUDES ====
 butler     = Butler(repo, collections=[collections, f"{collections}/lam1d_modified"])
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Building magnitude lookup from {len(all_visits)} visits...")
@@ -140,7 +148,7 @@ mag_df       = mag_df.drop(columns=empty_cols)
 mag_cols     = [col for col in mag_cols_all if col not in empty_cols]
 print(f"Magnitude lookup complete: {len(mag_df)} unique objects  |  Filters: {mag_cols}")
 
-# ==== STEP 2: READ LAM1D VIA BUTLER ====
+# ==== READ LAM1D VIA BUTLER ====
 refs = list(butler.registry.queryDatasets('pfsCoZCandidates'))
 print(f"Reading LAM1D from {len(refs)} pfsCoZCandidates files via Butler...")
 
@@ -201,13 +209,13 @@ if not all_final_dfs:
 print()  # clear the \r line
 print(f"Processed {len(all_final_dfs)} files  ({n_skipped} skipped)")
 
-# ==== STEP 3: COMBINE AND ATTACH MAGNITUDES ====
+# ==== COMBINE AND ATTACH MAGNITUDES ====
 combined_df = pd.concat(all_final_dfs, ignore_index=True)
 combined_df = combined_df.merge(mag_df[['objId'] + mag_cols], on='objId', how='left')
 matched     = combined_df[mag_cols].notna().any(axis=1).sum()
 print(f"Magnitudes matched: {matched} / {len(combined_df)} objects")
 
-# ==== STEP 4: AUTO-CORRECT VELOCITY UNITS IF NEEDED ====
+# ==== AUTO-CORRECT VELOCITY UNITS IF NEEDED ====
 # The datamodel specifies km/s, but older releases used m/s. If the median absolute
 # stellar velocity is >> 500 km/s, it is almost certainly stored in m/s and is corrected.
 star_mask = combined_df['class'].str.upper() == 'STAR'
@@ -217,7 +225,7 @@ if star_mask.any():
         print(f"Auto-correcting velocity units: median |velocity|={median_vel:.0f} → likely m/s, dividing by 1000")
         combined_df.loc[star_mask, 'velocity_star'] = combined_df.loc[star_mask, 'velocity_star'] / 1000
 
-# ==== STEP 5: SAVE ====
+# ==== SAVE ====
 combined_df.to_csv(f'{collections}_all_lam1d.csv', index=False)
 print(f"Saved {collections}_all_lam1d.csv  ({len(combined_df)} objects)")
 
@@ -275,19 +283,25 @@ for class_name, y_col, y_label, y_scale in plot_config:
     plt.show()
 ```
 
+
+
 **Output**:
+
 ```
 Building magnitude lookup from 632 visits...
   Visit 632/632: 128470  (44085 unique objects so far)
 Magnitude lookup complete: 44085 unique objects  |  Filters: ['mag_g_gaia', 'mag_bp_gaia', 'mag_rp_gaia', 'mag_g_ps1', 'mag_r_ps1', 'mag_i_ps1', 'mag_z_ps1', 'mag_y_ps1']
 
-Reading LAM1D FITS from 32 directories...
-Processed 32 directories  (0 skipped)
-Magnitudes matched: 31107 / 31107 objects
-Saved S25A_April2026_all_lam1d.csv  (31107 objects)
+Reading LAM1D from 32 pfsCoZCandidates files via Butler...
+  Processing file 32/32  (0 skipped)
+Processed 32 files  (0 skipped)
+
+Magnitudes matched: 31120 / 31120 objects
+Auto-correcting velocity units: median |velocity|=59958 → likely m/s, dividing by 1000
+Saved S25A_April2026_all_lam1d.csv  (31120 objects)
 
 Class breakdown:
-  GALAXY: 16147 objects
+  GALAXY: 16160 objects
   QSO: 214 objects
   STAR: 14746 objects
 ```

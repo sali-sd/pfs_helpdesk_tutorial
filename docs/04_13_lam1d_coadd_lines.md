@@ -333,9 +333,9 @@ plot_pfscoadd_lam1d(
 
 **Output**:
 ```
-Target z=0.3 → closest object at redshift_gal=0.3000   (idx=2829)
-ObjId=120731449862702300  CatID=10094  ObjGroup=14  redshift_gal=0.3000  g_ps1=21.63  zProba=1.000  classProba=1.000
-Loading pfsCoadd and LAM1D for catid=10094 obj_group=14...
+Auto-detected class: GALAXY for objId=120731449862702300
+Loading pfsCoadd for catid=10094 obj_group=14...
+ObjId=120731449862702300  CatID=10094  ObjGroup=14  z=0.3000  g_ps1=21.63  zProba=1.000  classProba=1.000
 
 ---- Top 10 Lines by SNR  (global z=0.3000) ----
   Line             SNR        EW    EW_err    lineZ       dz   sigma
@@ -343,11 +343,11 @@ Loading pfsCoadd and LAM1D for catid=10094 obj_group=14...
   Halpha         108.9       5.7       0.1   0.3000  +0.0000    0.19
   [SII]6731       37.9       0.8       0.0   0.3000  +0.0000    0.18
   [NII]a          34.8       1.2       0.0   0.3000  +0.0000    0.19
-  [OIII]a         31.2       1.5       0.1   0.3000  -0.0000    0.14
+  [OIII]a         31.2       1.5       0.1   0.3000  +0.0000    0.14
   [OII]3726       26.8       2.2       0.2   0.3000  +0.0000    0.12
   [SII]6716       26.6       1.0       0.0   0.3000  +0.0000    0.18
   [OII]3729       25.4       3.5       0.2   0.3000  +0.0000    0.12
-  [OIII]b         16.3       0.5       0.0   0.3000  -0.0000    0.14
+  [OIII]b         16.3       0.5       0.0   0.3000  +0.0000    0.14
   Hbeta           16.1       1.3       0.1   0.3000  -0.0000    0.13
   [NII]b          10.3       0.4       0.0   0.3000  +0.0000    0.19
 ```
