@@ -8,11 +8,12 @@ The format is identical to `pfsArm`, with two differences:
 
 - Flux units are **electrons per nm** (rather than electrons)
 - The `WAVELENGTH` array may be a single shared array applied to all fibers
-  (rather than one per fiber), if all fibers share the same wavelength sampling
+(rather than one per fiber), if all fibers share the same wavelength sampling
 
 Filename format: `pfsMerged_PFS_{visit}_{collection}.fits`
 
 Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
+
 ```
 /shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsMerged/20250403/123476/
     pfsMerged_PFS_123476_S25A_April2026.fits
@@ -20,18 +21,22 @@ Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
 
 **FITS structure:**
 
-| HDU | Name | Type | Units | Dimensions |
-|-----|------|------|-------|------------|
-| #0 | PDU | Header | — | — |
-| #1 | FIBERID | Image | — | NFIBER |
-| #2 | WAVELENGTH | Image | nm (vacuum) | NROW × NFIBER (or NROW if shared) |
-| #3 | FLUX | Image | electrons/nm | NROW × NFIBER |
-| #4 | MASK | Image | bitmask | NROW × NFIBER |
-| #5 | SKY | Image | electrons/nm | NROW × NFIBER |
-| #6 | NORM | Image | electrons/nm | NROW × NFIBER |
-| #7 | COVAR | Image | (e/nm)² | NROW × 3 × NFIBER |
-| #8 | CONFIG | Binary table | — | 1 row (pfsDesignId, visit) |
-| #9 | NOTES | Binary table | — | NFIBER rows |
+
+| HDU | Name       | Type         | Units        | Dimensions                        |
+| --- | ---------- | ------------ | ------------ | --------------------------------- |
+| #0  | PDU        | Header       | —            | —                                 |
+| #1  | FIBERID    | Image        | —            | NFIBER                            |
+| #2  | WAVELENGTH | Image        | nm (vacuum)  | NROW × NFIBER (or NROW if shared) |
+| #3  | FLUX       | Image        | electrons/nm | NROW × NFIBER                     |
+| #4  | MASK       | Image        | bitmask      | NROW × NFIBER                     |
+| #5  | SKY        | Image        | electrons/nm | NROW × NFIBER                     |
+| #6  | NORM       | Image        | electrons/nm | NROW × NFIBER                     |
+| #7  | COVAR      | Image        | (e/nm)²      | NROW × 3 × NFIBER                 |
+| #8  | CONFIG     | Binary table | —            | 1 row (pfsDesignId, visit)        |
+| #9  | NOTES      | Binary table | —            | NFIBER rows                       |
+
+
+
 
 ## Viewing pfsMerged Spectra
 
