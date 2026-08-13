@@ -1,18 +1,16 @@
 # pfsCoadd Spectrum + LAM 1D Model
 
-The following code uses the `objid to`plot the `pfsCoadd` spectrum of a single object overlaid with the LAM 1D best-fit model, and marks detected spectral lines. Alternatively, It can use the `{collections}_all_lam1d.csv` file produced by the object table code in the [pfsCoZCandidates](04_12_lam1d_zcandidates.md) section to search for objects by redshift/velocty or browse by index (csv is not required for a simple `objid` search) . Run that code once before using this plotter if using method the second or third selection method.
+The following script uses the `objid` to plot the `pfsCoadd` spectrum of a single object overlaid with the LAM 1D best-fit model, and marks detected spectral lines. Alternatively, It can use the `{collections}_all_lam1d.csv` file produced by the object table code in the [pfsCoZCandidates](04_12_lam1d_zcandidates.md) section to search for objects by redshift/velocty or browse by index (csv is not required for a simple `objid` search) . Run that code once before using this plotter if using method the second or third selection method.
 
 The code supports three modes of object selection:
 
 - **By** `objid` — plots that object directly, auto-detecting its class using `Butler` (object table csv not required).
 - **By class + redshift/velocity** — finds the object in the CSV closest to a target redshift (GALAXY/QSO) or velocity (STAR) provided.
-- **By class +** `browse_index` — steps through all objects of a given class sorted by descending redshift/velocity.
+- **By class +** `browse_index` — steps through all objects of a given class in the CSV sorted by descending redshift/velocity.
 
 Once an object is loaded, the code fetches the `pfsCoadd` spectrum via `Butler` and reads the corresponding LAM 1D FITS file directly from disk. The main plot shows the observed spectrum (black) and the LAM 1D model fit (red) with detected line positions marked. For GALAXY and QSO objects, up to four zoom panels below the main plot show the top-ranked lines by SNR, with the line name, SNR, and equivalent width displayed. A summary table of the top 10 lines by SNR is also printed to the terminal.
 
 ```python
-# ==== PFSCOADD + LAM1D SPECTRA ====
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
