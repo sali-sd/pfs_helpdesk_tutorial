@@ -160,8 +160,10 @@ collections = "S25A_April2026"                       # collection name
 objid       = 120731449862702300
 
 # ==== GET ALL PFSCONFIG FILE REFERENCES FROM BUTLER ====
-butler   = Butler(repo, collections=collections)
-all_refs = list(butler.registry.queryDatasets('pfsConfig'))
+butler     = Butler(repo, collections=collections)
+all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
+all_refs   = list(butler.registry.queryDatasets('pfsConfig',
+                  where=f"visit IN ({','.join(str(v) for v in all_visits)})"))
 
 # ==== SCAN ALL PFSCONFIG FILES TO FIND WHICH VISITS CONTAIN THE OBJECT ====
 objid_visits = []
