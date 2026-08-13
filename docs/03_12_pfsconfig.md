@@ -55,25 +55,22 @@ Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
 
 The fluxes above are collected from public catalogs such as HSC SSP, PS1, GAIA.
 
-## Checking all Visits in Collections
+## Checking all Visits in Collection
 
-Here we show how to set up `Butler`, list all available visits in a `collection`, and load `pfsConfig` for a specific visit:
+Here we show how to set up `Butler` and list all available visits in a `collection`. Simply specify under **USER-DEFINED PARAMETERS** the 2d DRP data repository location and `collection` name:
 
 ```python
 from lsst.daf.butler import Butler
 
+# ==== USER-DEFINED PARAMETERS ====
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
 collections = "S25A_April2026"                       # collection name
-butler      = Butler(repo, collections=collections)
 
 # Find all visits in the collection
+butler      = Butler(repo, collections=collections)
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Total visits: {len(all_visits)}")
 print(f"Visits: {all_visits}")
-
-# Load pfsConfig for a specific visit
-visit     = 123476
-pfsConfig = butler.get('pfsConfig', dict(visit=visit))
 ```
 
 **Output**:
@@ -87,11 +84,10 @@ Visits: [122041, 122042, 122044, 122045, 122047, 122048, 122050, 122051, 122182,
 
 ## Viewing Fiber Distribution in a Visit
 
-The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. Simply specify under **USER-DEFINED PARAMETERS** the 2d DRP data repository location and `collection` name, along with the visit number (or increment through visits in the `collection` using a simple index):
+The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. As before, specify the 2d DRP data repository location and `collection` name, along with the visit number (or increment through visits in the `collection` using a simple index):
 
 ```python
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from lsst.daf.butler import Butler
 from pfs.datamodel import TargetType
@@ -99,16 +95,13 @@ from pfs.datamodel import TargetType
 # ==== USER-DEFINED PARAMETERS ====
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
 collections = "S25A_April2026"                       # collection name
-VISIT            = 123476 # Inspects and plots fiber positions in specified visit
-VISIT_INDEX      = 0      # Used if VISIT is None. Increment through visits in collections (0 = first, 1 = second, etc.)
-PRINT_ALL_VISITS = False  # Set to True to print all visit numbers in collections
+VISIT       = 123476 # Inspects and plots fiber positions in specified visit
+VISIT_INDEX = 0      # Used if VISIT is None. Increment through visits in collections (0 = first, 1 = second, etc.)
 
 # ==== FIND ALL VISITS ====
 butler     = Butler(repo, collections=collections)
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Total visits in Collections ({collections}): {len(all_visits)}")
-if PRINT_ALL_VISITS:
-    print(f"All visits: {all_visits}")
 
 if VISIT is not None:
     if VISIT not in all_visits:
@@ -124,32 +117,6 @@ pfsConfig = butler.get('pfsConfig', dict(visit=visit))
 sci       = pfsConfig.select(targetType=TargetType.SCIENCE,  fiberStatus=1)
 sky       = pfsConfig.select(targetType=TargetType.SKY,      fiberStatus=1)
 fluxstd   = pfsConfig.select(targetType=TargetType.FLUXSTD,  fiberStatus=1)
-
-# ==== FLUX + MAGNITUDES (SCIENCE ONLY) ====
-filter_names = list(sci.filterNames[0])
-first_filter = filter_names[0]
-print(f"\nFilter used for sorting: {first_filter}")
-
-total_flux = np.array([list(f) for f in sci.totalFlux], dtype=float)
-psf_flux   = np.array([list(f) for f in sci.psfFlux],   dtype=float)
-flux       = np.where((total_flux > 0) & np.isfinite(total_flux), total_flux, psf_flux)
-with np.errstate(divide='ignore', invalid='ignore'):
-    mag = np.where(flux > 0, -2.5 * np.log10(flux) + 31.4, np.nan)
-
-df = pd.DataFrame({
-    'objId':                  np.array(sci.objId).astype('<i8'),
-    'catId':                  np.array(sci.catId).astype('<i4'),
-    'spectrograph':           np.array(sci.spectrograph).astype('<i4'),
-    f'mag_{first_filter}_AB': mag[:, 0],
-})
-
-df_sorted_bright = df.sort_values(f'mag_{first_filter}_AB', ascending=True,  na_position='last').head(5)
-df_sorted_faint  = df.sort_values(f'mag_{first_filter}_AB', ascending=False, na_position='last').head(5)
-
-print(f"\nTop 5 brightest objects ({first_filter}):")
-print(df_sorted_bright.to_string(index=False))
-print(f"\nTop 5 faintest objects ({first_filter}):")
-print(df_sorted_faint.to_string(index=False))
 
 # ==== FIBER POSITION PLOT ====
 fig, ax = plt.subplots(figsize=(7, 7))
@@ -173,31 +140,13 @@ plt.show()
 ```
 Total visits in Collections (S25A_April2026): 632
 Using specified visit=123476
-
-Filter used for sorting: g_ps1
-
-Top 5 brightest objects (g_ps1):
-             objId  catId  spectrograph  mag_g_ps1_AB
-121031447176721742  10094             2     17.981820
-120551448544214427  10094             4     18.751546
-121691448092058861  10094             1     18.781657
-120951452624792300  10094             4     18.903479
-120581452346316466  10094             2     18.907853
-
-Top 5 faintest objects (g_ps1):
-             objId  catId  spectrograph  mag_g_ps1_AB
-120671447895508750  10094             3     26.434644
-121261444908351362  10094             1     25.316608
-121141456199749830  10094             3     24.789236
-121471455299111416  10094             3     24.756075
-121521454101227474  10094             1     24.626719
 ```
 
 ![Fiber positions for visit 123476](figures/pfsConfig_visit=123476.png)
 
 ## List all Visits (Exposures) for an Object
 
-If you have the `objId` of a specific object you have observed and would like to know details of that object, the following code prints a summary of all visits that contain that object, including its catalog ID and magnitude.
+If you have the `objId` of a specific object you have observed, the following code prints a summary of all visits that contain that object, including its catalog ID and magnitude.
 
 ```python
 import numpy as np
