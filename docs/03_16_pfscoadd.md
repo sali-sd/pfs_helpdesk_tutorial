@@ -1,15 +1,15 @@
 # pfsCoadd
 
-## Overview
+## Overview DETAILS
 
 `pfsCoadd` contains the wavelength-calibrated, sky-subtracted, flux-calibrated and **coadded** spectra combining data across multiple visits (exposures).
 Unlike the visit-based products, `pfsCoadd` files are organised by three dimensions:
 
-- **`combination`** — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename.
-- **`catId`** — the object catalog identifier; files are grouped into subdirectories by `catId`
-- **`objGroup`** — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
+- `combination` — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename.
+- `catId` — the object catalog identifier; files are grouped into subdirectories by `catId`
+- `objGroup` — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
 
-The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) is referred to as a **`pfsObject`** spectrum.
+The individual coadded spectrum of a single object (i.e. one row/entry inside `pfsCoadd`) is referred to as a `pfsObject` spectrum.
 
 - Flux units are **nJy** (nano-Janskys)
 - The `WAVELENGTH` is stored in HDU #4 as an image or table; if all spectra share the same wavelength grid it is written as a single array
@@ -46,8 +46,6 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler
 | #12 | NOTES        | Binary table | —           | NNOTES rows                       |
 
 
-
-
 ## Finding All Combinations in Collections
 
 You can check all `combination` names in your `collections` as such:
@@ -68,8 +66,6 @@ print(f"Available combinations in '{collections}': {combinations}")
 ```
 Available combinations in 'S25A_April2026': ['selected_S25A']
 ```
-
-
 
 ## A Note about Combinations on the Science Platform
 
@@ -93,8 +89,6 @@ print(f"Available combinations in '{collections}': {combinations}")
 ```
 Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
 ```
-
-
 
 ## Viewing pfsCoadd Spectra
 
@@ -228,4 +222,4 @@ plot_pfscoadd(
 
 **Output**:
 
-![pfsCoadd spectrum](figures/S25A_April2026_pfsCoadd_120731449862702300.png)
+pfsCoadd spectrum
