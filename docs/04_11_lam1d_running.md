@@ -53,7 +53,7 @@ drp_1dpipe -j 20 -n0 \
 
 The full list of available parameters and their default values is defined in [drp_1dpipe/auxdir/parameters_sgq.json](https://github.com/Subaru-PFS/drp_1dpipe/blob/master/drp_1dpipe/auxdir/parameters_sgq.json) on the pipeline GitHub page. The user only needs to specify parameters they want to override — any parameter not included in the parameter file falls back to the pipeline's default values.
 
-A working example parameter file (`parameters_ex.json`) is provided in the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation). It explicitly sets only three parameters:
+A working example parameter file (`parameters_ex.json`) is provided in the [PFS-LAM1D-Installation](https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/sali_july2026/PFS-LAM1D-Installation) folder of this repository. It explicitly sets only three parameters:
 
 - `lambdaRange` — wavelength range to process: `[4000, 9600]` Å
 - `lsf.gaussianVariableWidthFileName` — path to the LSF file relative to the `calibration/` directory: `LSF/lsf_lowres_fixed.fits`

@@ -8,7 +8,7 @@ The LAM 1D pipeline is the PFS 1D data reduction pipeline developed by LAM (Labo
 
 See the above pipeline repositories and datamodel page for a full description of the pipeline, its input parameters and output data products.
 
-An installation script and full documentation are available at: **[https://github.com/sali-sd/PFS-LAM1D-Installation](https://github.com/sali-sd/PFS-LAM1D-Installation)**
+An installation script and full documentation are available in the **[PFS-LAM1D-Installation](https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/sali_july2026/PFS-LAM1D-Installation)** folder of this repository.
 
 ---
 
@@ -43,10 +43,10 @@ An installation script and full documentation are available at: **[https://githu
 
 ## Installation
 
-Download the installation script from the [PFS-LAM1D-Installation repository](https://github.com/sali-sd/PFS-LAM1D-Installation):
+Download the installation script from the [PFS-LAM1D-Installation](https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/sali_july2026/PFS-LAM1D-Installation) folder of this repository:
 
 ```bash
-curl -O https://raw.githubusercontent.com/sali-sd/PFS-LAM1D-Installation/main/install_lam1d_pipeline.sh
+curl -O https://raw.githubusercontent.com/sali-sd/pfs_helpdesk_tutorial/sali_july2026/PFS-LAM1D-Installation/install_lam1d_pipeline.sh
 ```
 
 Then run it:
