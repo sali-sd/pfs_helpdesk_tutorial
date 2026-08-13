@@ -86,37 +86,31 @@ The following code builds a combined object table across all LAM 1D results in a
 After saving the CSV, the code plots **magnitude vs. redshift** (for GALAXY and QSO) and **magnitude vs. velocity** (for STAR), coloured by `catId`.
 
 ```python
-import os
-import re
-import glob
+# ==== LAM1D PIPELINE: MAGNITUDE + OBJECT TABLE ====
+
+# This code builds a magnitude table for all objects in COLLECTIONS and combines it with
+# LAM1D redshift/classification outputs (where available) into a single CSV file.
+# The CSV is used by the PFSCoadd + LAM1D spectrum plotter to browse objects by class,
+# redshift, velocity or objId. Run this code once per COLLECTIONS before using the plotter.
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from astropy.io import fits
 from lsst.daf.butler import Butler
 from pfs.datamodel import TargetType
 
 # ==== USER-DEFINED PARAMETERS ====
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"                            # path to the 2d DRP repository
-collections = "S25A_April2026"                                                  # collection name
-lam1d_dir   = "/shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified"  # path to LAM 1D output (must match collections, i.e. S25A_April2026 here)
-
-# ==== HELPER: endian-safe FITS HDU to DataFrame ====
-def fits_to_df(hdu_data):
-    def fix_endian(arr):
-        if arr.dtype.byteorder == '>':
-            return arr.byteswap().view(arr.dtype.newbyteorder('<'))
-        return arr
-    return pd.DataFrame({name: fix_endian(hdu_data[name]) for name in hdu_data.names})
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"
+collections = "run26_June2026"
 
 # ==== STEP 1: BUILD MAGNITUDE LOOKUP ====
-butler     = Butler(repo, collections=collections)
+butler     = Butler(repo, collections=[collections, f"{collections}/lam1d_modified"])
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Building magnitude lookup from {len(all_visits)} visits...")
 
 mag_lookup = {}
 for i, visit in enumerate(all_visits):
-    print(f"  Visit {i+1}/{len(all_visits)}: {visit}  ({len(mag_lookup)} unique objects so far)", end='\r')
+    print(f"  Visit {i+1}/{len(all_visits)}: {visit}  ({len(mag_lookup)} unique objects so far)", end='\r', flush=True)
     pfsConfig = butler.get('pfsConfig', dict(visit=visit))
     sci       = pfsConfig.select(targetType=TargetType.SCIENCE, fiberStatus=1)
     if len(sci.objId) == 0:
@@ -137,69 +131,75 @@ for i, visit in enumerate(all_visits):
                 seen[fn] = count + 1
             mag_lookup[oid_int] = {col: mags[j, k] for k, col in enumerate(obj_cols)}
 
+print()  # clear the \r line
+
 mag_df       = pd.DataFrame([{'objId': oid, **m} for oid, m in mag_lookup.items()])
 mag_cols_all = [col for col in mag_df.columns if col.startswith('mag_')]
 empty_cols   = [col for col in mag_cols_all if mag_df[col].isna().all()]
 mag_df       = mag_df.drop(columns=empty_cols)
 mag_cols     = [col for col in mag_cols_all if col not in empty_cols]
-print(f"\nMagnitude lookup complete: {len(mag_df)} unique objects  |  Filters: {mag_cols}")
+print(f"Magnitude lookup complete: {len(mag_df)} unique objects  |  Filters: {mag_cols}")
 
-# ==== STEP 2: READ LAM1D FITS ====
-all_dirs = sorted(glob.glob(os.path.join(lam1d_dir, "*_*")))
-print(f"\nReading LAM1D FITS from {len(all_dirs)} directories...")
+# ==== STEP 2: READ LAM1D VIA BUTLER ====
+refs = list(butler.registry.queryDatasets('pfsCoZCandidates'))
+print(f"Reading LAM1D from {len(refs)} pfsCoZCandidates files via Butler...")
 
 all_final_dfs = []
 n_skipped     = 0
 
-for base_dir in all_dirs:
-    dirname = os.path.basename(base_dir.rstrip('/'))
-    match   = re.match(r'^(\d+)_(\d+)$', dirname)
-    if not match:
-        continue
-    catid, obj_group = match.group(1), match.group(2)
-
-    fits_files = sorted(glob.glob(os.path.join(base_dir, '**', '*.fits'), recursive=True))
-    if not fits_files:
-        n_skipped += 1
-        continue
-
+for i, ref in enumerate(refs):
+    cat_id    = ref.dataId['cat_id']
+    obj_group = ref.dataId['obj_group']
+    print(f"  Processing file {i+1}/{len(refs)}  ({n_skipped} skipped)", end='\r', flush=True)
     try:
-        with fits.open(fits_files[0]) as hdul:
-            target_df         = fits_to_df(hdul['TARGET'].data)
-            classification_df = fits_to_df(hdul['CLASSIFICATION'].data)
-            warnings_df       = fits_to_df(hdul['WARNINGS'].data)
-            errors_df         = fits_to_df(hdul['ERRORS'].data)
-            galaxy_df         = fits_to_df(hdul['GALAXY_CANDIDATES'].data)
-            qso_df            = fits_to_df(hdul['QSO_CANDIDATES'].data)
-            star_df           = fits_to_df(hdul['STAR_CANDIDATES'].data)
+        coZCands = butler.get('pfsCoZCandidates', ref.dataId)
     except Exception as e:
-        print(f"  Failed {dirname}: {e}")
+        print(f"\n  Failed cat_id={cat_id} obj_group={obj_group}: {e}")
         n_skipped += 1
         continue
 
-    galaxy_df = galaxy_df.rename(columns={col: f"{col}_gal" for col in galaxy_df.columns if col != 'targetId'})
-    qso_df    = qso_df.rename(columns={col: f"{col}_qso"    for col in qso_df.columns    if col != 'targetId'})
-    star_df   = star_df.rename(columns={col: f"{col}_star"  for col in star_df.columns   if col != 'targetId'})
+    records = []
+    for target in coZCands:
+        zc  = coZCands[target]
+        nan = float('nan')
+        rec = {
+            'objId':       int(target.objId),
+            'catid':       cat_id,
+            'obj_group':   obj_group,
+            'combination': ref.dataId['combination'],
+            'class':       zc.classification.name,
+            'probaGalaxy': next((float(v) for k, v in zc.classification.probabilities.items() if k.upper() == 'GALAXY'), nan),
+            'probaQSO':    next((float(v) for k, v in zc.classification.probabilities.items() if k.upper() == 'QSO'),    nan),
+            'probaStar':   next((float(v) for k, v in zc.classification.probabilities.items() if k.upper() == 'STAR'),   nan),
+        }
+        try:
+            gp = zc.galaxy.parameters[0]
+            rec['redshift_gal']      = gp.get('redshift',      nan)
+            rec['redshiftProba_gal'] = gp.get('redshiftProba', nan)
+        except (IndexError, AttributeError, TypeError):
+            rec['redshift_gal'] = rec['redshiftProba_gal'] = nan
+        try:
+            qp = zc.qso.parameters[0]
+            rec['redshift_qso']      = qp.get('redshift',      nan)
+            rec['redshiftProba_qso'] = qp.get('redshiftProba', nan)
+        except (IndexError, AttributeError, TypeError):
+            rec['redshift_qso'] = rec['redshiftProba_qso'] = nan
+        try:
+            sp = zc.star.parameters[0]
+            rec['velocity_star']      = sp.get('velocity',      nan)
+            rec['templateProba_star'] = sp.get('templateProba', nan)
+        except (IndexError, AttributeError, TypeError):
+            rec['velocity_star'] = rec['templateProba_star'] = nan
+        records.append(rec)
 
-    best_galaxy_df = galaxy_df.sort_values('redshiftProba_gal', ascending=False).drop_duplicates('targetId')
-    best_qso_df    = qso_df.sort_values('redshiftProba_qso',    ascending=False).drop_duplicates('targetId')
-    best_star_df   = star_df.sort_values('templateProba_star',  ascending=False).drop_duplicates('targetId')
-
-    final_df = pd.merge(target_df,     classification_df, on='targetId', how='inner')
-    final_df = pd.merge(final_df,      warnings_df,       on='targetId', how='inner')
-    final_df = pd.merge(final_df,      errors_df,         on='targetId', how='inner')
-    final_df = pd.merge(final_df,      best_galaxy_df,    on='targetId', how='inner')
-    final_df = pd.merge(final_df,      best_qso_df,       on='targetId', how='inner')
-    final_df = pd.merge(final_df,      best_star_df,      on='targetId', how='inner')
-
-    final_df['catid']     = catid
-    final_df['obj_group'] = obj_group
-    all_final_dfs.append(final_df)
+    if records:
+        all_final_dfs.append(pd.DataFrame(records))
 
 if not all_final_dfs:
-    raise ValueError("No data found — check lam1d_dir path and directory structure.")
+    raise ValueError("No data found — check collections and lam1d collection name.")
 
-print(f"Processed {len(all_final_dfs)} directories  ({n_skipped} skipped)")
+print()  # clear the \r line
+print(f"Processed {len(all_final_dfs)} files  ({n_skipped} skipped)")
 
 # ==== STEP 3: COMBINE AND ATTACH MAGNITUDES ====
 combined_df = pd.concat(all_final_dfs, ignore_index=True)
@@ -207,7 +207,17 @@ combined_df = combined_df.merge(mag_df[['objId'] + mag_cols], on='objId', how='l
 matched     = combined_df[mag_cols].notna().any(axis=1).sum()
 print(f"Magnitudes matched: {matched} / {len(combined_df)} objects")
 
-# ==== STEP 4: SAVE ====
+# ==== STEP 4: AUTO-CORRECT VELOCITY UNITS IF NEEDED ====
+# The datamodel specifies km/s, but older releases used m/s. If the median absolute
+# stellar velocity is >> 500 km/s, it is almost certainly stored in m/s and is corrected.
+star_mask = combined_df['class'].str.upper() == 'STAR'
+if star_mask.any():
+    median_vel = combined_df.loc[star_mask, 'velocity_star'].abs().median()
+    if median_vel > 5000:
+        print(f"Auto-correcting velocity units: median |velocity|={median_vel:.0f} → likely m/s, dividing by 1000")
+        combined_df.loc[star_mask, 'velocity_star'] = combined_df.loc[star_mask, 'velocity_star'] / 1000
+
+# ==== STEP 5: SAVE ====
 combined_df.to_csv(f'{collections}_all_lam1d.csv', index=False)
 print(f"Saved {collections}_all_lam1d.csv  ({len(combined_df)} objects)")
 
@@ -221,7 +231,7 @@ for cls in sorted(combined_df['class'].str.upper().unique()):
 plot_config = [
     ("GALAXY", "redshift_gal",  "LAM1D Redshift",        1),
     ("QSO",    "redshift_qso",  "LAM1D Redshift",        1),
-    ("STAR",   "velocity_star", "LAM1D Velocity [km/s]", 1e-3),
+    ("STAR",   "velocity_star", "LAM1D Velocity [km/s]", 1),
 ]
 
 unique_catids = sorted(combined_df['catid'].unique())
@@ -237,7 +247,6 @@ for class_name, y_col, y_label, y_scale in plot_config:
     best_mag_col = df_cls[mag_cols].notna().sum().idxmax()
     filter_label = best_mag_col.replace('mag_', '')
 
-    # ==== EXCLUDE OUTLIERS FOR PLOT ONLY ====
     mag_vals = df_cls[best_mag_col]
     y_vals   = df_cls[y_col] * y_scale
     mag_lo, mag_hi = np.nanpercentile(mag_vals.dropna(), [1, 99])
@@ -259,7 +268,7 @@ for class_name, y_col, y_label, y_scale in plot_config:
     plt.xlabel(f'Magnitude ({filter_label}) [AB]')
     plt.ylabel(y_label)
     plt.title(f'Collections={collections}  |  {class_name}: Magnitude vs {y_label}\nRepo={repo}')
-    plt.legend(loc='best', markerscale=5)
+    plt.legend(loc='upper right', markerscale=5)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.savefig(f'{collections}_{class_name}_mag_vs_{y_col}.png', dpi=150, bbox_inches='tight')

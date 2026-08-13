@@ -11,36 +11,64 @@ The code supports three modes of object selection:
 Once an object is loaded, the code fetches the `pfsCoadd` spectrum via `Butler` and reads the corresponding LAM 1D FITS file directly from disk. The main plot shows the observed spectrum (black) and the LAM 1D model fit (red) with detected line positions marked. For GALAXY and QSO objects, up to four zoom panels below the main plot show the top-ranked lines by SNR, with the line name, SNR, and equivalent width displayed. A summary table of the top 10 lines by SNR is also printed to the terminal.
 
 ```python
-import os
-import glob
+# ==== PFSCOADD + LAM1D SPECTRA ====
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import ndimage
 from lsst.daf.butler import Butler
-from pfs.datamodel import PfsCoZCandidates
 
-# ==== FILE LOCATION PARAMETERS ====
+# ==== USER-DEFINED PARAMETERS ====
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"
 collections = "S25A_April2026"
-lam1d_dir   = "/shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified" # Ensure this directory matches the COLLECTIONS
+combination = "selected_S25A"
 
-# ==== CHOOSE CLASS AND INDEX/REDSHIFT/VELOCITY OR OBJID ====
+# CLASS PARAMETERS
 # Note: Set to None if you do not want to use a particular parameter
-
-class_name           = "GALAXY"   # 'GALAXY', 'QSO' or 'STAR'
-browse_index         = 0          # 0 = highest redshift/velocity, increment to browse
-search_redshift      = 0.30       # GALAXY/QSO: find closest object to this redshift, overrides browse_index
+class_name           = None       # 'GALAXY', 'QSO' or 'STAR'
+browse_index         = None       # 0 = highest redshift/velocity, increment to browse
+search_redshift      = None       # GALAXY/QSO: find closest object to this redshift, overrides browse_index
 search_velocity_kms  = None       # STAR: find closest object to this velocity [km/s], overrides browse_index
-objid                = None       # if set, overrides everything else and plots target spectrum directly. Input None if browsing data using above options
+objid                = 120731449862702300  # if set, overrides everything else and plots target spectrum directly
 
-# ==== PLOT PARAMETERS ====
-MEDIAN_FILTER_SIZE = 1  # 1 = no filtering, increment for smoothing as desired
-arms               = ['b', 'r']   # options: 'b', 'r', 'n' or any combination of arms to plot
+# PLOT PARAMETERS
+MEDIAN_FILTER_SIZE   = 1          # 1 = no filtering, increment for smoothing as desired
+arms                 = ['b', 'r'] # options: 'b', 'r', 'n' or any combination of arms to plot
+
+# ==== HELPERS ====
+# _get_zinfo: extracts class, redshift/velocity, redshift probability, and class probability
+#             directly from a zCand object via Butler
+# _get_mag:   looks up the best available magnitude from pfsConfig for a given objId
+#             using a visit from the pfsCoadd observations list
+def _get_zinfo(zCand):
+    cname   = zCand.classification.name
+    z_key   = {"STAR": "velocity", "GALAXY": "redshift", "QSO": "redshift"}[cname]
+    params  = zCand.get_classified_parameters()
+    z_val   = float(params[z_key])
+    z_proba = float(params.get('templateProba' if cname == 'STAR' else 'redshiftProba', float('nan')))
+    c_proba = next((float(v) for k, v in zCand.classification.probabilities.items() if k.upper() == cname), float('nan'))
+    return cname, z_val, z_proba, c_proba
+
+def _get_mag(butler, objid, visits):
+    for visit in visits:
+        pfsConf = butler.get('pfsConfig', visit=int(visit))
+        idx = np.where(pfsConf.objId == np.int64(objid))[0]
+        if len(idx) == 0:
+            continue
+        i       = idx[0]
+        filters = list(pfsConf.filterNames[i])
+        total   = np.array(list(pfsConf.totalFlux[i]), dtype=float)
+        psf     = np.array(list(pfsConf.psfFlux[i]),   dtype=float)
+        flux    = np.where((total > 0) & np.isfinite(total), total, psf)
+        mags    = np.where(flux > 0, -2.5 * np.log10(flux) + 31.4, np.nan)
+        j       = next((k for k, m in enumerate(mags) if np.isfinite(m)), None)
+        return f"{filters[j]}={mags[j]:.2f}" if j is not None else "mag=N/A"
+    return "mag=N/A"
 
 # ==== PFSCOADD+LAM1D PLOTTING FUNCTION ====
 def plot_pfscoadd_lam1d(
-    repo, collections, lam1d_dir,
+    repo, collections, combination,
     class_name, browse_index, search_redshift, search_velocity_kms, objid,
     MEDIAN_FILTER_SIZE, arms,
 ):
@@ -50,93 +78,111 @@ def plot_pfscoadd_lam1d(
         'n': (940, 1260),
     }
 
-    # ==== RESOLVE OBJECT ====
+    butler  = Butler(repo, collections=[collections, f"{collections}/lam1d_modified"])
+    cat_ids = sorted(set(ref.dataId['cat_id'] for ref in butler.registry.queryDatasets('pfsCoadd')))
+    mag_str = None
+
+    # ==== FIND OBJECT SPECIFICS ====
     if objid is not None:
-        objid  = int(objid)
-        df_all = pd.read_csv(f"{collections}_all_lam1d.csv")
-        df_all['objId'] = df_all['objId'].astype(np.int64)
-        matches = df_all[df_all['objId'] == np.int64(objid)]
-        if matches.empty:
-            raise ValueError(f"objId {objid} not found in {collections}_all_lam1d.csv")
-        row        = matches.iloc[0]
-        class_name = row['class'].upper()
+        # Fast path: use objectGroupMap + Butler directly, no CSV needed
+        objid = int(objid)
+        for cat_id in cat_ids:
+            ogm = butler.get("objectGroupMap", combination=combination, cat_id=cat_id)
+            try:
+                obj_group = ogm[objid]
+                break
+            except KeyError:
+                continue
+        else:
+            raise ValueError(f"objId {objid} not found in any objectGroupMap")
+        coZCands                                     = butler.get('pfsCoZCandidates', combination=combination, cat_id=cat_id, obj_group=obj_group)
+        zCand                                        = coZCands[objid]
+        class_name, redshift_value, z_proba, c_proba = _get_zinfo(zCand)
+        z_proba_str     = f"{z_proba:.3f}"  if np.isfinite(z_proba)  else "N/A"
+        class_proba_str = f"{c_proba:.3f}"  if np.isfinite(c_proba)  else "N/A"
         print(f"Auto-detected class: {class_name} for objId={objid}")
 
     elif search_redshift is not None or search_velocity_kms is not None:
+        # CSV path: fast browse via pre-built table
         df          = pd.read_csv(f"{collections}_all_lam1d.csv")
         df['objId'] = df['objId'].astype(np.int64)
+        df          = df[df['combination'] == combination]
         df          = df[df['class'].str.upper() == class_name.upper()].reset_index(drop=True)
         redshift_column = {"GALAXY": "redshift_gal", "QSO": "redshift_qso", "STAR": "velocity_star"}[class_name.upper()]
         if class_name.upper() == "STAR":
             if search_velocity_kms is None:
                 raise ValueError("class_name is STAR but search_velocity_kms is not set")
-            target_val = search_velocity_kms * 1000
+            target_val = search_velocity_kms
             label_str  = f"velocity={search_velocity_kms} km/s"
         else:
             if search_redshift is None:
                 raise ValueError(f"class_name is {class_name} but search_redshift is not set")
             target_val = search_redshift
             label_str  = f"z={search_redshift}"
-        closest_idx = (df[redshift_column] - target_val).abs().idxmin()
-        row         = df.loc[closest_idx]
-        objid       = int(row['objId'])
-        found_val   = row[redshift_column] * (1e-3 if class_name.upper() == "STAR" else 1)
-        found_unit  = "km/s" if class_name.upper() == "STAR" else ""
-        print(f"Target {label_str} → closest object at {redshift_column}={found_val:.4f} {found_unit}  (idx={closest_idx})")
+        closest_idx    = (df[redshift_column] - target_val).abs().idxmin()
+        row            = df.loc[closest_idx]
+        objid          = int(row['objId'])
+        cat_id         = int(row['catid'])
+        obj_group      = int(row['obj_group'])
+        redshift_value = row[redshift_column]
+        found_val      = redshift_value if class_name.upper() == "STAR" else redshift_value
+        found_unit     = "km/s" if class_name.upper() == "STAR" else ""
+        print(f"Target {label_str} → closest object at {redshift_column}={found_val:.1f} {found_unit}  (idx={closest_idx})")
+        z_proba_col     = {"GALAXY": "redshiftProba_gal", "QSO": "redshiftProba_qso", "STAR": "templateProba_star"}[class_name.upper()]
+        c_proba_col     = {"GALAXY": "probaGalaxy",       "QSO": "probaQSO",          "STAR": "probaStar"}[class_name.upper()]
+        z_proba_str     = f"{row[z_proba_col]:.3f}" if z_proba_col in row.index and pd.notna(row[z_proba_col]) else "N/A"
+        class_proba_str = f"{row[c_proba_col]:.3f}" if c_proba_col in row.index and pd.notna(row[c_proba_col]) else "N/A"
+        mag_cols        = [c for c in row.index if c.startswith('mag_')]
+        best_mag_col    = next((c for c in mag_cols if pd.notna(row[c])), None)
+        mag_str         = f"{best_mag_col.replace('mag_', '')}={row[best_mag_col]:.2f}" if best_mag_col else "mag=N/A"
+        coZCands        = butler.get('pfsCoZCandidates', combination=combination, cat_id=cat_id, obj_group=obj_group)
+        zCand           = coZCands[objid]
 
     else:
+        # CSV path: fast browse via pre-built table
         df          = pd.read_csv(f"{collections}_all_lam1d.csv")
         df['objId'] = df['objId'].astype(np.int64)
+        df          = df[df['combination'] == combination]
         df          = df[df['class'].str.upper() == class_name.upper()].reset_index(drop=True)
         redshift_column = {"GALAXY": "redshift_gal", "QSO": "redshift_qso", "STAR": "velocity_star"}[class_name.upper()]
         df_sorted       = df.sort_values(redshift_column, ascending=False).reset_index(drop=True)
         print(f"Loaded {len(df_sorted)} {class_name} objects from {collections}_all_lam1d.csv")
         print(f"Sorted by {redshift_column} descending  |  Showing index {browse_index} of {len(df_sorted)-1}")
-        row   = df_sorted.iloc[browse_index]
-        objid = int(row['objId'])
+        row            = df_sorted.iloc[browse_index]
+        objid          = int(row['objId'])
+        cat_id         = int(row['catid'])
+        obj_group      = int(row['obj_group'])
+        redshift_value = row[redshift_column]
+        z_proba_col     = {"GALAXY": "redshiftProba_gal", "QSO": "redshiftProba_qso", "STAR": "templateProba_star"}[class_name.upper()]
+        c_proba_col     = {"GALAXY": "probaGalaxy",       "QSO": "probaQSO",          "STAR": "probaStar"}[class_name.upper()]
+        z_proba_str     = f"{row[z_proba_col]:.3f}" if z_proba_col in row.index and pd.notna(row[z_proba_col]) else "N/A"
+        class_proba_str = f"{row[c_proba_col]:.3f}" if c_proba_col in row.index and pd.notna(row[c_proba_col]) else "N/A"
+        mag_cols        = [c for c in row.index if c.startswith('mag_')]
+        best_mag_col    = next((c for c in mag_cols if pd.notna(row[c])), None)
+        mag_str         = f"{best_mag_col.replace('mag_', '')}={row[best_mag_col]:.2f}" if best_mag_col else "mag=N/A"
+        coZCands        = butler.get('pfsCoZCandidates', combination=combination, cat_id=cat_id, obj_group=obj_group)
+        zCand           = coZCands[objid]
 
-    # ==== REDSHIFT/VELOCITY COLUMN PER CLASS ====
-    redshift_column  = {"GALAXY": "redshift_gal", "QSO": "redshift_qso", "STAR": "velocity_star"}[class_name.upper()]
-    catid            = int(row['catid'])
-    obj_group        = int(row['obj_group'])
-    redshift_value   = row[redshift_column]
-    redshift_label   = f"velocity={redshift_value/1000:.1f} km/s" if class_name.upper() == "STAR" else f"z={redshift_value:.4f}"
-    mag_cols_present = [col for col in row.index if col.startswith('mag_')]
-    best_mag_col     = next((col for col in mag_cols_present if pd.notna(row[col])), None)
-    mag_str          = f"{best_mag_col.replace('mag_', '')}={row[best_mag_col]:.2f}" if best_mag_col else "mag=N/A"
+    # ==== SHARED LABELS ====
+    redshift_label = f"velocity={redshift_value:.1f} km/s" if class_name.upper() == "STAR" else f"z={redshift_value:.4f}"
 
-    # ==== PROBABILITIES ====
-    redshift_proba_col = {"GALAXY": "redshiftProba_gal", "QSO": "redshiftProba_qso", "STAR": "templateProba_star"}[class_name.upper()]
-    class_proba_col    = {"GALAXY": "probaGalaxy",       "QSO": "probaQSO",          "STAR": "probaStar"}[class_name.upper()]
-    redshift_proba_str = f"{row[redshift_proba_col]:.3f}" if redshift_proba_col in row.index and pd.notna(row[redshift_proba_col]) else "N/A"
-    class_proba_str    = f"{row[class_proba_col]:.3f}"    if class_proba_col    in row.index and pd.notna(row[class_proba_col])    else "N/A"
-
-    print(f"ObjId={objid}  CatID={catid}  ObjGroup={obj_group}  {redshift_column}={redshift_value:.4f}  {mag_str}  zProba={redshift_proba_str}  classProba={class_proba_str}")
-
-    # ==== BUTLER + COMBINATION ====
-    butler      = Butler(repo, collections=collections)
-    datarefs    = list(butler.registry.queryDatasets('pfsCoadd'))
-    combination = datarefs[0].dataId['combination']
-
-    # ==== LOAD DATA ====
-    print(f"Loading pfsCoadd and LAM1D for catid={catid} obj_group={obj_group}...")
-    pfscoadd  = butler.get("pfsCoadd", combination=combination, cat_id=catid,
+    # ==== LOAD pfsCoadd ====
+    print(f"Loading pfsCoadd for catid={cat_id} obj_group={obj_group}...")
+    pfscoadd  = butler.get("pfsCoadd", combination=combination, cat_id=cat_id,
                            instrument='PFS', obj_group=obj_group)
-    base_dir  = f"{lam1d_dir}/{catid}_{obj_group}"
-    fits_path = sorted(glob.glob(f"{base_dir}/**/*.fits", recursive=True))
-    if not fits_path:
-        raise ValueError(f"No LAM1D FITS file found in {base_dir}")
-    coZCands  = PfsCoZCandidates.readFits(fits_path[0])
-
-    # ==== FETCH OBJECT ====
     pfsobject = pfscoadd[int(objid)]
 
-    try:
-        zCand = coZCands[int(objid)]
-    except KeyError:
-        raise ValueError(f"objId {objid} not found in LAM1D FITS")
+    # ==== EXPOSURE TIME ====
+    unique_visits, idx = np.unique(pfsobject.observations.visit, return_index=True)
+    total_exptime      = pfsobject.observations.expTime[idx].sum()
 
-    # ==== MODEL AND LINES ====
+    # ==== MAGNITUDE (objid path: look up from pfsConfig; browse/search: already set from CSV) ====
+    if mag_str is None:
+        mag_str = _get_mag(butler, objid, unique_visits)
+
+    print(f"ObjId={objid}  CatID={cat_id}  ObjGroup={obj_group}  {redshift_label}  {mag_str}  zProba={z_proba_str}  classProba={class_proba_str}")
+
+    # ==== LOAD LAM1D MODEL AND SPECTRAL LINES ====
     top4 = None
     if class_name.upper() == "STAR":
         print("STAR object — LAM1D model fit uses stellar templates (no emission lines)")
@@ -223,7 +269,7 @@ def plot_pfscoadd_lam1d(
                      fontsize=7, color='red')
 
     arms_label = '+'.join(arms)
-    ax_main.set_title(f'PFSCoadd {class_name}  ObjID={objid}  CatID={catid}  ObjGroup={obj_group}  {redshift_label}  zProba={redshift_proba_str}  classProba={class_proba_str}  {mag_str}  Arms={arms_label}\n'
+    ax_main.set_title(f'PFSCoadd {class_name}  ObjID={objid}  CatID={cat_id}  ObjGroup={obj_group}  {redshift_label}  zProba={z_proba_str}  classProba={class_proba_str}  {mag_str}  Arms={arms_label}  ExpTime={total_exptime:.0f}s\n'
                       f'Repo={repo}  Collections={collections}  Combination={combination}')
     ax_main.legend(loc='upper left', fancybox=True, framealpha=0.5)
     ax_main.minorticks_on()
@@ -274,7 +320,7 @@ def plot_pfscoadd_lam1d(
 plot_pfscoadd_lam1d(
     repo                = repo,
     collections         = collections,
-    lam1d_dir           = lam1d_dir,
+    combination         = combination,
     class_name          = class_name,
     browse_index        = browse_index,
     search_redshift     = search_redshift,

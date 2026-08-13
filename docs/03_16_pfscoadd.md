@@ -137,6 +137,7 @@ def plot_pfscoadd(repo, collections, combination, objid, browse_index, MEDIAN_FI
 
     cat_ids = sorted({ref.dataId['cat_id'] for ref in datarefs
                       if ref.dataId['combination'] == combination})
+
     # ==== RESOLVE OBJID ====
     if objid is None:
         all_objids = []
@@ -188,6 +189,10 @@ def plot_pfscoadd(repo, collections, combination, objid, browse_index, MEDIAN_FI
     ylim_lower    = p2  - 0.05 * span
     ylim_upper    = p98 + 0.15 * span
 
+    # ==== EXPOSURE TIME ====
+    unique_visits, idx = np.unique(pfsobject.observations.visit, return_index=True)
+    total_exptime      = pfsobject.observations.expTime[idx].sum()
+
     # ==== PLOT ====
     arms_label = '+'.join(arms)
     fig, ax = plt.subplots(figsize=(12, 5))
@@ -200,7 +205,7 @@ def plot_pfscoadd(repo, collections, combination, objid, browse_index, MEDIAN_FI
     ax.set_xlim([xlim_lo, xlim_hi])
     ax.set_ylim([ylim_lower, ylim_upper])
     ax.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
-    ax.set_title(f'pfsCoadd  ObjID={objid}  CatID={catid}  ObjGroup={obj_group}  Arms={arms_label}\n'
+    ax.set_title(f'pfsCoadd  ObjID={objid}  CatID={catid}  ObjGroup={obj_group}  Arms={arms_label}  ExpTime={total_exptime:.0f}s\n'
                  f'Repo={repo}  Collections={collections}  Combination={combination}')
     ax.legend(loc='upper left', fancybox=True, framealpha=0.5)
     ax.minorticks_on()

@@ -45,7 +45,6 @@ from lsst.daf.butler import Butler
 from pfs.datamodel import TargetType
 
 # ==== USER-DEFINED PARAMETERS ====
-
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
 collections = "S25A_April2026"                       # collection name
 objid        = 120731449862702300    # If set, plots this object directly. If None uses browse_index
