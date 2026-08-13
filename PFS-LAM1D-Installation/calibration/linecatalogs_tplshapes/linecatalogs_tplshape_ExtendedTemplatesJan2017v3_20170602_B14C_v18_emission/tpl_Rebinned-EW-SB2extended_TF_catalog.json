@@ -1,0 +1,13 @@
+{
+  "asym_params": {
+    "profile": "ASYMFIXED",
+    "sigma": 2.0,
+    "alpha": 2.0,
+    "delta": 0.5
+  },
+  "velocities": {
+    "em_vel": 420.0,
+    "abs_vel": 560.0
+  },
+  "sub_type": "SB2"
+}

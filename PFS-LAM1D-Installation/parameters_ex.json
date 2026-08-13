@@ -1,0 +1,15 @@
+{
+    "lambdaRange":[4000,9600],
+    "spectrumModel_galaxy": {
+        "lineMeasSolver": {
+            "lineMeasSolve": {
+                "lineModel": {
+                    "lineTypeFilter": "no"
+                }
+            }
+        }
+    },
+    "lsf": {
+        "gaussianVariableWidthFileName": "LSF/lsf_lowres_fixed.fits"
+    }
+}

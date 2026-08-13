@@ -1,0 +1,13 @@
+{
+  "asym_params": {
+    "profile": "ASYMFIXED",
+    "sigma": 1.0,
+    "alpha": 0.0,
+    "delta": 0.0
+  },
+  "velocities": {
+    "em_vel": 320.0,
+    "abs_vel": 780.0
+  },
+  "sub_type": "Lya_abs_SB3"
+}
