@@ -228,4 +228,4 @@ plot_pfscoadd(
 
 **Output**:
 
-![pfsCoadd spectrum](figures/pfsCoadd.png)
+![pfsCoadd spectrum](figures/S25A_April2026_pfsCoadd_120731449862702300.png)
