@@ -66,7 +66,7 @@ from lsst.daf.butler import Butler
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
 collections = "S25A_April2026"                       # collection name
 
-# Find all visits in the collection
+# ==== QUERY ALL VISITS FROM BUTLER AND PRINT ALL VISITS ====
 butler      = Butler(repo, collections=collections)
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Total visits: {len(all_visits)}")
@@ -98,7 +98,7 @@ collections = "S25A_April2026"                       # collection name
 VISIT       = 123476 # Inspects and plots fiber positions in specified visit
 VISIT_INDEX = 0      # Used if VISIT is None. Increment through visits in collections (0 = first, 1 = second, etc.)
 
-# ==== FIND ALL VISITS ====
+# ==== QUERY ALL FULLY-PROCESSED VISITS FROM BUTLER ====
 butler     = Butler(repo, collections=collections)
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Total visits in Collections ({collections}): {len(all_visits)}")
@@ -112,13 +112,13 @@ else:
     visit = all_visits[VISIT_INDEX]
     print(f"Selected visit index {VISIT_INDEX}: visit={visit}")
 
-# ==== LOAD PFSCONFIG ====
+# ==== LOAD FIBER CONFIGURATION FOR THE SELECTED VISIT ====
 pfsConfig = butler.get('pfsConfig', dict(visit=visit))
 sci       = pfsConfig.select(targetType=TargetType.SCIENCE,  fiberStatus=1)
 sky       = pfsConfig.select(targetType=TargetType.SKY,      fiberStatus=1)
 fluxstd   = pfsConfig.select(targetType=TargetType.FLUXSTD,  fiberStatus=1)
 
-# ==== FIBER POSITION PLOT ====
+# ==== PLOT RA/DEC POSITIONS OF ALL FIBER TYPES FOR THE SELECTED VISIT ====
 fig, ax = plt.subplots(figsize=(7, 7))
 fig.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.97)
 
@@ -159,14 +159,11 @@ repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP reposi
 collections = "S25A_April2026"                       # collection name
 objid       = 120731449862702300
 
-# ==== FIND ALL VISITS VIA PFSMERGED, THEN GET PFSCONFIG REFS ====
-butler     = Butler(repo, collections=collections)
-all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
-all_refs   = list(butler.registry.queryDatasets('pfsConfig',
-                  where=f"visit IN ({','.join(str(v) for v in all_visits)})"))
-print(f"Total visits in Collections ({collections}): {len(all_visits)}")
+# ==== GET ALL PFSCONFIG FILE REFERENCES FROM BUTLER ====
+butler   = Butler(repo, collections=collections)
+all_refs = list(butler.registry.queryDatasets('pfsConfig'))
 
-# ==== FAST SCAN VIA DIRECT FITS READ ====
+# ==== SCAN ALL PFSCONFIG FILES TO FIND WHICH VISITS CONTAIN THE OBJECT ====
 objid_visits = []
 info_ref     = None
 
@@ -183,9 +180,9 @@ if not objid_visits:
     raise ValueError(f"objId {objid} not found in any pfsConfig in collections '{collections}'")
 
 objid_visits = sorted(set(objid_visits))
-print(f"\nObjId={objid} found in {len(objid_visits)} visit(s): {objid_visits}")
+print(f"ObjId={objid} found in {len(objid_visits)} visit(s): {objid_visits}")
 
-# ==== GET FULL INFO FROM FIRST VISIT ====
+# ==== LOAD OBJECT DETAILS FROM THE FIRST MATCHING VISIT ====
 pfsConfig    = butler.get('pfsConfig', dict(visit=objid_visits[0]))
 sci          = pfsConfig.select(targetType=TargetType.SCIENCE, fiberStatus=1)
 sci_mask     = sci.objId == objid
@@ -208,8 +205,6 @@ print(f"  Mag ({first_filter}) = {mag[idx, 0]:.3f} AB")
 **Output**:
 
 ```
-Total visits in Collections (S25A_April2026): 632
-
 ObjId=120731449862702300 found in 4 visit(s): [123476, 123477, 123478, 123479]
 
 Object info (from visit 123476):
