@@ -3,7 +3,7 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - sali_july2026
+      - main
 
 permissions:
   contents: write
