@@ -28,7 +28,7 @@ The PFS 2D DRP generally follows the following flowchart.
 >> ![Focal plane map](img/pipe2d_flowchart_gen3.png)
 
 !!! Products
-    - `pfsArm`: These are wavelength-calibrated but not combined, sky subtracted or flux-calibrated single spectra from a single visit and a single arm.
+    - `pfsArm`: These are wavelength-calibrated but not sky subtracted or flux calibrated single spectra from a single visit and a single arm.
     - `pfsMerged`: These are arm-merged, wavelength calibrated and sky subtracted (but not flux calibrated) spectra from a single visit.
     - `pfsCalibrated`: These are flux-calibrated, arm-merged, wavelength calibrated and sky subtracted spectra from a single visit.
     - `pfsCoadd`: These are coadded spectra, and the final products for science.
