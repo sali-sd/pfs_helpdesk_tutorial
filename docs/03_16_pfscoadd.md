@@ -1,6 +1,6 @@
 # pfsCoadd
 
-## Overview DETAILS
+## Overview of Plot
 
 `pfsCoadd` contains the wavelength-calibrated, sky-subtracted, flux-calibrated and **coadded** spectra combining data across multiple visits (exposures).
 Unlike the visit-based products, `pfsCoadd` files are organised by three dimensions:
@@ -222,4 +222,4 @@ plot_pfscoadd(
 
 **Output**:
 
-pfsCoadd spectrum
+![pfsCoadd spectrum](figures/S25A_April2026_pfsCoadd_120731449862702300.png)
