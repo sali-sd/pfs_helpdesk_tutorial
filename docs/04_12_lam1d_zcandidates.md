@@ -85,7 +85,7 @@ The same ranked-candidate structure applies to `QSO_CANDIDATES` (HDU #10) and `S
 
 ## Build LAM 1D Object Table & Plot Magnitude vs Redshift/Velocity
 
-The following code builds a combined object table across all LAM 1D results in a `collection` with the best object type and redshift/velocity values as indicated by the pipeline. It works in three steps:
+The following code builds a combined object table across all LAM 1D results in a `collection` with the best object classification and redshift/velocity values as indicated by the pipeline. It works in three steps:
 
 1. **Magnitude lookup** — iterates over all visits in the `collection` via `pfsMerged`, extracting per-object magnitudes from `pfsConfig` across all available filters.
 2. **LAM 1D FITS reading** — reads all `pfsCoZCandidates` FITS files from for a given `collection`, extracting the best object classification, best redshift/velocity candidate (by highest probability), warnings, and errors for each object.
@@ -94,13 +94,6 @@ The following code builds a combined object table across all LAM 1D results in a
 After saving the CSV, the code plots **magnitude vs. redshift** (for GALAXY and QSO) and **magnitude vs. velocity** (for STAR), coloured by `catId`.
 
 ```python
-# ==== LAM1D OBJECT TABLE + MAGNITUDE VS REDSHIFT/VELOCITY PLOT ====
-
-# This code builds a magnitude table for all objects in COLLECTIONS and combines it with
-# LAM1D redshift/classification outputs (where available) into a single CSV file.
-# The CSV is used by the PFSCoadd + LAM1D spectrum plotter to browse objects by class,
-# redshift, velocity or objId. Run this code once per COLLECTIONS before using the plotter.
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
