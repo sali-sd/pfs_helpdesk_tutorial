@@ -37,6 +37,7 @@ nav:
     # - Data Analysis: 04_03_faq_analysis.md
   - Appendix: 
     - Data Model: 05_01_app_datamodel.md
+    - Science Platform Data Processing Status: 05_02_app_science_platform_status.md
  
 theme: 
   name: readthedocs
