@@ -23,7 +23,7 @@ As improvements to the 2d and 1d pipelines are made, the same data can be re-pro
 
 ## Missing Data
 
-For each run or reprocessing release, any known missing files or incomplete products are noted below.
+For each run or reprocessing release, any known missing files, incomplete products, or visits excluded from the release (e.g. poor quality / bad weather) are noted below.
 
 ### `run21`
 
@@ -48,21 +48,37 @@ The following arms are missing due to processing failures. Due to the way flux c
 | 123314 | `n4`                          |
 
 
+In addition, the following visits were excluded by a data-quality cut (mostly poor observing conditions / bad weather):
+
+123489, 122048, 122638, 123062, 123065, 123133, 123134, 123138, 123273, 123307, 123372, 123373, 123413, 123414, 123421, 123422, 123498, 123499, 123607, 123608, 123610, 123611, 123613, 123640, 123644, 123649, 123650, 123652, 123653, 123657, 123658, 123660, 123661, 123665, 123666, 123668, 123669, 123671, 123672, 123675, 123676, 123678, 123679, 123681, 123682
+
 ### `run22`
 
-There is no missing 2D data. For 1D data, see the `run25` notes below.
+There is no missing 2D arm data from processing failures. For 1D data, see the `run25` notes below.
+
+The following visits were excluded by a data-quality cut (mostly poor observing conditions; some very short calibration exposures are also in this list):
+
+125942, 125943, 125944, 125945, 125947, 125948, 125949, 125950, 126416, 126417, 126418, 126455, 126457, 126458, 126466, 126495, 126496, 126543, 126555, 126586, 126587, 126588, 126589, 126648, 126649, 126910, 126911, 126913, 126914, 126918, 126919, 126921, 126922, 126924, 126925, 126927, 126928, 126930, 126931, 126933, 126934, 126941, 126942, 126944, 126945, 126947, 126948, 126419
 
 ### `run23`
 
-There is no missing 2D data. For 1D data, see the `run25` notes below.
+There is no missing 2D arm data from processing failures. For 1D data, see the `run25` notes below.
+
+The following visits were excluded by data-quality cuts (mostly poor observing conditions; a few visits with bad acquisitions are also included):
+
+127635, 127642, 127743, 127744, 127746, 127747, 127749, 127750, 127752, 127753, 127755, 127756, 127758, 127765, 127766, 127768, 127769, 127771, 127772, 127774, 128047, 128048, 128260, 128261, 128263, 128264, 128266, 128276, 128277, 128280, 128297, 128298, 128300, 128301, 128420, 128428, 128429, 128434, 128441, 128442, 128444, 128445, 128450, 128451, 128453, 128454, 128456, 128457, 128459, 128460, 128600, 128615, 128620, 128722, 128723, 128725, 128726, 128867, 128868, 129223, 129224, 129225, 129227, 129228, 129251
 
 ### `S25A`
 
-There is no missing 2D data. For 1D data, see the `run25` notes below.
+There is no missing 2D arm data from processing failures. For 1D data, see the `run25` notes below.
+
+Only “good” science visits from `run21`–`run23` were processed through coadd. The quality-excluded visits listed under those runs are therefore also absent from this release (the release note does not reprint a separate exclusion list).
 
 ### `run24`
 
-There is no missing 2D data. For 1D data, see the `run25` notes below.
+There is no missing 2D arm data from processing failures. For 1D data, see the `run25` notes below.
+
+Only good science visits were processed through coadd (see the visit list in the release note / `fluxCalQA` plots). The release note does not publish a separate list of quality-excluded visits.
 
 ### `run25`
 
@@ -80,6 +96,8 @@ There are no missing 2D pipeline raw/arm files. However, a substantial fraction 
 
 This incompleteness also affected earlier releases. It was later traced to mixed low- and medium-resolution spectra in the same `pfsCoadd` file (see `S25A` take #2 / `run26`).
 
+About 20 additional visits were processed through `fluxCal` but discarded due to bad quality; those visit IDs are not listed in the release note.
+
 ### `S25A` take #2
 
 A small number of files are missing from the release as summarized below. These are not due to processing errors but to data acquisition issues during the observations (i.e., the raw data are missing).
@@ -94,11 +112,15 @@ A small number of files are missing from the release as summarized below. These 
 | 123314 | `n4`                       |
 
 
+The same set of “good” visits as in `S25A` (November 2025) was used, so the quality-excluded visits from `run21`–`run23` remain excluded.
+
 There is also the `pfsCoZCandidates` incompleteness from mixed-resolution coadds (same issue as `run25`); that problem is addressed from `run26` onward by producing separate `brn` and `bmn` coadds.
 
 ### `run26`
 
 There are no missing raw/arm files. Separate `brn` / `bmn` coadds resolved the earlier problem of objects missing from `pfsCoZCandidates` when resolutions were mixed in one `pfsCoadd` file.
+
+Science visits were processed through `pfsMerged`, then good visits were selected for coadds using `fluxCalQA`. Visits rejected from coaddition are not listed by ID in the release note; QA plots for those bad visits are included in the release.
 
 ### `run27`
 
