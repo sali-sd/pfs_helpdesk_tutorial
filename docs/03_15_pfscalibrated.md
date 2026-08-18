@@ -9,10 +9,10 @@
 
 Filename format: `pfsCalibrated_PFS_{visit}_{collection}.fits`
 
-Example from proposal `S25A-000QF`, visit 123476 on the Science Platform:
+Example from proposal `S25A-000QF`, visit 137292 on the Science Platform:
 ```
-/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCalibrated/20250403/123476/
-    pfsCalibrated_PFS_123476_S25A_April2026.fits
+/shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsCalibrated/20260111/137292/
+    pfsCalibrated_PFS_137292_run26_June2026.fits
 ```
 
 **FITS structure (pfsCoadd format):**

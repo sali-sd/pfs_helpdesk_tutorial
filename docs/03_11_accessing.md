@@ -21,13 +21,13 @@ S25A_November2025   butler.yaml.bak  gen3.sqlite3     run23_August2025 run24_Nov
 run25_February2026  run26_June2026
 ```
 
-The `butler.yaml` and `gen3.sqlite3` mark this directory as the root of the butler repository. Each sub-directory (e.g. `S25A_April2026`, `run26_June2026`) corresponds to a different `collection` — a named set of data products from a particular processing run or observing semester. We will use `S25A_April2026` as our reference `collection` going forward, which contains all reduced data observed during the S25A semester (Feb-July 2025) and reduced on April 2026. As improvements to the pipeline are made, newer reductions will be available in the future.
+The `butler.yaml` and `gen3.sqlite3` mark this directory as the root of the butler repository. Each sub-directory (e.g. `S25A_April2026`, `run26_June2026`) corresponds to a different `collection` — a named set of data products from a particular processing run or observing semester. We will use `run26_June2026` as our reference `collection` going forward, which is the June 2026 processing run containing all reduced data from the S25A semester. As improvements to the pipeline are made, newer reductions will be available in the future.
 
 ```python
 from lsst.daf.butler import Butler
 
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
-collections = "S25A_April2026"                       # collection name
+collections = "run26_June2026"                       # collection name
 
 butler = Butler(repo, collections=collections)
 ```

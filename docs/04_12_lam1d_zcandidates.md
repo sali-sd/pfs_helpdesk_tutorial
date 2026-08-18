@@ -9,7 +9,7 @@ The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` 
 Example from proposal `S25A-000QF`, catId 10094 (32 object groups):
 
 ```
-/shared/pfs/programs/S25A-000QF/lam1d/S25A_April2026/modified/
+/shared/pfs/programs/S25A-000QF/lam1d/run26_June2026/modified/
     10094_1/              ← directory: {catId}_{objGroup}
         data/pfsCoZcandidates-10094.fits
     10094_2/

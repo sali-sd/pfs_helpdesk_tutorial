@@ -5,7 +5,7 @@
 `pfsCoadd` contains the wavelength-calibrated, sky-subtracted, flux-calibrated and **coadded** spectra combining data across multiple visits (exposures).
 Unlike the visit-based products, `pfsCoadd` files are organised by three dimensions:
 
-- `combination` — a string identifying which set of visits were combined (e.g. `selected_S25A`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename.
+- `combination` — a string identifying which set of visits were combined (e.g. `brn_run26`). This is the top-level key used by `Butler` to locate coadd files and is embedded in every filename.
 - `catId` — the object catalog identifier; files are grouped into subdirectories by `catId`
 - `objGroup` — objects within a `catId` are further split into numbered groups, due to limitations on file sizes.
 
@@ -19,11 +19,11 @@ Filename format: `pfsCoadd_PFS_{combination}_{catId}_{objGroup}_{collection}.fit
 Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler Program) on the Science Platform (32 object groups):
 
 ```
-/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsCoadd/10094/
-    pfsCoadd_PFS_selected_S25A_10094_1_S25A_April2026.fits
-    pfsCoadd_PFS_selected_S25A_10094_2_S25A_April2026.fits
+/shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsCoadd/10094/
+    pfsCoadd_PFS_brn_run26_10094_1_run26_June2026.fits
+    pfsCoadd_PFS_brn_run26_10094_2_run26_June2026.fits
     ...
-    pfsCoadd_PFS_selected_S25A_10094_32_S25A_April2026.fits
+    pfsCoadd_PFS_brn_run26_10094_32_run26_June2026.fits
 ```
 
 **FITS structure:**

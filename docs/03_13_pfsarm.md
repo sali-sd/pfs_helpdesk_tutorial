@@ -10,17 +10,17 @@ produces a separate file. The wavelength grid is not required to be uniform — 
 
 Filename format: `pfsArm_PFS_{visit}_{arm}{spectrograph}_{collection}.fits`
 
-Example from proposal `S25A-000QF`, visit 123476 on the Science Platform (blue `b`, red `r`, and IR `n` arms across 4 spectrograph modules):
+Example from proposal `S25A-000QF`, visit 137292 on the Science Platform (blue `b`, red `r`, and IR `n` arms across 4 spectrograph modules):
 
 ```
-/shared/pfs/programs/S25A-000QF/2d/S25A_April2026/pfsArm/20250403/123476/
-    pfsArm_PFS_123476_b1_S25A_April2026.fits
-    pfsArm_PFS_123476_b2_S25A_April2026.fits
-    pfsArm_PFS_123476_b3_S25A_April2026.fits
-    pfsArm_PFS_123476_b4_S25A_April2026.fits
-    pfsArm_PFS_123476_r1_S25A_April2026.fits
+/shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsArm/20260111/137292/
+    pfsArm_PFS_137292_b1_run26_June2026.fits
+    pfsArm_PFS_137292_b2_run26_June2026.fits
+    pfsArm_PFS_137292_b3_run26_June2026.fits
+    pfsArm_PFS_137292_b4_run26_June2026.fits
+    pfsArm_PFS_137292_r1_run26_June2026.fits
     ...
-    pfsArm_PFS_123476_n4_S25A_April2026.fits
+    pfsArm_PFS_137292_n4_run26_June2026.fits
 ```
 
 **FITS structure:**
