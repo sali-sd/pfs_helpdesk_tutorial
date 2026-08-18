@@ -281,26 +281,25 @@ for class_name, y_col, y_label, y_scale in plot_config:
 **Output**:
 
 ```
-Building magnitude lookup from 632 visits...
-  Visit 632/632: 128470  (44085 unique objects so far)
-Magnitude lookup complete: 44085 unique objects  |  Filters: ['mag_g_gaia', 'mag_bp_gaia', 'mag_rp_gaia', 'mag_g_ps1', 'mag_r_ps1', 'mag_i_ps1', 'mag_z_ps1', 'mag_y_ps1']
+Building magnitude lookup from 426 visits...
+  Visit 426/426: 139726  (42558 unique objects so far)
+Magnitude lookup complete: 42558 unique objects  |  Filters: ['mag_g_ps1', 'mag_r_ps1', 'mag_i_ps1', 'mag_z_ps1', 'mag_y_ps1']
 
 Reading LAM1D from 32 pfsCoZCandidates files via Butler...
   Processing file 32/32  (0 skipped)
 Processed 32 files  (0 skipped)
 
-Magnitudes matched: 31120 / 31120 objects
-Auto-correcting velocity units: median |velocity|=59958 → likely m/s, dividing by 1000
-Saved S25A_April2026_all_lam1d.csv  (31120 objects)
+Magnitudes matched: 44333 / 44333 objects
+Saved run26_June2026_all_lam1d.csv  (44333 objects)
 
 Class breakdown:
-  GALAXY: 16160 objects
-  QSO: 214 objects
-  STAR: 14746 objects
+  GALAXY: 20044 objects
+  QSO: 309 objects
+  STAR: 23980 objects
 ```
 
-![GALAXY magnitude vs redshift](figures/S25A_April2026_GALAXY_mag_vs_redshift_gal.png)
+![GALAXY magnitude vs redshift](figures/run26_June2026_GALAXY_mag_vs_redshift_gal.png)
 
-![QSO magnitude vs redshift](figures/S25A_April2026_QSO_mag_vs_redshift_qso.png)
+![QSO magnitude vs redshift](figures/run26_June2026_QSO_mag_vs_redshift_qso.png)
 
-![STAR magnitude vs velocity](figures/S25A_April2026_STAR_mag_vs_velocity_star.png)
+![STAR magnitude vs velocity](figures/run26_June2026_STAR_mag_vs_velocity_star.png)

@@ -46,9 +46,9 @@ from pfs.datamodel import TargetType
 
 # ==== USER-DEFINED PARAMETERS ====
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
-collections = "S25A_April2026"                       # collection name
-objid        = 120731449862702300    # If set, plots this object directly. If None uses browse_index
-visit        = 123476                # If None, first VISIT containing objid is used automatically
+collections = "run26_June2026"                       # collection name
+objid        = 89100543080260387     # If set, plots this object directly. If None uses browse_index
+visit        = 137292                # If None, first VISIT containing objid is used automatically
 browse_index = 0                     # Used only if objid is None; steps through SCIENCE objects in VISIT by index
 MEDIAN_FILTER_SIZE = 1               # 1 = no filtering, increment for smoothing as desired
 arms               = ['b', 'r']      # options: 'b', 'r', 'n' or any combination of arms to plot
@@ -156,6 +156,7 @@ def plot_pfscalibrated(repo, collections, visit, objid, browse_index, MEDIAN_FIL
     ax.minorticks_on()
     ax.set_xlabel('Wavelength [nm]')
     ax.set_ylabel('Flux [nJy]')
+    plt.savefig(f'pfsCalibrated_{collections}_{objid}.png', dpi=150, bbox_inches='tight')
     plt.show()
 
 # ==== RUN ====
@@ -172,4 +173,4 @@ plot_pfscalibrated(
 
 **Output**:
 
-![pfsCalibrated spectrum for visit 123476](figures/pfsCalibrated_visit=123476.png)
+![pfsCalibrated spectrum for objId 89100543080260387](figures/pfsCalibrated_run26_June2026_89100543080260387.png)

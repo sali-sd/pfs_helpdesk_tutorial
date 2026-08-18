@@ -18,9 +18,9 @@ from scipy import ndimage
 from lsst.daf.butler import Butler
 
 # ==== USER-DEFINED PARAMETERS ====
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"
-collections = "S25A_April2026"
-combination = "selected_S25A"
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
+collections = "run26_June2026"                       # collection name
+combination = "brn_run26"                            # Set to the combination you want to plot
 
 # CLASS PARAMETERS
 # Note: Set to None if you do not want to use a particular parameter
@@ -28,7 +28,7 @@ class_name           = None       # 'GALAXY', 'QSO' or 'STAR'
 browse_index         = None       # 0 = highest redshift/velocity, increment to browse
 search_redshift      = None       # GALAXY/QSO: find closest object to this redshift, overrides browse_index
 search_velocity_kms  = None       # STAR: find closest object to this velocity [km/s], overrides browse_index
-objid                = 120731449862702300  # if set, overrides everything else and plots target spectrum directly
+objid                = 89100543080260387  # if set, overrides everything else and plots target spectrum directly
 
 # PLOT PARAMETERS
 MEDIAN_FILTER_SIZE   = 1          # 1 = no filtering, increment for smoothing as desired
@@ -311,7 +311,7 @@ def plot_pfscoadd_lam1d(
             else:
                 ax.set_visible(False)
 
-    fig.savefig(f'{collections}_{class_name}_{objid}.png', dpi=150, bbox_inches='tight')
+    fig.savefig(f'pfsCoadd_LAM1D_{collections}_{class_name}_{objid}.png', dpi=150, bbox_inches='tight')
     plt.show()
 
 # ==== RUN ====
@@ -334,23 +334,23 @@ plot_pfscoadd_lam1d(
 **Output**:
 
 ```
-Auto-detected class: GALAXY for objId=120731449862702300
-Loading pfsCoadd for catid=10094 obj_group=14...
-ObjId=120731449862702300  CatID=10094  ObjGroup=14  z=0.3000  g_ps1=21.63  zProba=1.000  classProba=1.000
+Auto-detected class: GALAXY for objId=89100543080260387
+Loading pfsCoadd for catid=10094 obj_group=9...
+ObjId=89100543080260387  CatID=10094  ObjGroup=9  z=0.1500  g_ps1=20.82  zProba=1.000  classProba=1.000
 
----- Top 10 Lines by SNR  (global z=0.3000) ----
+---- Top 10 Lines by SNR  (global z=0.1500) ----
   Line             SNR        EW    EW_err    lineZ       dz   sigma
   ----             ---        --    ------    -----       --   -----
-  Halpha         108.9       5.7       0.1   0.3000  +0.0000    0.19
-  [SII]6731       37.9       0.8       0.0   0.3000  +0.0000    0.18
-  [NII]a          34.8       1.2       0.0   0.3000  +0.0000    0.19
-  [OIII]a         31.2       1.5       0.1   0.3000  +0.0000    0.14
-  [OII]3726       26.8       2.2       0.2   0.3000  +0.0000    0.12
-  [SII]6716       26.6       1.0       0.0   0.3000  +0.0000    0.18
-  [OII]3729       25.4       3.5       0.2   0.3000  +0.0000    0.12
-  [OIII]b         16.3       0.5       0.0   0.3000  +0.0000    0.14
-  Hbeta           16.1       1.3       0.1   0.3000  -0.0000    0.13
-  [NII]b          10.3       0.4       0.0   0.3000  +0.0000    0.19
+  Halpha         300.4       3.1       0.0   0.1500  +0.0000    0.14
+  [OII]3729       34.3       1.6       0.1   0.1500  -0.0000    0.10
+  [NII]a          34.0       0.7       0.0   0.1500  +0.0000    0.14
+  [SII]6716       32.3       0.7       0.0   0.1500  +0.0000    0.14
+  [SII]6731       31.7       0.5       0.0   0.1500  +0.0000    0.14
+  [OIII]a         31.3       0.6       0.0   0.1500  +0.0000    0.11
+  [OII]3726       30.6       1.1       0.0   0.1500  -0.0000    0.10
+  Hbeta           25.6       0.6       0.0   0.1500  -0.0000    0.09
+  [NII]b          23.5       0.2       0.0   0.1500  +0.0000    0.14
+  FeII3785        10.2       0.2       0.0   0.1500  -0.0000    0.10
 ```
 
-![pfsCoadd + LAM 1D spectrum for objId 120731449862702300](figures/S25A_April2026_GALAXY_120731449862702300.png)
+![pfsCoadd + LAM 1D spectrum for objId 89100543080260387](figures/pfsCoadd_LAM1D_run26_June2026_GALAXY_89100543080260387.png)

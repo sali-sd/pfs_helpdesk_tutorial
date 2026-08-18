@@ -56,31 +56,6 @@ You can check all `combination` names in your `collections` as such:
 from lsst.daf.butler import Butler
 
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"
-collections = "S25A_April2026"
-
-butler = Butler(repo, collections=collections)
-combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
-print(f"Available combinations in '{collections}': {combinations}")
-```
-
-**Output**:
-
-```
-Available combinations in 'S25A_April2026': ['selected_S25A']
-```
-
-
-
-## A Note about Combinations on the Science Platform
-
-- The dataset being explored in this tutorial on the Science Platform - `Proposal ID: S25A-000QF`, `Collection: S25A_April2026`, only has one combination as seen above - `selected_S25A`.
-- This means that all visits (exposures) for each object were combined and placed placed into the above `combination` without any further discrimination.
-- However, from `run26_June2026` onwards (i.e. from the June 2026 processing run) all data will be split into two `combinations` called `brn` and `bmn`, which separately combine the low resolution red-arm and medium resolution red-arm data respectively. You can see this demonstrated below:
-
-```python
-from lsst.daf.butler import Butler
-
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"
 collections = "run26_June2026"
 
 butler = Butler(repo, collections=collections)
@@ -92,6 +67,36 @@ print(f"Available combinations in '{collections}': {combinations}")
 
 ```
 Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
+```
+
+
+
+## A Note about Combinations on the Science Platform
+
+From `run26_June2026` onwards (i.e. from the June 2026 processing run), all data is split into two `combinations`:
+
+- `brn` — combines visits observed with the **low-resolution red arm** (`r`)
+- `bmn` — combines visits observed with the **medium-resolution red arm** (`m`)
+
+This split is made because the two red-arm modes cover different wavelength ranges and cannot be meaningfully coadded together. When plotting, choose the combination that matches the arm configuration of your data. The code in this tutorial uses `brn_run26` as the default.
+
+For reference, older collections (prior to `run26_June2026`) used a single combination that merged all visits regardless of arm mode. For example, `S25A_April2026` has only one combination:
+
+```python
+from lsst.daf.butler import Butler
+
+repo        = "/shared/pfs/programs/S25A-000QF/2d/"
+collections = "S25A_April2026"
+
+butler = Butler(repo, collections=collections)
+combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
+print(f"Available combinations in '{collections}': {combinations}")
+```
+
+**Output**:
+
+```
+Available combinations in 'S25A_April2026': ['selected_S25A']
 ```
 
 
@@ -109,9 +114,9 @@ from pfs.datamodel import TargetType
 
 # ==== USER-DEFINED PARAMETERS ====
 repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
-collections = "S25A_April2026"                       # collection name
-combination  = "selected_S25A"      # Set to the combination you want to plot
-objid        = 120731449862702300    # If set, plots this object directly. If None uses browse_index
+collections = "run26_June2026"                       # collection name
+combination = "brn_run26"                            # Set to the combination you want to plot
+objid        = 89100543080260387     # If set, plots this object directly. If None uses browse_index
 browse_index = 0                     # Used only if objid is None; steps through SCIENCE objects by index
 MEDIAN_FILTER_SIZE = 1               # 1 = no filtering, increment for smoothing as desired
 arms               = ['b', 'r']      # options: 'b', 'r', 'n' or any combination of arms to plot
@@ -211,6 +216,7 @@ def plot_pfscoadd(repo, collections, combination, objid, browse_index, MEDIAN_FI
     ax.minorticks_on()
     ax.set_xlabel('Wavelength [nm]')
     ax.set_ylabel('Flux [nJy]')
+    plt.savefig(f'pfsCoadd_{collections}_{objid}.png', dpi=150, bbox_inches='tight')
     plt.show()
 
 # ==== RUN ====
@@ -228,4 +234,4 @@ plot_pfscoadd(
 
 **Output**:
 
-![pfsCoadd spectrum](figures/S25A_April2026_pfsCoadd_120731449862702300.png)
+![pfsCoadd spectrum for objId 89100543080260387](figures/pfsCoadd_run26_June2026_89100543080260387.png)
