@@ -21,7 +21,7 @@ S25A_November2025   butler.yaml.bak  gen3.sqlite3     run23_August2025 run24_Nov
 run25_February2026  run26_June2026
 ```
 
-The `butler.yaml` and `gen3.sqlite3` mark this directory as the root of the butler repository. Each sub-directory (e.g. `S25A_April2026`, `run26_June2026`) corresponds to a different `collection` — a named set of data products from a particular processing run or observing semester. We will use `run26_June2026` as our reference `collection` going forward, which is the June 2026 processing run containing all reduced data from the S25A semester. As improvements to the pipeline are made, newer reductions will be available in the future.
+The `butler.yaml` and `gen3.sqlite3` mark this directory as the root of the butler repository. Each sub-directory (e.g. `S25A_April2026`, `run26_June2026`) corresponds to a different `collection` — a named set of data products from a particular processing run or observing semester. We will use `run26_June2026` as our reference `collection` going forward, which is the June 2026 processing run containing all reduced data taken between Jan-February 2026 observing run. As improvements to the pipeline are made, newer reductions will be available in the future.
 
 ```python
 from lsst.daf.butler import Butler

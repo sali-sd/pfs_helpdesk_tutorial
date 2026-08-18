@@ -7,16 +7,11 @@ We will show how PFS data products are stored, can be accessed and analyzed usin
 As a reference, the following are all the pipeline data products:
 
 ```
-apCorr                 fitFluxCal_log             mergeArms_config    pfsCoaddLsf
-calibs                 fitFluxCal_metadata        mergeArms_log       pfsConfig
-coaddSpectra_config    fitFluxReference_config    mergeArms_metadata  pfsFluxReference
-coaddSpectra_log       fitFluxReference_log       objectGroupMap      pfsMerged
-coaddSpectra_metadata  fitFluxReference_metadata  packages            pfsMergedLsf
-cosmicray_config       fluxCal                    pfsArm              reduceExposure_config
-cosmicray_log          isr_config                 pfsArmLsf           reduceExposure_log
-cosmicray_metadata     isr_log                    pfsCalibrated       reduceExposure_metadata
-detectorMap            isr_metadata               pfsCalibratedLsf    sky1d
-fitFluxCal_config      lam1d_modified             pfsCoadd
+apCorr                 cosmicray_config    fitFluxCal_log             fluxCal         lam1d_modified_updated  packages          pfsCoadd          pfsMergedLsf
+calibs                 cosmicray_log       fitFluxCal_metadata        isr_config      mergeArms_config        pfsArm            pfsCoaddLsf       reduceExposure_config
+coaddSpectra_config    cosmicray_metadata  fitFluxReference_config    isr_log         mergeArms_log           pfsArmLsf         pfsConfig         reduceExposure_log
+coaddSpectra_log       detectorMap         fitFluxReference_log       isr_metadata    mergeArms_metadata      pfsCalibrated     pfsFluxReference  reduceExposure_metadata
+coaddSpectra_metadata  fitFluxCal_config   fitFluxReference_metadata  lam1d_modified  objectGroupMap          pfsCalibratedLsf  pfsMerged         sky1d
 ```
 
 Most of these files are not of much significance to the user as they are intermediate pipeline and QA products. The relevant PFS data products and their properties for the science user will be highlighted going forward, but for a detailed description please refer to the [PFS Data Model documentation](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
