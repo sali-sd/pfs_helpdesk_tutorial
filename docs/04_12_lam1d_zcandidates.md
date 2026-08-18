@@ -101,11 +101,12 @@ from lsst.daf.butler import Butler
 from pfs.datamodel import TargetType
 
 # ==== USER-DEFINED PARAMETERS ====
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"
-collections = "run26_June2026"
+repo              = "/shared/pfs/programs/S25A-000QF/2d/"
+collections       = "run26_June2026"
+collections_lam1d = "run26_June2026/lam1d_modified"  # LAM1D collection name
 
 # ==== FIND OBJECT MAGNITUDES ====
-butler     = Butler(repo, collections=[collections, f"{collections}/lam1d_modified"])
+butler     = Butler(repo, collections=[collections, collections_lam1d])
 all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
 print(f"Building magnitude lookup from {len(all_visits)} visits...")
 

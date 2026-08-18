@@ -18,9 +18,10 @@ from scipy import ndimage
 from lsst.daf.butler import Butler
 
 # ==== USER-DEFINED PARAMETERS ====
-repo        = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
-collections = "run26_June2026"                       # collection name
-combination = "brn_run26"                            # Set to the combination you want to plot
+repo              = "/shared/pfs/programs/S25A-000QF/2d/"  # path to the 2d DRP repository
+collections       = "run26_June2026"                       # collection name
+collections_lam1d = "run26_June2026/lam1d_modified"        # LAM1D collection name
+combination       = "brn_run26"                            # Set to the combination you want to plot
 
 # CLASS PARAMETERS
 # Note: Set to None if you do not want to use a particular parameter
@@ -66,7 +67,7 @@ def _get_mag(butler, objid, visits):
 
 # ==== PFSCOADD+LAM1D PLOTTING FUNCTION ====
 def plot_pfscoadd_lam1d(
-    repo, collections, combination,
+    repo, collections, collections_lam1d, combination,
     class_name, browse_index, search_redshift, search_velocity_kms, objid,
     MEDIAN_FILTER_SIZE, arms,
 ):
@@ -76,7 +77,7 @@ def plot_pfscoadd_lam1d(
         'n': (940, 1260),
     }
 
-    butler  = Butler(repo, collections=[collections, f"{collections}/lam1d_modified"])
+    butler  = Butler(repo, collections=[collections, collections_lam1d])
     cat_ids = sorted(set(ref.dataId['cat_id'] for ref in butler.registry.queryDatasets('pfsCoadd')))
     mag_str = None
 
@@ -318,6 +319,7 @@ def plot_pfscoadd_lam1d(
 plot_pfscoadd_lam1d(
     repo                = repo,
     collections         = collections,
+    collections_lam1d   = collections_lam1d,
     combination         = combination,
     class_name          = class_name,
     browse_index        = browse_index,
