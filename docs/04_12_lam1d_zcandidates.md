@@ -4,19 +4,18 @@
 
 `pfsCoZCandidates` is the LAM 1D output file. It bundles redshift candidates, classification results, line measurements, and quality flags for all objects in a single catalog (`catId`), following the same `pfsCoadd` structure.
 
-The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` file is produced per `catId`/`objGroup` combination (see the [pfsCoadd](03_16_pfscoadd.md) section). The results are stored in a directory tree where each folder is named `{catId}_{objGroup}`, and the FITS file lives inside a `data/` subdirectory.
+The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` file is produced per `combination`/`catId`/`objGroup` combination (see the [pfsCoadd](03_16_pfscoadd.md) section). The files are stored inside the Butler repository and follow the same `combination` structure as `pfsCoadd`.
 
-Example from proposal `S25A-000QF`, catId 10094 (32 object groups):
+Filename format: `pfsCoZCandidates_PFS_{combination}_{catId}_{objGroup}_{collection}_{lam1d_collection}.fits`
+
+Example from proposal `S25A-000QF`, catId 10094 (`brn_run26` combination, 22 object groups):
 
 ```
-/shared/pfs/programs/S25A-000QF/lam1d/run26_June2026/modified/
-    10094_1/              ← directory: {catId}_{objGroup}
-        data/pfsCoZcandidates-10094.fits
-    10094_2/
-        data/pfsCoZcandidates-10094.fits
+/shared/pfs/programs/S25A-000QF/2d/run26_June2026/lam1d_modified/pfsCoZCandidates/10094/
+    pfsCoZCandidates_PFS_brn_run26_10094_1_run26_June2026_lam1d_modified.fits
+    pfsCoZCandidates_PFS_brn_run26_10094_2_run26_June2026_lam1d_modified.fits
     ...
-    10094_32/
-        data/pfsCoZcandidates-10094.fits
+    pfsCoZCandidates_PFS_brn_run26_10094_22_run26_June2026_lam1d_modified.fits
 ```
 
 - Flux units for line measurements are **nJy** (continuum) and **10⁻³⁵ W/m²** (line flux).

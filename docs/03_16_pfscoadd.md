@@ -16,14 +16,14 @@ The individual coadded spectrum of a single object (i.e. one row/entry inside `p
 
 Filename format: `pfsCoadd_PFS_{combination}_{catId}_{objGroup}_{collection}.fits`
 
-Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler Program) on the Science Platform (32 object groups):
+Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler Program) on the Science Platform (`brn_run26` combination, 22 object groups):
 
 ```
 /shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsCoadd/10094/
     pfsCoadd_PFS_brn_run26_10094_1_run26_June2026.fits
     pfsCoadd_PFS_brn_run26_10094_2_run26_June2026.fits
     ...
-    pfsCoadd_PFS_brn_run26_10094_32_run26_June2026.fits
+    pfsCoadd_PFS_brn_run26_10094_22_run26_June2026.fits
 ```
 
 **FITS structure:**
