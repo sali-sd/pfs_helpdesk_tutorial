@@ -234,4 +234,4 @@ plot_pfscoadd(
 
 **Output**:
 
-pfsCoadd spectrum for objId 89100543080260387
+![pfsCoadd spectrum for objId 89100543080260387](figures/pfsCoadd_run26_June2026_89100543080260387.png)
