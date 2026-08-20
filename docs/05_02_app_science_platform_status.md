@@ -1,8 +1,8 @@
 # Science Platform Data Processing Status
 
-All PFS data taken each semester is reduced by PFS team and made available through the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) to users. Here will be provide an up to date status on the data processing for each semester and any missing data. This report is also available through the Science Platform itself and the corresponding release notes therein, though we summarise it here for convenience.
+All PFS data taken each semester is reduced by the PFS team and made available through the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) to users. Preliminary data releases are initially made following each observing run (carried out across ~2 months, e.g. run21, run22, run23), followed by a complete semester wide data release (e.g. S25A). As improvements to the 2D and 1D pipelines are made, the PFS team may re-process data from earlier semesters (e.g. S25A take#2). The latest re-processed data will thus provide the best results in almost all cases.
 
-As improvements to the 2d and 1d pipelines are made, the same data can be re-processed multiple times with significant improvements in quality in subsequent releases. As such we recommend using the latest re-processed data.
+Here will be provide an up to date status on the data processing for each semester and any missing data. The full data release report is available through the Science Platform itself and we recommend users to consult them, though we summarise a few key points here for convenience.
 
 ## Data Delivery Status
 
@@ -19,6 +19,8 @@ As improvements to the 2d and 1d pipelines are made, the same data can be re-pro
 | `run26`        | Jan 2026         | Complete    | Complete       | Complete     | Jun 2026    |
 | `run27`        | Mar 2026         | No Data     | No Data        | No Data      | No Data     |
 | `run28`        | May 2026         | In Progress | In Progress    | In Progress  | In Progress |
+
+
 
 
 ## Missing Data
@@ -78,7 +80,7 @@ Only “good” science visits from `run21`–`run23` were processed through coa
 
 There is no missing 2D arm data from processing failures. For 1D data, see the `run25` notes below.
 
-Only good science visits were processed through coadd (see the visit list in the release note / `fluxCalQA` plots). The release note does not publish a separate list of quality-excluded visits.
+Only good science visits were processed through coadd (see the visit list in the release note / `fluxCalQA` plots).
 
 ### `run25`
 
@@ -94,9 +96,9 @@ There are no missing 2D pipeline raw/arm files. However, a substantial fraction 
 | 16       | 1551                   | 926                            | 0.60              |
 
 
-This incompleteness also affected earlier releases. It was later traced to mixed low- and medium-resolution spectra in the same `pfsCoadd` file (see `S25A` take #2 / `run26`).
+This incompleteness also affected earlier releases. It was later traced to mixed low- and medium-resolution spectra in the same `pfsCoadd` file. A fix is implemented from`run26` onwards.
 
-About 20 additional visits were processed through `fluxCal` but discarded due to bad quality; those visit IDs are not listed in the release note.
+About 20 additional visits were processed through `fluxCal` but discarded due to bad quality.
 
 ### `S25A` take #2
 
@@ -114,13 +116,13 @@ A small number of files are missing from the release as summarized below. These 
 
 The same set of “good” visits as in `S25A` (November 2025) was used, so the quality-excluded visits from `run21`–`run23` remain excluded.
 
-There is also the `pfsCoZCandidates` incompleteness from mixed-resolution coadds (same issue as `run25`); that problem is addressed from `run26` onward by producing separate `brn` and `bmn` coadds.
+There is also the `pfsCoZCandidates` incompleteness from mixed-resolution coadds (same issue as `run25`). that problem is addressed from `run26` onward.
 
 ### `run26`
 
-There are no missing raw/arm files. Separate `brn` / `bmn` coadds resolved the earlier problem of objects missing from `pfsCoZCandidates` when resolutions were mixed in one `pfsCoadd` file.
+There are no missing raw/arm files. Separate `brn` / `bmn` coadds resolved the earlier problem of objects missing from `pfsCoZCandidates` when resolutions were mixed in one `pfsCoadd` file. In all releases from this run onwards, all data will be split into `brn` and `bmn` combinations that the user will have to specify.
 
-Science visits were processed through `pfsMerged`, then good visits were selected for coadds using `fluxCalQA`. Visits rejected from coaddition are not listed by ID in the release note; QA plots for those bad visits are included in the release.
+Science visits were processed through `pfsMerged`, then good visits were selected for coadds using `fluxCalQA`. QA plots for those bad visits are included in the release.
 
 ### `run27`
 
