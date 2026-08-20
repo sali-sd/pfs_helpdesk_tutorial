@@ -2,7 +2,7 @@
 
 All PFS data taken each semester is reduced by the PFS team and made available through the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) to users. Preliminary data releases are initially made following each observing run (carried out across ~2 months, e.g. run21, run22, run23), followed by a complete semester wide data release (e.g. S25A). As improvements to the 2D and 1D pipelines are made, the PFS team may re-process data from earlier semesters (e.g. S25A take#2). The latest re-processed data will thus provide the best results in almost all cases.
 
-Here we be provide an up to date status on the data processing for each semester and any missing data. The full data release reports are available through the Science Platform and we recommend users to consult them. Below is a brief summary:
+Here we provide an up to date status on the data processing for each semester and any missing data. The full data release reports are available through the Science Platform and we recommend users to consult them. Below is a brief summary:
 
 ## Data Delivery Status
 
@@ -19,8 +19,6 @@ Here we be provide an up to date status on the data processing for each semester
 | `run26`        | Jan 2026         | Complete    | Complete       | Complete     | Jun 2026    |
 | `run27`        | Mar 2026         | No Data     | No Data        | No Data      | No Data     |
 | `run28`        | May 2026         | In Progress | In Progress    | In Progress  | In Progress |
-
-
 
 
 ## Missing Data
