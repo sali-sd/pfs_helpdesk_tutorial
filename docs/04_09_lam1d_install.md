@@ -75,7 +75,7 @@ The script performs the following steps automatically:
 1. **Checks prerequisites** — verifies all required tools are available
 2. **Creates a conda environment** — `pfs-pipeline-1.18.0` with Python 3.11
 3. **Builds C++ dependencies from source** (all installed into the conda environment, no root needed):
-    - PCRE2 10.42 — regex library required by SWIG
+  - PCRE2 10.42 — regex library required by SWIG
     - SWIG 4.1.1 — generates Python bindings for the C++ code
     - Boost 1.74.0 — C++ utility libraries
     - OpenBLAS 0.3.19 — optimised linear algebra (built with multi-architecture support)
@@ -93,7 +93,7 @@ The script performs the following steps automatically:
 
 
 
-## Install locations
+## Installation locations
 
 
 | Location                                | Contents                                                                       |

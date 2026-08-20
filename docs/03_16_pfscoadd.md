@@ -16,7 +16,7 @@ The individual coadded spectrum of a single object (i.e. one row/entry inside `p
 
 Filename format: `pfsCoadd_PFS_{combination}_{catId}_{objGroup}_{collection}.fits`
 
-Example from proposal `S25A-000QF`, catId 10094 (which represents the PFS Filler Program) on the Science Platform (`brn_run26` combination, 22 object groups):
+Example from proposal `S25A-000QF`, catId 10094 (which represents the Observatory Filler Program) on the Science Platform (`brn_run26` combination, 22 object groups):
 
 ```
 /shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsCoadd/10094/
@@ -75,12 +75,12 @@ Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
 
 From `run26_June2026` onwards (i.e. from the June 2026 processing run), all data is split into two `combinations`:
 
-- `brn` — combines visits observed with the **low-resolution red arm** (`r`)
-- `bmn` — combines visits observed with the **medium-resolution red arm** (`m`)
+- `brn` — combines all visits observed with the **low-resolution red arm** (`r`)
+- `bmn` — combines all visits observed with the **medium-resolution red arm** (`m`)
 
-This split is made because the two red-arm modes cover different wavelength ranges and cannot be meaningfully coadded together. When plotting, choose the combination that matches the arm configuration of your data. The code in this tutorial uses `brn_run26` as the default.
+This split is made because the two red-arm modes cover different wavelength ranges and can be difficult to coadd together. When plotting, choose the combination that matches the arm configuration of your data. The code in this tutorial uses `brn_run26` as the default for demonstration.
 
-For reference, older collections (prior to `run26_June2026`) used a single combination that merged all visits regardless of arm mode. For example, `S25A_April2026` has only one combination:
+For reference, older collections (prior to `run26_June2026`) used a single combination that merged all visits regardless of arm mode, though this led to several downstream problems for a subset of objects with both low and medium resolution data, such as with spectroscopic redshift and line measurements using the LAM1D pipeline (hence the above change was made). For example, `S25A_April2026` has only one combination:
 
 ```python
 from lsst.daf.butler import Butler
@@ -103,7 +103,7 @@ Available combinations in 'S25A_April2026': ['selected_S25A']
 
 ## Viewing pfsCoadd Spectra
 
-The following plots the `pfsCoadd` spectrum of a single object. Unlike the visit-based products, `pfsCoadd` has no `visit` dimension — objects are indexed by `combination`, `catId` and `objGroup` instead. Instantiate `Butler` by providing the datastore `repo` and `collections`, and set `combination` to the combination you want to plot (see above for how to find available combinations). The code then automatically locates the corresponding `catId` and `objGroup`. Specify an `objid` to plot that object directly, or use `browse_index` to step through all science objects in the `collections` sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
+The following plots the `pfsCoadd` spectrum of a single object. Unlike the visit-based products, `pfsCoadd` has no `visit` dimension — objects are indexed by `combination`, `catId` and `objGroup` instead. Instantiate `Butler` by providing the datastore `repo` and `collections`, and set `combination` to the combination you want to plot (see above on how to find available combinations). The code then automatically locates the corresponding `catId` and `objGroup`. Specify an `objid` to plot that object directly, or use `browse_index` to step through all science objects in the `collections` sorted by `objId`. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.
 
 ```python
 import numpy as np
@@ -234,4 +234,4 @@ plot_pfscoadd(
 
 **Output**:
 
-![pfsCoadd spectrum for objId 89100543080260387](figures/pfsCoadd_run26_June2026_89100543080260387.png)
+pfsCoadd spectrum for objId 89100543080260387
