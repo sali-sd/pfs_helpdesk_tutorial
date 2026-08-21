@@ -27,9 +27,7 @@ tar -xvf S2Query.tar
 Platform-specific instructions:
 
 - UNIX: Use wget for downloading.
-
 - macOS: Use curl for downloading.
-
 - Windows: An FTP manager is required for data transfer.
 
 You will also need the `pfsConfig` files created for your program. These custom `pfsConfig` files are available under your program directory, for example, `/shared/pfs/programs/S25A-000QF/2d/customPfsConfig`. Copy these files to your local disk and then ingest them.
@@ -43,7 +41,7 @@ There are two types of data that need to be ingested: raw images and `PfsConfig`
 
 These are ingested using two separate commands:
 
-``` bash
+```bash
 # Assume that we define the destination datastore (`DATASTORE`) and the directory containing the input data (`DATADIR`):
 DATASTORE="$WORKDIR/$(whoami)/data/datastore"
 DATADIR="$WORKDIR/$(whoami)/data"
@@ -66,16 +64,13 @@ For example, the filenames have the following meanings:
 
 - **PFSA12345611.fits**:
   > A raw `science` exposure with `visit=123456`, taken at `site=summit` with `spectrograph=1` using the blue arm (`armNum=1`).
-
 - **PFSB12345623.fits**:
   > A raw `up-the-ramp` exposure with `visit=123456`, taken at `site=summit` with `spectrograph=2` using the IR arm (`armNum=3`).
-
 - **pfsConfig-0xad349fe21234abcd-123456.fits**:
   > A realization of a `PfsDesign` with `pfsDesignId=ad349fe21234abcd` for `visit=123456`.
-
 - **PFSF12345600.fits**:
   > A realization of a `PfsDesign` used by the observatory for `visit=123456`. In the final two digits, `00` indicates the original full `PfsConfig` (`PFSF`) file; `01`-`99` indicate customized `PFSF` files containing fibers associated with a specific proposal ID together with calibration fibers (for example, sky and flux fibers). The observatory will provide the customized `PFSF` files with `01`-`99` in the final two digits. If the `PFSF` file contains only one proposal ID or one calibration frame, the `00` file will be distributed. The ingestion procedure is the same as for a `PfsConfig` file.
-  
+
 The parameters in the commands include:
 
 - `--transfer`: The method used to add data to the repository. The options include `link`, `copy`, and `move`, which specify whether the data is symlinked, duplicated, or physically relocated, respectively.
@@ -84,6 +79,9 @@ The parameters in the commands include:
 The ingestion process places the files (referred to as "datasets" in the `butler`) in the repository and records them in the registry database. Each file is placed in a **collection**, which can be thought of as a directory-like grouping in the `butler` (and, when using a traditional filesystem datastore, it is implemented as a directory).
 
 The raw data is placed in the collection `PFS/raw/sps`, while the `PfsConfig` files are placed in the collection `PFS/raw/pfsConfig`.
+
+For each observing program the custom pfsConfig files can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/):  
+`/shared/pfs/programs/$PROPOSAL_ID/2d/customPfsConfig/`
 
 ## Troubleshooting
 
