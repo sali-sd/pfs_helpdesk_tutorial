@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_02_ana_visit/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Analyze Visit-level Data - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Analyze Visit-level Data";
+        var mkdocs_page_input_path = "03_02_ana_visit.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_02_ana_visit/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_09_lam1d_install/">Installing the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_11_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_10_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_12_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_13_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_00_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_02_app_science_platform_status/">Science Platform Data Processing Status</a>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Analyze Visit-level Data</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_02_ana_visit.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="analyze-visit-level-data">Analyze Visit-level Data</h1>
+<p>Now that we have our processed data, let's start exploring the output files! In this section, we'll focus on analyzing visit-level data, working with individual exposures from a single visit. This will give us a more detailed look at the spectra before moving on to coadds, which combine data from multiple visits for improved signal-to-noise and calibration.</p>
+<h2 id="check-fiber-distribution">Check Fiber Distribution</h2>
+<hr />
+<p>Before we dive into analyzing the data, the first step is to import the necessary modules. These modules provide essential functions for interacting with the pipeline outputs.
+The <code>butler</code> interface, a key component of the LSST Science Pipelines, provides a structured and efficient way to access processed data. It manages datasets through a hierarchical system, allowing you to query and retrieve data in an organized manner. Unless you have specific needs that require direct file access, using <code>butler</code> is highly recommended for consistency and ease of use.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As discussed in <a href="00_01_pfs_datamodel.md">PFS Datamodel Section</a>, each pipeline output file is defined in <a href="https://github.com/Subaru-PFS/datamodel/tree/master"><code>datamodel</code></a>. If you have a desperate reason not to use the <code>butler</code>, then the Python module from the datamodel repository can be used. The module allows you to read/write the pipeline files and is written deliberately to be independent of the LSST stack.</p>
+</div>
+<p>To use the <code>butler</code>, you will need to set up PFS pipeline environment before launching the Python:</p>
+<pre><code>$ source $WORKDIR/$(whoami)/packages/stack_28/loadLSST.bash
+$ setup pfs_pipe2d
+</code></pre>
+<p>Then in your Python environment (e.g., a Jupyter notebook), you can import the necessary modules:</p>
+<pre><code>from lsst.daf.butler import Butler
+from pfs.datamodel import TargetType
+</code></pre>
+<p>We will need to first initialize the <code>butler</code>:</p>
+<pre><code>$DATASTORE = &quot;$WORKDIR/pfs/data/datastore&quot;
+$COLLECTION = 'u/$(whoami)/20250218'
+butler = Butler.from_config($DATASTORE, collection=[$COLLECTION])
+</code></pre>
+<p>Let's assume we want to inspect a <code>visit=98336</code>:</p>
+<pre><code>visit=98336
+pfsConfig = butler.get('pfsConfig', visit=visit)
+for tt in (TargetType.SCIENCE, TargetType.SKY, TargetType.FLUXSTD):
+    select = (pfsConfig.targetType == tt)
+    plt.plot(pfsConfig.ra[select], pfsConfig.dec[select], 
+             '.', label=tt.name)
+plt.legend()
+plt.xlabel('R.A. [deg]')
+plt.ylabel('Dec. [deg]')
+</code></pre>
+<p>Running the code above will generate a figure that visualizes the sky distribution of fibers for a given visit. Each data point represents a fiber assigned to a specific target, the flux standards, or the sky. This allows you to quickly inspect the spatial arrangement of targets and verify the fiber allocation for the sky fiber or flux standard sampling.</p>
+<p><img alt="Fiber Distribution" src="../img/out_fiberdist.png" /></p>
+<h2 id="check-pfsarm-data">Check <code>pfsArm</code> data</h2>
+<hr />
+<p>Now that we've visualized the fiber distribution, let's take a closer look at the spectrum of a specific target. The <code>pfsArm</code> files contain the extracted 1D spectra for each spectrograph arm (<code>b</code>, <code>r</code>, <code>n</code>, <code>m</code>).</p>
+<p>For example, if you want to inspect <code>pfsArm</code> with a particular <code>fiberId</code>:</p>
+<pre><code># fiberID
+fiberId = 1163
+
+# for pfsArm, we need to know which spectrograph the object is observed with. We get the spectrograph ID with a utility function.
+from pfs.utils.fibers import spectrographFromFiberId
+# Spectrograph; here, it is 2.
+spectrograph = spectrographFromFiberId(fiberId)
+
+dataId = dict(visit=visit, spectrograph=spectrograph)
+for arm in ('b','r','n'):
+    pfsArm = butler.get('pfsArm', dataId, arm=arm)
+    pfsArm = pfsArm.select(fiberId=fiberId)
+    assert len(pfsArm) == 1
+    plt.plot(pfsArm.wavelength[0], pfsArm.flux[0], '-', label=arm, linewidth=0.1)
+# Skipped unrelated parts #
+plt.show()
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>dataId</code> for retriving <code>pfsArm</code> is <code>dataId</code>=dict(<code>visit</code>, <code>arm</code>, <code>spectrograph</code>) </p>
+</div>
+<p>You will have the figure showing spectra from the three arms (<code>b</code>, <code>r</code>, and <code>n</code>) without wavelength calibration in one figure:</p>
+<p><img alt="Output of pfsArm" src="../img/out_pfsArm.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The barycentric correction has been applied to <code>pfsArm</code> and all the subsequence files. Also, the wavelengths are all in vacuum.</p>
+</div>
+<h2 id="check-pfsmerged-data">Check <code>pfsMerged</code> data</h2>
+<hr />
+<p>If you want to inspect <code>pfsMerged</code>:</p>
+<pre><code>pfsMerged = butler.get('pfsMerged', visit=visit).select(fiberId=fiberId)
+
+bad = (pfsMerged.mask[0] &amp; pfsMerged.flags.get('BAD', 'CR', 'SAT')) != 0
+good = ~bad
+
+plt.plot(pfsMerged.wavelength[0][good], pfsMerged.flux[0][good], '-', linewidth=0.2, label='flux')
+plt.plot(pfsMerged.wavelength[0][good], np.sqrt(pfsMerged.variance[0][good]), '-', linewidth=0.2, label='noise')
+plt.plot(pfsMerged.wavelength[0][bad], pfsMerged.flux[0][bad], '.', color='red', label='bad pixels')
+# Skipped unrelated parts #
+plt.show()
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>dataId</code> for retriving <code>pfsMerged</code> is <code>dataId</code>=dict(<code>visit</code>, <code>spectrograph</code>) </p>
+</div>
+<p>The resulting figure will display the spectrum after merging data from the three arms (<code>b</code>, <code>r</code>, and <code>n</code>). At this stage, wavelength calibration has been applied, but flux calibration has not yet been performed. This step provides a crucial intermediate product, allowing you to check for artifacts, discontinuities between arms, and the overall quality of spectral extraction before applying flux corrections.</p>
+<p><img alt="Output of pfsMerged" src="../img/out_pfsMerged.png" /></p>
+<h2 id="check-pfscalibrated-data">Check <code>pfsCalibrated</code> data</h2>
+<p>Now, let's assume we want to retrieve spectra for specific objects, given their <code>objId</code> values in a list:</p>
+<pre><code>catId = 12345  # Catalogue ID
+objId_list = [123, 456]     # List of target object IDs
+pfsCalibrated = butler.get('pfsCalibrated', visit=visit)
+
+for objId in objId_list:
+    spectrum = pfsCalibrated[catId, objId]
+    bad = (spectrum.mask &amp; pfsSingle.flags.get('BAD', 'CR', 'SAT')) != 0
+    good = ~bad
+    plt.plot(spectrum.wavelength[good], spectrum.flux[good], '-', linewidth=0.2, label='flux')
+    plt.plot(spectrum.wavelength[good], np.sqrt(spectrum.variance[good]), '-', linewidth=0.2, label='noise')
+    plt.plot(spectrum.wavelength, spectrum.sky, '-', linewidth=0.2, label='sky')
+    plt.plot(spectrum.wavelength[bad], spectrum.flux[bad], '.', color='red', label='bad pixels')
+plt.show()
+</code></pre>
+<p>Finally, we analyze the fully calibrated <code>pfsCalibrated</code> spectrum for a single visit. This dataset represents a single-visit spectrum with both wavelength and flux calibrations applied. The plotted figure will provide insights into the final processed spectrum, including signal quality, noise levels, sky subtraction, and flagged bad pixels.</p>
+<p><img alt="Output of pfsCalibrated" src="../img/out_pfsSingle.png" /></p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

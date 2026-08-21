@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_16_pfscoadd/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>pfsCoadd - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pfsCoadd";
+        var mkdocs_page_input_path = "03_16_pfscoadd.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_16_pfscoadd/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">pfsCoadd</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#finding-all-combinations-in-collections">Finding All Combinations in Collections</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a-note-about-combinations-on-the-science-platform">A Note about Combinations on the Science Platform</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#viewing-pfscoadd-spectra">Viewing pfsCoadd Spectra</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_09_lam1d_install/">Installing the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_11_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_10_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_12_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_13_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_00_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_02_app_science_platform_status/">Science Platform Data Processing Status</a>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Data Analysis</li>
+      <li class="breadcrumb-item active">pfsCoadd</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_16_pfscoadd.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="pfscoadd">pfsCoadd</h1>
+<h2 id="overview">Overview</h2>
+<p><code>pfsCoadd</code> contains the wavelength-calibrated, sky-subtracted, flux-calibrated and <strong>coadded</strong> spectra combining data across multiple visits (exposures).
+Unlike the visit-based products, <code>pfsCoadd</code> files are organised by three dimensions:</p>
+<ul>
+<li><code>combination</code> — a string identifying which set of visits were combined (e.g. <code>brn_run26</code>). This is the top-level key used by <code>Butler</code> to locate coadd files and is embedded in every filename.</li>
+<li><code>catId</code> — the object catalog identifier; files are grouped into subdirectories by <code>catId</code></li>
+<li><code>objGroup</code> — objects within a <code>catId</code> are further split into numbered groups, due to limitations on file sizes.</li>
+</ul>
+<p>The individual coadded spectrum of a single object (i.e. one row/entry inside <code>pfsCoadd</code>) is referred to as a <code>pfsObject</code> spectrum.</p>
+<ul>
+<li>Flux units are <strong>nJy</strong> (nano-Janskys)</li>
+<li>The <code>WAVELENGTH</code> is stored in HDU #4 as an image or table; if all spectra share the same wavelength grid it is written as a single array</li>
+</ul>
+<p>Filename format: <code>pfsCoadd_PFS_{combination}_{catId}_{objGroup}_{collection}.fits</code></p>
+<p>Example from proposal <code>S25A-000QF</code>, catId 10094 (which represents the Observatory Filler Program) on the Science Platform (<code>brn_run26</code> combination, 22 object groups):</p>
+<pre><code>/shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsCoadd/10094/
+    pfsCoadd_PFS_brn_run26_10094_1_run26_June2026.fits
+    pfsCoadd_PFS_brn_run26_10094_2_run26_June2026.fits
+    ...
+    pfsCoadd_PFS_brn_run26_10094_22_run26_June2026.fits
+</code></pre>
+<p><strong>FITS structure:</strong></p>
+<table>
+<thead>
+<tr>
+<th>HDU</th>
+<th>Name</th>
+<th>Type</th>
+<th>Units</th>
+<th>Dimensions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#0</td>
+<td>PDU</td>
+<td>Header</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>#1</td>
+<td>TARGET</td>
+<td>Binary table</td>
+<td>—</td>
+<td>NOBJECT rows</td>
+</tr>
+<tr>
+<td>#2</td>
+<td>TARGETFLUX</td>
+<td>Binary table</td>
+<td>—</td>
+<td>NFLUX rows</td>
+</tr>
+<tr>
+<td>#3</td>
+<td>OBSERVATIONS</td>
+<td>Binary table</td>
+<td>—</td>
+<td>NOBS rows</td>
+</tr>
+<tr>
+<td>#4</td>
+<td>WAVELENGTH</td>
+<td>Image/table</td>
+<td>nm (vacuum)</td>
+<td>NWAVELENGTH × NOBJECT</td>
+</tr>
+<tr>
+<td>#5</td>
+<td>FLUX</td>
+<td>Image/table</td>
+<td>nJy</td>
+<td>NWAVELENGTH × NOBJECT</td>
+</tr>
+<tr>
+<td>#6</td>
+<td>MASK</td>
+<td>Image/table</td>
+<td>bitmask</td>
+<td>NWAVELENGTH × NOBJECT</td>
+</tr>
+<tr>
+<td>#7</td>
+<td>SKY</td>
+<td>Image/table</td>
+<td>nJy</td>
+<td>NWAVELENGTH × NOBJECT</td>
+</tr>
+<tr>
+<td>#8</td>
+<td>COVAR</td>
+<td>Image/table</td>
+<td>nJy²</td>
+<td>NWAVELENGTH × NOBJECT × 3</td>
+</tr>
+<tr>
+<td>#9</td>
+<td>COVAR2</td>
+<td>Image/table</td>
+<td>—</td>
+<td>NCOARSE × NCOARSE</td>
+</tr>
+<tr>
+<td>#10</td>
+<td>METADATA</td>
+<td>Binary table</td>
+<td>—</td>
+<td>NOBJECT rows</td>
+</tr>
+<tr>
+<td>#11</td>
+<td>FLUXTABLE</td>
+<td>Binary table</td>
+<td>—</td>
+<td>NOBJECT × NOBS × NWAVELENGTH rows</td>
+</tr>
+<tr>
+<td>#12</td>
+<td>NOTES</td>
+<td>Binary table</td>
+<td>—</td>
+<td>NNOTES rows</td>
+</tr>
+</tbody>
+</table>
+<h2 id="finding-all-combinations-in-collections">Finding All Combinations in Collections</h2>
+<p>You can check all <code>combination</code> names in your <code>collections</code> as such:</p>
+<pre><code class="language-python">from lsst.daf.butler import Butler
+
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;
+collections = &quot;run26_June2026&quot;
+
+butler = Butler(repo, collections=collections)
+combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
+print(f&quot;Available combinations in '{collections}': {combinations}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
+</code></pre>
+<h2 id="a-note-about-combinations-on-the-science-platform">A Note about Combinations on the Science Platform</h2>
+<p>From <code>run26_June2026</code> onwards (i.e. from the June 2026 processing run), all data is split into two <code>combinations</code>:</p>
+<ul>
+<li><code>brn</code> — combines all visits observed with the <strong>low-resolution red arm</strong> (<code>r</code>)</li>
+<li><code>bmn</code> — combines all visits observed with the <strong>medium-resolution red arm</strong> (<code>m</code>)</li>
+</ul>
+<p>This split is made because the two red-arm modes cover different wavelength ranges and can be difficult to coadd together. When plotting, choose the combination that matches the arm configuration of your data. The code in this tutorial uses <code>brn_run26</code> as the default for demonstration.</p>
+<p>For reference, older collections (prior to <code>run26_June2026</code>) used a single combination that merged all visits regardless of arm mode, though this led to several downstream problems for a subset of objects with both low and medium resolution data, such as with spectroscopic redshift and line measurements using the LAM1D pipeline (hence the above change was made). For example, <code>S25A_April2026</code> has only one combination:</p>
+<pre><code class="language-python">from lsst.daf.butler import Butler
+
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;
+collections = &quot;S25A_April2026&quot;
+
+butler = Butler(repo, collections=collections)
+combinations = sorted({ref.dataId['combination'] for ref in butler.registry.queryDatasets('pfsCoadd')})
+print(f&quot;Available combinations in '{collections}': {combinations}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Available combinations in 'S25A_April2026': ['selected_S25A']
+</code></pre>
+<h2 id="viewing-pfscoadd-spectra">Viewing pfsCoadd Spectra</h2>
+<p>The following plots the <code>pfsCoadd</code> spectrum of a single object. Unlike the visit-based products, <code>pfsCoadd</code> has no <code>visit</code> dimension — objects are indexed by <code>combination</code>, <code>catId</code> and <code>objGroup</code> instead. Instantiate <code>Butler</code> by providing the datastore <code>repo</code> and <code>collections</code>, and set <code>combination</code> to the combination you want to plot (see above on how to find available combinations). The code then automatically locates the corresponding <code>catId</code> and <code>objGroup</code>. Specify an <code>objid</code> to plot that object directly, or use <code>browse_index</code> to step through all science objects in the <code>collections</code> sorted by <code>objId</code>. The specific arms to be shown can be selected and the spectrum can be smoothed using a median filter if desired.</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy import ndimage
+from lsst.daf.butler import Butler
+from pfs.datamodel import TargetType
+
+# ==== USER-DEFINED PARAMETERS ====
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
+collections = &quot;run26_June2026&quot;                       # collection name
+combination = &quot;brn_run26&quot;                            # Set to the combination you want to plot
+objid        = 89100543080260387     # If set, plots this object directly. If None uses browse_index
+browse_index = 0                     # Used only if objid is None; steps through SCIENCE objects by index
+MEDIAN_FILTER_SIZE = 1               # 1 = no filtering, increment for smoothing as desired
+arms               = ['b', 'r']      # options: 'b', 'r', 'n' or any combination of arms to plot
+
+# ==== PFSCOADD PLOTTING FUNCTION ====
+def plot_pfscoadd(repo, collections, combination, objid, browse_index, MEDIAN_FILTER_SIZE, arms):
+
+    ARM_RANGES = {
+        'b': (380,  650),
+        'r': (630,  970),
+        'n': (940, 1260),
+    }
+
+    butler      = Butler(repo, collections=collections)
+    datarefs    = list(butler.registry.queryDatasets('pfsCoadd'))
+    if not datarefs:
+        raise ValueError(f&quot;No pfsCoadd datasets found in collections '{collections}'&quot;)
+
+    # ==== VALIDATE COMBINATION ====
+    all_combinations = sorted({ref.dataId['combination'] for ref in datarefs})
+    if combination not in all_combinations:
+        raise ValueError(f&quot;combination '{combination}' not found. Available: {all_combinations}&quot;)
+
+    cat_ids = sorted({ref.dataId['cat_id'] for ref in datarefs
+                      if ref.dataId['combination'] == combination})
+
+    # ==== RESOLVE OBJID ====
+    if objid is None:
+        all_objids = []
+        for cid in cat_ids:
+            ogm = butler.get(&quot;objectGroupMap&quot;, combination=combination, cat_id=cid)
+            all_objids.extend(int(o) for o in ogm.objId)
+        all_objids = sorted(set(all_objids))
+        objid = all_objids[browse_index]
+        print(f&quot;Browse index {browse_index} of {len(all_objids)-1}  →  objId={objid}&quot;)
+
+    # ==== FIND CATID + OBJ_GROUP ====
+    catid = None
+    for cid in cat_ids:
+        ogm = butler.get(&quot;objectGroupMap&quot;, combination=combination, cat_id=cid)
+        try:
+            obj_group = ogm[int(objid)]
+            catid     = cid
+            break
+        except KeyError:
+            continue
+
+    if catid is None:
+        raise ValueError(f&quot;objId {objid} not found in any objectGroupMap in collections '{collections}'&quot;)
+
+    print(f&quot;ObjId={objid}  CatID={catid}  ObjGroup={obj_group}&quot;)
+
+    # ==== LOAD DATA ====
+    pfscoadd  = butler.get(&quot;pfsCoadd&quot;, combination=combination, cat_id=catid,
+                           instrument='PFS', obj_group=obj_group)
+    pfsobject = pfscoadd[int(objid)]
+
+    # ==== ARM MASK ====
+    arm_mask = np.zeros(len(pfsobject.wavelength), dtype=bool)
+    for arm in arms:
+        lo, hi = ARM_RANGES[arm]
+        arm_mask |= (pfsobject.wavelength &gt;= lo) &amp; (pfsobject.wavelength &lt;= hi)
+
+    xlim_lo = min(ARM_RANGES[arm][0] for arm in arms)
+    xlim_hi = max(ARM_RANGES[arm][1] for arm in arms)
+
+    # ==== MASK BAD PIXELS ====
+    pixels_bad  = (pfsobject.mask &amp; pfsobject.flags.get('BAD', 'CR', 'SAT', 'NO_DATA')) != 0
+    pixels_good = arm_mask &amp; ~pixels_bad
+
+    # ==== YLIM ====
+    flux_in_range = pfsobject.flux[pixels_good]
+    p2, p98       = np.nanpercentile(flux_in_range, [2, 98])
+    span          = p98 - p2
+    ylim_lower    = p2  - 0.05 * span
+    ylim_upper    = p98 + 0.15 * span
+
+    # ==== EXPOSURE TIME ====
+    unique_visits, idx = np.unique(pfsobject.observations.visit, return_index=True)
+    total_exptime      = pfsobject.observations.expTime[idx].sum()
+
+    # ==== PLOT ====
+    arms_label = '+'.join(arms)
+    fig, ax = plt.subplots(figsize=(12, 5))
+    fig.subplots_adjust(top=0.88, bottom=0.1, left=0.07, right=0.97)
+
+    ax.plot(pfsobject.wavelength[pixels_good],
+            ndimage.median_filter(pfsobject.flux[pixels_good], size=MEDIAN_FILTER_SIZE),
+            linewidth=0.5, color='black',
+            label=f'pfsCoadd (Median Filter={MEDIAN_FILTER_SIZE})')
+    ax.set_xlim([xlim_lo, xlim_hi])
+    ax.set_ylim([ylim_lower, ylim_upper])
+    ax.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
+    ax.set_title(f'pfsCoadd  ObjID={objid}  CatID={catid}  ObjGroup={obj_group}  Arms={arms_label}  ExpTime={total_exptime:.0f}s\n'
+                 f'Repo={repo}  Collections={collections}  Combination={combination}')
+    ax.legend(loc='upper left', fancybox=True, framealpha=0.5)
+    ax.minorticks_on()
+    ax.set_xlabel('Wavelength [nm]')
+    ax.set_ylabel('Flux [nJy]')
+    plt.savefig(f'pfsCoadd_{collections}_{objid}.png', dpi=150, bbox_inches='tight')
+    plt.show()
+
+# ==== RUN ====
+plot_pfscoadd(
+    repo               = repo,
+    collections        = collections,
+    combination        = combination,
+    objid              = objid,
+    browse_index       = browse_index,
+    MEDIAN_FILTER_SIZE = MEDIAN_FILTER_SIZE,
+    arms               = arms,
+)
+
+</code></pre>
+<p><strong>Output</strong>:</p>
+<p><img alt="pfsCoadd spectrum for objId 89100543080260387" src="../figures/pfsCoadd_run26_June2026_89100543080260387.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_15_pfscalibrated/" class="btn btn-neutral float-left" title="pfsCalibrated"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04_09_lam1d_install/" class="btn btn-neutral float-right" title="Installing the Pipeline">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../03_15_pfscalibrated/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04_09_lam1d_install/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

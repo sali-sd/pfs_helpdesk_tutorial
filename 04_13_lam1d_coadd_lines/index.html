@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_13_lam1d_coadd_lines/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>pfsCoadd Spectrum + LAM 1D Model - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pfsCoadd Spectrum + LAM 1D Model";
+        var mkdocs_page_input_path = "04_13_lam1d_coadd_lines.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_13_lam1d_coadd_lines/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Procees Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_10_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_11_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_12_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_13_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_14_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_15_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_16_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../04_09_lam1d_install/">Installing the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_11_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_10_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_12_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">pfsCoadd Spectrum + LAM 1D Model</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_00_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_02_app_science_platform_status/">Science Platform Data Processing Status</a>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">LAM 1D</li>
+      <li class="breadcrumb-item active">pfsCoadd Spectrum + LAM 1D Model</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_13_lam1d_coadd_lines.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="pfscoadd-spectrum-lam-1d-model">pfsCoadd Spectrum + LAM 1D Model</h1>
+<p>The following script uses the <code>objid</code> to plot the <code>pfsCoadd</code> spectrum of a single object overlaid with the LAM 1D best-fit model, and marks detected spectral lines. Alternatively, It can use the <code>{collections}_all_lam1d.csv</code> file produced by the object table code in the <a href="../04_12_lam1d_zcandidates/">pfsCoZCandidates</a> section to search for objects by redshift/velocty or browse by index (csv is not required for a simple <code>objid</code> search) . Run that code once before using this plotter if using the second selection method.</p>
+<p>The code supports three modes of object selection:</p>
+<ul>
+<li><strong>By</strong> <code>objid</code> — plots that object directly, auto-detecting its class using <code>Butler</code> (object table csv not required).</li>
+<li><strong>By class + redshift/velocity</strong> — finds the object in the CSV closest to a target redshift (GALAXY/QSO) or velocity (STAR) provided.</li>
+<li><strong>By class +</strong> <code>browse_index</code> — steps through all objects of a given class in the CSV sorted by descending redshift/velocity.</li>
+</ul>
+<p>For a given object, the code fetches the <code>pfsCoadd</code> spectrum and the LAM 1D model fit via <code>Butler</code>. The main plot shows the observed spectrum (black) and the LAM 1D model fit (red) with detected line positions marked. For GALAXY and QSO objects, up to four zoomed sub-panels show the top-ranked lines by SNR, with the line name, SNR, and equivalent width displayed. A summary table of the top 10 lines by SNR is also printed to the terminal.</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import ndimage
+from lsst.daf.butler import Butler
+
+# ==== USER-DEFINED PARAMETERS ====
+repo              = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
+collections       = &quot;run26_June2026&quot;                       # collection name
+collections_lam1d = &quot;run26_June2026/lam1d_modified&quot;        # LAM1D collection name
+combination       = &quot;brn_run26&quot;                            # Set to the combination you want to plot
+
+# CLASS PARAMETERS
+# Note: Set to None if you do not want to use a particular parameter
+class_name           = None       # 'GALAXY', 'QSO' or 'STAR'
+browse_index         = None       # 0 = highest redshift/velocity, increment to browse
+search_redshift      = None       # GALAXY/QSO: find closest object to this redshift, overrides browse_index
+search_velocity_kms  = None       # STAR: find closest object to this velocity [km/s], overrides browse_index
+objid                = 89100543080260387  # if set, overrides everything else and plots target spectrum directly
+
+# PLOT PARAMETERS
+MEDIAN_FILTER_SIZE   = 1          # 1 = no filtering, increment for smoothing as desired
+arms                 = ['b', 'r'] # options: 'b', 'r', 'n' or any combination of arms to plot
+
+# ==== HELPERS ====
+# _get_zinfo: extracts class, redshift/velocity, redshift probability, and class probability
+#             directly from a zCand object via Butler
+# _get_mag:   looks up the best available magnitude from pfsConfig for a given objId
+#             using a visit from the pfsCoadd observations list
+def _get_zinfo(zCand):
+    cname   = zCand.classification.name
+    z_key   = {&quot;STAR&quot;: &quot;velocity&quot;, &quot;GALAXY&quot;: &quot;redshift&quot;, &quot;QSO&quot;: &quot;redshift&quot;}[cname]
+    params  = zCand.get_classified_parameters()
+    z_val   = float(params[z_key])
+    z_proba = float(params.get('templateProba' if cname == 'STAR' else 'redshiftProba', float('nan')))
+    c_proba = next((float(v) for k, v in zCand.classification.probabilities.items() if k.upper() == cname), float('nan'))
+    return cname, z_val, z_proba, c_proba
+
+def _get_mag(butler, objid, visits):
+    for visit in visits:
+        pfsConf = butler.get('pfsConfig', visit=int(visit))
+        idx = np.where(pfsConf.objId == np.int64(objid))[0]
+        if len(idx) == 0:
+            continue
+        i       = idx[0]
+        filters = list(pfsConf.filterNames[i])
+        total   = np.array(list(pfsConf.totalFlux[i]), dtype=float)
+        psf     = np.array(list(pfsConf.psfFlux[i]),   dtype=float)
+        flux    = np.where((total &gt; 0) &amp; np.isfinite(total), total, psf)
+        mags    = np.where(flux &gt; 0, -2.5 * np.log10(flux) + 31.4, np.nan)
+        j       = next((k for k, m in enumerate(mags) if np.isfinite(m)), None)
+        return f&quot;{filters[j]}={mags[j]:.2f}&quot; if j is not None else &quot;mag=N/A&quot;
+    return &quot;mag=N/A&quot;
+
+# ==== PFSCOADD+LAM1D PLOTTING FUNCTION ====
+def plot_pfscoadd_lam1d(
+    repo, collections, collections_lam1d, combination,
+    class_name, browse_index, search_redshift, search_velocity_kms, objid,
+    MEDIAN_FILTER_SIZE, arms,
+):
+    ARM_RANGES = {
+        'b': (380,  650),
+        'r': (630,  970),
+        'n': (940, 1260),
+    }
+
+    butler  = Butler(repo, collections=[collections, collections_lam1d])
+    cat_ids = sorted(set(ref.dataId['cat_id'] for ref in butler.registry.queryDatasets('pfsCoadd')))
+    mag_str = None
+
+    # ==== FIND OBJECT SPECIFICS ====
+    if objid is not None:
+        # Fast path: use objectGroupMap + Butler directly, no CSV needed
+        objid = int(objid)
+        for cat_id in cat_ids:
+            ogm = butler.get(&quot;objectGroupMap&quot;, combination=combination, cat_id=cat_id)
+            try:
+                obj_group = ogm[objid]
+                break
+            except KeyError:
+                continue
+        else:
+            raise ValueError(f&quot;objId {objid} not found in any objectGroupMap&quot;)
+        coZCands                                     = butler.get('pfsCoZCandidates', combination=combination, cat_id=cat_id, obj_group=obj_group)
+        zCand                                        = coZCands[objid]
+        class_name, redshift_value, z_proba, c_proba = _get_zinfo(zCand)
+        z_proba_str     = f&quot;{z_proba:.3f}&quot;  if np.isfinite(z_proba)  else &quot;N/A&quot;
+        class_proba_str = f&quot;{c_proba:.3f}&quot;  if np.isfinite(c_proba)  else &quot;N/A&quot;
+        print(f&quot;Auto-detected class: {class_name} for objId={objid}&quot;)
+
+    elif search_redshift is not None or search_velocity_kms is not None:
+        # CSV path: fast browse via pre-built table
+        df          = pd.read_csv(f&quot;{collections}_all_lam1d.csv&quot;)
+        df['objId'] = df['objId'].astype(np.int64)
+        df          = df[df['combination'] == combination]
+        df          = df[df['class'].str.upper() == class_name.upper()].reset_index(drop=True)
+        redshift_column = {&quot;GALAXY&quot;: &quot;redshift_gal&quot;, &quot;QSO&quot;: &quot;redshift_qso&quot;, &quot;STAR&quot;: &quot;velocity_star&quot;}[class_name.upper()]
+        if class_name.upper() == &quot;STAR&quot;:
+            if search_velocity_kms is None:
+                raise ValueError(&quot;class_name is STAR but search_velocity_kms is not set&quot;)
+            target_val = search_velocity_kms
+            label_str  = f&quot;velocity={search_velocity_kms} km/s&quot;
+        else:
+            if search_redshift is None:
+                raise ValueError(f&quot;class_name is {class_name} but search_redshift is not set&quot;)
+            target_val = search_redshift
+            label_str  = f&quot;z={search_redshift}&quot;
+        closest_idx    = (df[redshift_column] - target_val).abs().idxmin()
+        row            = df.loc[closest_idx]
+        objid          = int(row['objId'])
+        cat_id         = int(row['catid'])
+        obj_group      = int(row['obj_group'])
+        redshift_value = row[redshift_column]
+        found_val      = redshift_value if class_name.upper() == &quot;STAR&quot; else redshift_value
+        found_unit     = &quot;km/s&quot; if class_name.upper() == &quot;STAR&quot; else &quot;&quot;
+        print(f&quot;Target {label_str} → closest object at {redshift_column}={found_val:.1f} {found_unit}  (idx={closest_idx})&quot;)
+        z_proba_col     = {&quot;GALAXY&quot;: &quot;redshiftProba_gal&quot;, &quot;QSO&quot;: &quot;redshiftProba_qso&quot;, &quot;STAR&quot;: &quot;templateProba_star&quot;}[class_name.upper()]
+        c_proba_col     = {&quot;GALAXY&quot;: &quot;probaGalaxy&quot;,       &quot;QSO&quot;: &quot;probaQSO&quot;,          &quot;STAR&quot;: &quot;probaStar&quot;}[class_name.upper()]
+        z_proba_str     = f&quot;{row[z_proba_col]:.3f}&quot; if z_proba_col in row.index and pd.notna(row[z_proba_col]) else &quot;N/A&quot;
+        class_proba_str = f&quot;{row[c_proba_col]:.3f}&quot; if c_proba_col in row.index and pd.notna(row[c_proba_col]) else &quot;N/A&quot;
+        mag_cols        = [c for c in row.index if c.startswith('mag_')]
+        best_mag_col    = next((c for c in mag_cols if pd.notna(row[c])), None)
+        mag_str         = f&quot;{best_mag_col.replace('mag_', '')}={row[best_mag_col]:.2f}&quot; if best_mag_col else &quot;mag=N/A&quot;
+        coZCands        = butler.get('pfsCoZCandidates', combination=combination, cat_id=cat_id, obj_group=obj_group)
+        zCand           = coZCands[objid]
+
+    else:
+        # CSV path: fast browse via pre-built table
+        df          = pd.read_csv(f&quot;{collections}_all_lam1d.csv&quot;)
+        df['objId'] = df['objId'].astype(np.int64)
+        df          = df[df['combination'] == combination]
+        df          = df[df['class'].str.upper() == class_name.upper()].reset_index(drop=True)
+        redshift_column = {&quot;GALAXY&quot;: &quot;redshift_gal&quot;, &quot;QSO&quot;: &quot;redshift_qso&quot;, &quot;STAR&quot;: &quot;velocity_star&quot;}[class_name.upper()]
+        df_sorted       = df.sort_values(redshift_column, ascending=False).reset_index(drop=True)
+        print(f&quot;Loaded {len(df_sorted)} {class_name} objects from {collections}_all_lam1d.csv&quot;)
+        print(f&quot;Sorted by {redshift_column} descending  |  Showing index {browse_index} of {len(df_sorted)-1}&quot;)
+        row            = df_sorted.iloc[browse_index]
+        objid          = int(row['objId'])
+        cat_id         = int(row['catid'])
+        obj_group      = int(row['obj_group'])
+        redshift_value = row[redshift_column]
+        z_proba_col     = {&quot;GALAXY&quot;: &quot;redshiftProba_gal&quot;, &quot;QSO&quot;: &quot;redshiftProba_qso&quot;, &quot;STAR&quot;: &quot;templateProba_star&quot;}[class_name.upper()]
+        c_proba_col     = {&quot;GALAXY&quot;: &quot;probaGalaxy&quot;,       &quot;QSO&quot;: &quot;probaQSO&quot;,          &quot;STAR&quot;: &quot;probaStar&quot;}[class_name.upper()]
+        z_proba_str     = f&quot;{row[z_proba_col]:.3f}&quot; if z_proba_col in row.index and pd.notna(row[z_proba_col]) else &quot;N/A&quot;
+        class_proba_str = f&quot;{row[c_proba_col]:.3f}&quot; if c_proba_col in row.index and pd.notna(row[c_proba_col]) else &quot;N/A&quot;
+        mag_cols        = [c for c in row.index if c.startswith('mag_')]
+        best_mag_col    = next((c for c in mag_cols if pd.notna(row[c])), None)
+        mag_str         = f&quot;{best_mag_col.replace('mag_', '')}={row[best_mag_col]:.2f}&quot; if best_mag_col else &quot;mag=N/A&quot;
+        coZCands        = butler.get('pfsCoZCandidates', combination=combination, cat_id=cat_id, obj_group=obj_group)
+        zCand           = coZCands[objid]
+
+    # ==== SHARED LABELS ====
+    redshift_label = f&quot;velocity={redshift_value:.1f} km/s&quot; if class_name.upper() == &quot;STAR&quot; else f&quot;z={redshift_value:.4f}&quot;
+
+    # ==== LOAD pfsCoadd ====
+    print(f&quot;Loading pfsCoadd for catid={cat_id} obj_group={obj_group}...&quot;)
+    pfscoadd  = butler.get(&quot;pfsCoadd&quot;, combination=combination, cat_id=cat_id,
+                           instrument='PFS', obj_group=obj_group)
+    pfsobject = pfscoadd[int(objid)]
+
+    # ==== EXPOSURE TIME ====
+    unique_visits, idx = np.unique(pfsobject.observations.visit, return_index=True)
+    total_exptime      = pfsobject.observations.expTime[idx].sum()
+
+    # ==== MAGNITUDE (objid path: look up from pfsConfig; browse/search: already set from CSV) ====
+    if mag_str is None:
+        mag_str = _get_mag(butler, objid, unique_visits)
+
+    print(f&quot;ObjId={objid}  CatID={cat_id}  ObjGroup={obj_group}  {redshift_label}  {mag_str}  zProba={z_proba_str}  classProba={class_proba_str}&quot;)
+
+    # ==== LOAD LAM1D MODEL AND SPECTRAL LINES ====
+    top4 = None
+    if class_name.upper() == &quot;STAR&quot;:
+        print(&quot;STAR object — LAM1D model fit uses stellar templates (no emission lines)&quot;)
+        model      = zCand.get_classified_model()
+        line_names = []
+        line_waves = []
+    else:
+        model = zCand.get_classified_model()
+        lines = zCand.qso.lines if class_name.upper() == &quot;QSO&quot; else zCand.galaxy.lines
+        if lines is not None:
+            line_names      = lines['lineName'].tolist()
+            line_waves      = lines['lineWave'].tolist()
+            lines_df        = lines.to_pandas()
+            lines_df['SNR'] = lines_df['lineFlux'] / lines_df['lineFluxError']
+            top10           = lines_df.nlargest(10, 'SNR')
+            top4            = top10.head(4)
+            print(f&quot;\n---- Top 10 Lines by SNR  (global z={redshift_value:.4f}) ----&quot;)
+            print(f&quot;  {'Line':&lt;12}  {'SNR':&gt;6}  {'EW':&gt;8}  {'EW_err':&gt;8}  {'lineZ':&gt;7}  {'dz':&gt;7}  {'sigma':&gt;6}&quot;)
+            print(f&quot;  {'----':&lt;12}  {'---':&gt;6}  {'--':&gt;8}  {'------':&gt;8}  {'-----':&gt;7}  {'--':&gt;7}  {'-----':&gt;6}&quot;)
+            for _, r in top10.iterrows():
+                dz = r['lineZ'] - redshift_value
+                print(f&quot;  {r['lineName']:&lt;12}  {r['SNR']:&gt;6.1f}  {r['lineEW']:&gt;8.1f}  {r['lineEWError']:&gt;8.1f}  {r['lineZ']:&gt;7.4f}  {dz:&gt;+7.4f}  {r['lineSigma']:&gt;6.2f}&quot;)
+            print()
+        else:
+            line_names = []
+            line_waves = []
+            print(&quot;No lines table available.\n&quot;)
+
+    # ==== ARM MASK ====
+    arm_mask = np.zeros(len(pfsobject.wavelength), dtype=bool)
+    for arm in arms:
+        lo, hi = ARM_RANGES[arm]
+        arm_mask |= (pfsobject.wavelength &gt;= lo) &amp; (pfsobject.wavelength &lt;= hi)
+
+    xlim_lo = min(ARM_RANGES[arm][0] for arm in arms)
+    xlim_hi = max(ARM_RANGES[arm][1] for arm in arms)
+
+    # ==== MASK BAD PIXELS ====
+    pixels_bad  = (pfsobject.mask &amp; pfsobject.flags.get('BAD', 'CR', 'SAT', 'NO_DATA')) != 0
+    pixels_good = arm_mask &amp; ~pixels_bad
+
+    # ==== YLIM ====
+    flux_in_range = pfsobject.flux[pixels_good]
+    p2, p98       = np.nanpercentile(flux_in_range, [2, 98])
+    span          = p98 - p2
+    ylim_lower    = p2  - 0.05 * span
+    ylim_upper    = p98 + 0.15 * span
+
+    # ==== PLOT ====
+    has_zoom = top4 is not None and len(top4) &gt; 0
+    n_zoom   = len(top4) if has_zoom else 0
+
+    if has_zoom:
+        fig = plt.figure(figsize=(15, 7))
+        gs  = fig.add_gridspec(2, 4, height_ratios=[2.5, 1],
+                               top=0.88, bottom=0.08, left=0.05, right=0.98,
+                               hspace=0.35, wspace=0.12)
+        ax_main = fig.add_subplot(gs[0, :])
+    else:
+        fig, ax_main = plt.subplots(figsize=(12, 5))
+        fig.subplots_adjust(top=0.88, bottom=0.1, left=0.07, right=0.97)
+
+    ax_main.plot(pfsobject.wavelength[pixels_good],
+                 ndimage.median_filter(pfsobject.flux[pixels_good], size=MEDIAN_FILTER_SIZE),
+                 linewidth=0.5, color='black', label=f'PFSCoadd (Median Filter={MEDIAN_FILTER_SIZE})')
+    ax_main.plot(pfsobject.wavelength[arm_mask],
+                 ndimage.median_filter(model[arm_mask], size=MEDIAN_FILTER_SIZE),
+                 linewidth=0.5, color='red',
+                 label='LAM1D Stellar Template' if class_name.upper() == &quot;STAR&quot; else 'LAM1D Model',
+                 alpha=0.7)
+    ax_main.set_xlim([xlim_lo, xlim_hi])
+    ax_main.set_ylim([ylim_lower, ylim_upper])
+    ax_main.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
+
+    # ==== EMISSION LINE MARKERS ====
+    x_lo, x_hi = ax_main.get_xlim()
+    y_top       = ax_main.get_ylim()[1]
+    for lw, ln in zip(line_waves, line_names):
+        if not (x_lo &lt;= lw &lt;= x_hi):
+            continue
+        ax_main.axvline(x=lw, color='red', linestyle='--', alpha=0.3, linewidth=0.5)
+        ax_main.text(lw, y_top * 0.95, ln, rotation=90,
+                     verticalalignment='top', horizontalalignment='right',
+                     fontsize=7, color='red')
+
+    arms_label = '+'.join(arms)
+    ax_main.set_title(f'PFSCoadd {class_name}  ObjID={objid}  CatID={cat_id}  ObjGroup={obj_group}  {redshift_label}  zProba={z_proba_str}  classProba={class_proba_str}  {mag_str}  Arms={arms_label}  ExpTime={total_exptime:.0f}s\n'
+                      f'Repo={repo}  Collections={collections}  Combination={combination}')
+    ax_main.legend(loc='upper left', fancybox=True, framealpha=0.5)
+    ax_main.minorticks_on()
+    ax_main.set_xlabel('Wavelength [nm]')
+    ax_main.set_ylabel('Flux [nJy]')
+
+    # ==== ZOOM SUBPLOTS ====
+    if has_zoom:
+        for i in range(4):
+            ax = fig.add_subplot(gs[1, i])
+            if i &lt; n_zoom:
+                r      = top4.iloc[i]
+                lw_ctr = r['lineWave']
+                if class_name.upper() == &quot;QSO&quot;:
+                    hw = np.clip(round(r['lineSigma'] * 12), 6, 80)
+                else:
+                    hw = np.clip(round(r['lineSigma'] * 6), 3, 40)
+                w_lo   = lw_ctr - hw
+                w_hi   = lw_ctr + hw
+                zmask  = pixels_good &amp; (pfsobject.wavelength &gt;= w_lo) &amp; (pfsobject.wavelength &lt;= w_hi)
+                zarm   = (pfsobject.wavelength &gt;= w_lo) &amp; (pfsobject.wavelength &lt;= w_hi)
+                if zmask.sum() &gt; 0:
+                    ax.plot(pfsobject.wavelength[zmask],
+                            ndimage.median_filter(pfsobject.flux[zmask], size=MEDIAN_FILTER_SIZE),
+                            linewidth=0.8, color='black')
+                    ax.plot(pfsobject.wavelength[zarm],
+                            ndimage.median_filter(model[zarm], size=MEDIAN_FILTER_SIZE),
+                            linewidth=0.8, color='red', alpha=0.7)
+                    zp2, zp98 = np.nanpercentile(pfsobject.flux[zmask], [2, 98])
+                    zspan     = zp98 - zp2
+                    ax.set_ylim([zp2 - 0.1 * zspan, zp98 + 0.3 * zspan])
+                ax.axvline(x=lw_ctr, color='red', linestyle='--', alpha=0.5, linewidth=0.8)
+                ax.set_xlim([w_lo, w_hi])
+                ax.set_title(f&quot;{r['lineName']}  SNR={r['SNR']:.1f}\nEW={r['lineEW']:.1f}±{r['lineEWError']:.1f}&quot;, fontsize=7)
+                ax.set_xlabel('Wavelength [nm]', fontsize=7)
+                ax.tick_params(labelsize=7)
+                ax.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
+                ax.minorticks_on()
+                if i == 0:
+                    ax.set_ylabel('Flux [nJy]', fontsize=7)
+            else:
+                ax.set_visible(False)
+
+    fig.savefig(f'pfsCoadd_LAM1D_{collections}_{class_name}_{objid}.png', dpi=150, bbox_inches='tight')
+    plt.show()
+
+# ==== RUN ====
+plot_pfscoadd_lam1d(
+    repo                = repo,
+    collections         = collections,
+    collections_lam1d   = collections_lam1d,
+    combination         = combination,
+    class_name          = class_name,
+    browse_index        = browse_index,
+    search_redshift     = search_redshift,
+    search_velocity_kms = search_velocity_kms,
+    objid               = objid,
+    MEDIAN_FILTER_SIZE  = MEDIAN_FILTER_SIZE,
+    arms                = arms,
+)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Auto-detected class: GALAXY for objId=89100543080260387
+Loading pfsCoadd for catid=10094 obj_group=9...
+ObjId=89100543080260387  CatID=10094  ObjGroup=9  z=0.1500  g_ps1=20.82  zProba=1.000  classProba=1.000
+
+---- Top 10 Lines by SNR  (global z=0.1500) ----
+  Line             SNR        EW    EW_err    lineZ       dz   sigma
+  ----             ---        --    ------    -----       --   -----
+  Halpha         300.4       3.1       0.0   0.1500  +0.0000    0.14
+  [OII]3729       34.3       1.6       0.1   0.1500  -0.0000    0.10
+  [NII]a          34.0       0.7       0.0   0.1500  +0.0000    0.14
+  [SII]6716       32.3       0.7       0.0   0.1500  +0.0000    0.14
+  [SII]6731       31.7       0.5       0.0   0.1500  +0.0000    0.14
+  [OIII]a         31.3       0.6       0.0   0.1500  +0.0000    0.11
+  [OII]3726       30.6       1.1       0.0   0.1500  -0.0000    0.10
+  Hbeta           25.6       0.6       0.0   0.1500  -0.0000    0.09
+  [NII]b          23.5       0.2       0.0   0.1500  +0.0000    0.14
+  FeII3785        10.2       0.2       0.0   0.1500  -0.0000    0.10
+</code></pre>
+<p><img alt="pfsCoadd + LAM 1D spectrum for objId 89100543080260387" src="../figures/pfsCoadd_LAM1D_run26_June2026_GALAXY_89100543080260387.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04_12_lam1d_zcandidates/" class="btn btn-neutral float-left" title="pfsCoZCandidates"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04_00_faq_general/" class="btn btn-neutral float-right" title="General">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../04_12_lam1d_zcandidates/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04_00_faq_general/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
