@@ -30,16 +30,15 @@ Platform-specific instructions:
 - macOS: Use curl for downloading.
 - Windows: An FTP manager is required for data transfer.
 
-You will also need the custom `pfsConfig` files created for your observing program. The custom pfsConfig files can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) under your proposal ID as follows:  
-`/shared/pfs/programs/$PROPOSAL_ID/2d/customPfsConfig/`
-
-Copy these files to your local disk and then ingest them.
-
 ## Ingestion to `butler`
 
 ---
 
-You can ingest data into the `butler` repository.
+You can ingest data into the `butler` repository. You will need the custom `pfsConfig` files created for your observing program. The custom pfsConfig files can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) under your proposal ID as follows:  
+`/shared/pfs/programs/$PROPOSAL_ID/2d/customPfsConfig/`
+
+Copy these files to your local disk and perform the steps below to ingest them.
+
 There are two types of data that need to be ingested: raw images and `PfsConfig` files.
 
 These are ingested using two separate commands:
@@ -82,9 +81,6 @@ The parameters in the commands include:
 The ingestion process places the files (referred to as "datasets" in the `butler`) in the repository and records them in the registry database. Each file is placed in a **collection**, which can be thought of as a directory-like grouping in the `butler` (and, when using a traditional filesystem datastore, it is implemented as a directory).
 
 The raw data is placed in the collection `PFS/raw/sps`, while the `PfsConfig` files are placed in the collection `PFS/raw/pfsConfig`.
-
-As a reminder, the custom pfsConfig files for your observing program can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/):  
-`/shared/pfs/programs/$PROPOSAL_ID/2d/customPfsConfig/`
 
 ## Troubleshooting
 
