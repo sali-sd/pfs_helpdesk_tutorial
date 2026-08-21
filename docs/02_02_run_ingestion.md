@@ -30,7 +30,10 @@ Platform-specific instructions:
 - macOS: Use curl for downloading.
 - Windows: An FTP manager is required for data transfer.
 
-You will also need the `pfsConfig` files created for your program. These custom `pfsConfig` files are available under your program directory, for example, `/shared/pfs/programs/S25A-000QF/2d/customPfsConfig`. Copy these files to your local disk and then ingest them.
+You will also need the custom `pfsConfig` files created for your observing program. The custom pfsConfig files can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) under your proposal ID as follows:  
+`/shared/pfs/programs/$PROPOSAL_ID/2d/customPfsConfig/`
+
+Copy these files to your local disk and then ingest them.
 
 ## Ingestion to `butler`
 
@@ -80,7 +83,7 @@ The ingestion process places the files (referred to as "datasets" in the `butler
 
 The raw data is placed in the collection `PFS/raw/sps`, while the `PfsConfig` files are placed in the collection `PFS/raw/pfsConfig`.
 
-For each observing program the custom pfsConfig files can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/):  
+As a reminder, the custom pfsConfig files for your observing program can be found on the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/):  
 `/shared/pfs/programs/$PROPOSAL_ID/2d/customPfsConfig/`
 
 ## Troubleshooting
