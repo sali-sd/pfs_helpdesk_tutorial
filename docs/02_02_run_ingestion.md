@@ -30,6 +30,8 @@ Platform-specific instructions:
 - macOS: Use curl for downloading.
 - Windows: An FTP manager is required for data transfer.
 
+
+
 ## Ingestion to `butler`
 
 ---
@@ -78,7 +80,7 @@ The parameters in the commands include:
 - `--transfer`: The method used to add data to the repository. The options include `link`, `copy`, and `move`, which specify whether the data is symlinked, duplicated, or physically relocated, respectively.
 - `--fail-fast`: Stops the ingestion process immediately if an error occurs. This is useful for debugging. If you do not need this behavior, omit this option.
 
-The ingestion process places the files (referred to as "datasets" in the `butler`) in the repository and records them in the registry database. Each file is placed in a **collection**, which can be thought of as a directory-like grouping in the `butler` (and, when using a traditional filesystem datastore, it is implemented as a directory).
+The ingestion process places the files (referred to as "datasets" in `butler`) in the repository and records them in the registry database. Each file is placed in a **collection**, which can be thought of as a directory-like grouping in the `butler` (and, when using a traditional filesystem datastore, it is implemented as a directory).
 
 The raw data is placed in the collection `PFS/raw/sps`, while the `PfsConfig` files are placed in the collection `PFS/raw/pfsConfig`.
 
@@ -105,6 +107,8 @@ butler prune-datasets $DATASTORE PFS/raw/sps --datasets=raw --unstore --where="i
 # Additional dimensions can be specified by using an SQL expression
 butler prune-datasets $DATASTORE PFS/raw/sps --datasets=raw --unstore --where="instrument='PFS' AND visit IN (123456,123457) AND arm='n' AND spectrograph='3'"
 ```
+
+
 
 ## Dataset
 

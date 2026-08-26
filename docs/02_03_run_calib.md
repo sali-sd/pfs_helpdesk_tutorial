@@ -7,7 +7,7 @@
 
 ---
 
-Calibration data for each observing run is available from PFS SciencePlatform (SP) (<https://hscpfs.mtk.nao.ac.jp>).
+Calibration data for each observing run is available from PFS SciencePlatform (SP) ([https://hscpfs.mtk.nao.ac.jp](https://hscpfs.mtk.nao.ac.jp)).
 
 A calibration set is typically copied to SP a few weeks after a run, not during or immediately after it.
 The calibrations are stored in the observatory filler directory, which is accessible to all users, for example:
@@ -16,7 +16,7 @@ The calibrations are stored in the observatory filler directory, which is access
 For the S25B semester, the proposal ID will be `S25B-000QF`, and the run ID will be `run24_xxx`.
 In practice, the directory name should be straightforward to identify.
 
-You can copy the entire directory to your local disk. See the SP getting-started document for instructions on copying files from SP.
+You can copy the entire directory to your local disk. On the SP, see the getting-started document for instructions on copying files from SP.
 
 You can then import the calibration data to a new data repository:
 
@@ -75,7 +75,7 @@ pipetask run \
 --fail-fast                                               # immediately stop the ingestion process if error
 ```
 
-The `pipetask run` command is used to run a pipeline. \
+The `pipetask run` command is used to run a pipeline.   
 A task is an operation within the pipeline, characterized by a set of dimensions that defines its parallelization level, together with a set of inputs and outputs. An instance of a task running on a single unit of data at that parallelization level is called a "quantum".
 
 A pipeline is built from a "quantum graph", which tracks the inputs and outputs between tasks.
@@ -97,17 +97,11 @@ In this example, the pipeline operates on five exposures, each with `b` and `r` 
 An example of a more complex pipeline summary, for a full science run on 17 exposures, is shown later.
 
 - The `-j` option specifies the number of cores to use in parallel.
-
 - The `-b` option specifies the datastore to use.
-
 - The `--instrument` option specifies the instrument. The correct value for PFS is `lsst.obs.pfs.PrimeFocusSpectrograph`.
-
 - The `-i` option specifies the input collections as a comma-separated list. In this case, we are using the default collection that already links the raw data and the baseline calibrations. Additional collections will be added later as needed.
-
 - The `-o` option specifies an output `CHAINED` collection. The pipeline writes output datasets to timestamped `RUN` collections, and these are chained together under the named output collection.
-
 - The `-p` option specifies the pipeline configuration file to use. This is a `YAML` file in `drp_stella/pipelines` that defines the pipeline. A pipeline is composed of multiple tasks, each of which may operate on a different set of dimensions. The pipeline configuration can also define task-specific overrides, including alternative dataset names for task connections. An example of this appears later.
-
 - The `-d` option specifies the data-selection query. The syntax is similar to an SQL `WHERE` clause, with some extensions. In this example, we select all visits from the PFS instrument with `visit.target_name = 'BIAS'`. In practice, a narrower selection is usually preferable, because this query may match visits from multiple nights and observing conditions. Strings must be enclosed in single quotes (`'`). Ranges can also be specified, for example `visit IN (12..34:5)`, which means all visits from 12 to 34 inclusive in steps of 5.
 The `visit` dimension can be used directly to refer to the visit number, but a variety of related fields are also available, including:
   > - `visit.exposure_time`: exposure time in seconds
@@ -118,22 +112,18 @@ The `visit` dimension can be used directly to refer to the visit number, but a v
   > - `visit.zenith_angle`: zenith angle in degrees
   > - `visit.lamps`: comma-separated list of lamps that were on
   > - Other dimensions can also be used, for example: `visit IN (12..34:5) AND arm = 'r' AND spectrograph = 3`.
-
-- Configuration overrides can be specified with the `-c` option<sup>[1](#diff_gen2_c)</sup>. For example, `-c isr:doCrosstalk=False` disables the crosstalk correction.
-
+- Configuration overrides can be specified with the `-c` option[1](#diff_gen2_c). For example, `-c isr:doCrosstalk=False` disables the crosstalk correction.
 - The `--register-dataset-types` option registers the dataset types defined by the pipeline in the `butler` registry.
 
 This only needs to be done once for each pipeline; it can be omitted in subsequent runs of the same pipeline.
 
 Some additional options are useful for debugging:
 
-- `--skip-existing-in <COLLECTION>`: Do not re-produce a dataset if it is already present in the specified collection. \
-This is useful when you want to resume from where a previous run stopped. \
+- `--skip-existing-in <COLLECTION>`: Do not re-produce a dataset if it is already present in the specified collection.   
+This is useful when you want to resume from where a previous run stopped.   
 Usually, `<COLLECTION>` is the same as the output collection.
-
 - `--clobber-outputs`: Overwrite any existing datasets for a task, usually logging or metadata by-products of running the task.
-
-- `--pdb`: Drop into the Python debugger when an exception occurs. \
+- `--pdb`: Drop into the Python debugger when an exception occurs.   
 This does not work with parallel processing, so make sure you are not also using `-j`.
 
 Used together, these three options are very effective when debugging Python exceptions in a pipeline run.
@@ -177,6 +167,8 @@ Finally, you may want to create a collection, `"$RERUN"/calib`, to hold the bias
 butler collection-chain $DATASTORE "$RERUN"/calib "$RERUN"/calib/bias
 ```
 
+
+
 ## Build Dark
 
 ---
@@ -204,6 +196,8 @@ butlerCleanRun.py $DATASTORE "$RERUN"/calib/dark_gen/* darkProc
 butler collection-chain $DATASTORE "$RERUN"/calib --mode=prepend "$RERUN"/calib/dark
 ```
 
+
+
 ## Build Flat
 
 ---
@@ -230,6 +224,8 @@ butler certify-calibrations $DATASTORE "$RERUN"/calib/flat_gen "$RERUN"/calib/fl
 butlerCleanRun.py $DATASTORE "$RERUN"/calib/flat_gen/* flatProc
 butler collection-chain $DATASTORE "$RERUN"/calib --mode=prepend "$RERUN"/calib/flat
 ```
+
+
 
 ## Build Detector Map
 
@@ -354,7 +350,7 @@ A dataset describing the exposure roles is written to the `PFS/fiberProfilesInpu
 
 The `profiles_run` value can then be used in the data-selection query, because it links all required exposures.
 
-<!-- After fiber profiles have been created for the blue (`b`), red (`r`), and near-infrared (`n`) arms, the same procedure must be repeated for the medium-resolution arm (`m`). For example, create a `profiles_run` such as `run24_m` for the relevant exposures, and use the parameter `-d "profiles_run = 'run24_m' AND arm IN ('m')"` in the pipeline command. -->
+
 
 ## Build Fiber Norm
 

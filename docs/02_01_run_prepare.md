@@ -63,7 +63,7 @@ butler create $DATASTORE --seed-config $WORKDIR/$(whoami)/data/butler.yaml --dim
 ```
 
 !!! note
-    Please always to copy the latest default `butler.yaml` and modify it accordingly every time when there is an update of pipeline.
+    Please always copy the latest default `butler.yaml` and modify it accordingly every time when there is an update of the pipeline.
 
 Then, register the instrument with `butler`. This also copies the camera configuration into the repository:
 
@@ -90,3 +90,4 @@ There are different kinds of [collections](https://pipelines.lsst.io/modules/lss
 - `RUN` collection always associates the datasets.
 - `CALIBRATION` collections associate datasets with a timespan indicating the validity range.
 - `CHAINED` collections provide a search path through multiple collections.
+

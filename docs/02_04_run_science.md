@@ -8,20 +8,16 @@ With the calibration products built, we can now process the science data. There 
 
 - **observing**:
   > It processes a visit through merging arms, producing `postISRCCD`, `pfsArm`, `lines`, `detectorMap`, `pfsMerged`, `sky1d`, and `fiberNorms`.
-This uses a basic, single-exposure cosmic-ray identification algorithm, which is not as reliable as the one used by `reduceExposure`. It is intended for use while observing, when visit groupings aren't known.
-The `fiberNorms` dataset is only produced for quartz exposures; Unlike the `fiberNorms_calib` product, this is a residual normalization equal to the ratio of the observed quartz spectrum to the `fiberNorms_calib` spectrum (after applying screen responses and other corrections).
-
+  > This uses a basic, single-exposure cosmic-ray identification algorithm, which is not as reliable as the one used by `reduceExposure`. It is intended for use while observing, when visit groupings aren't known.
+  > The `fiberNorms` dataset is only produced for quartz exposures. Unlike the `fiberNorms_calib` product, this is a residual normalization equal to the ratio of the observed quartz spectrum to the `fiberNorms_calib` spectrum (after applying screen responses and other corrections).
 - **reduceExposure**:
-  > It processes a visit through merging arms, producing `postISRCCD`, `pfsArm`, `lines`, `detectorMap`, `pfsMerged`, and `sky1d`.
-This can be used to process quartz exposures (or science exposures when flux calibration is not wanted).
-
+  > It processes a visit through merging arms, producing `postISRCCD`, `pfsArm`, `lines`, `detectorMap`, `pfsMerged`, and `sky1d`. This can be used to process quartz exposures (or science exposures when flux calibration is not wanted).
 - **calibrateExposure**:
-  > It adds the flux calibration to `reduceExposure`, producing `pfsFluxReference`, `fluxCal` and `pfsCalibrated`. \
-  This can be used to process single science exposures. This is not demonstrated below, but its use is similar to that for `reduceExposure`.
-
+  > It adds the flux calibration to `reduceExposure`, producing `pfsFluxReference`, `fluxCal` and `pfsCalibrated`. This can be used to process single science exposures. This is not demonstrated below, but its use is similar to that for `reduceExposure`.
 - **science**:
-  > It adds the spectral coaddition, producing `pfsCoadd`. \
-  This can be used to process multiple science exposures together.
+  > It adds the spectral coaddition, producing `pfsCoadd`. This can be used to process multiple science exposures together.
+
+
 
 ## Define Collections
 
@@ -54,20 +50,7 @@ defineCombination.py $DATASTORE PFS someVisits 123 124 125
 
 Although we have provided here some silly examples, it is recommended that descriptive names be used for the combination (e.g., `ssp-cosmos-deep-march2025` or `ssp-ga-2025-2028`). Note that these combination names are shared, so if the name is not of general interest to all users of your data repository, then it might be good to prefix it with your username (e.g., `foobar/playingAround-20250318`).
 
-<!-- ### Define Visit Groups
 
-Optimal cosmic-ray identification used by the `reduceExposure` pipeline (and those that extend it) requires identifying groups of visits of the same targets in similar conditions.
-There is an algorithm to automatically group all visits selected:
-
-```bash
-# Select by data type:
-defineVisitGroup.py $DATASTORE PFS --where "visit.target_name = 'OBJECT'"
-
-# Select by specifying the observation dates:
-defineVisitGroup.py $DATASTORE PFS --where "visit.day_obs = 20241025"
-```
-
-If the algorithm produces undesirable results, the command has options that will allow you to specify a group explicitly. -->
 
 ## Process the Data
 
@@ -107,7 +90,7 @@ However, we could have first run the `reduceExposure` pipeline and then fed its 
 
 ## Introduction to Reduction Steps
 
-<span style="color:red">**NOTE: This section is work in progress.**</span>
+**NOTE: This section is work in progress.**
 
 ---
 
@@ -128,7 +111,7 @@ pfsObject = butler.get("pfsCoadd.single", cat_id=1, combination="object", parame
 Note that the `objId` needs to be specified in the `parameters` dictionary, rather than as a separate argument to the `get` method because it’s a parameter for the formatter that reads the dataset and not a dimension of the dataset itself.
 
 !!! warning
-        Be refrain from retrieving `pfsCoadd.single` in a loop, as it is **EXTREMELY inefficient**.
+        Refrain from retrieving `pfsCoadd.single` in a loop, as it is **EXTREMELY inefficient**.
 
 !!! note
         In LSST version 26.0.2, the `butler` command was `butler = Butler($DATASTORE, collection=["$RERUN/object"])`, but in the later LSST versions, this is recommended to be `butler = Butler.from_config($DATASTORE, collection=["$RERUN/object"])`. Although the former expression may still work, `mypy` will deny this construction with reporting "class Butler is an abstract class. Abstract classes must not be instantiated". <br> **In the next section for data analysis, we will only use the latest construction.**
