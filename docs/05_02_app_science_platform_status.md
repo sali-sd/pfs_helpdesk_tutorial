@@ -7,18 +7,18 @@ Here we provide an up to date status on the data processing for each semester an
 ## Data Delivery Status
 
 
-| Run            | Observing period | 2D results  | LAM 1D results | Calibrations | Release     |
-| -------------- | ---------------- | ----------- | -------------- | ------------ | ----------- |
-| `run21`        | Mar–Apr 2025     | Complete    | Complete       | Complete     | Jun 2025    |
-| `run22`        | May–Jun 2025     | Complete    | Complete       | Complete     | Jul 2025    |
-| `run23`        | Jun–Jul 2025     | Complete    | Complete       | Complete     | Aug 2025    |
-| `S25A`         | run21–23         | Complete    | Complete       | Complete     | Nov 2025    |
-| `run24`        | Sep 2025         | Complete    | Complete       | Complete     | Nov 2025    |
-| `run25`        | Nov 2025         | Complete    | Complete       | Complete     | Feb 2026    |
-| `S25A` take #2 | run21–23         | Complete    | Complete       | Complete     | Apr 2026    |
-| `run26`        | Jan 2026         | Complete    | Complete       | Complete     | Jun 2026    |
-| `run27`        | Mar 2026         | No Data     | No Data        | No Data      | No Data     |
-| `run28`        | May 2026         | Complete    | Complete       | Complete     | Aug 2026    |
+| Run            | Observing period | 2D results | LAM 1D results | Calibrations | Release  |
+| -------------- | ---------------- | ---------- | -------------- | ------------ | -------- |
+| `run21`        | Mar–Apr 2025     | Complete   | Complete       | Complete     | Jun 2025 |
+| `run22`        | May–Jun 2025     | Complete   | Complete       | Complete     | Jul 2025 |
+| `run23`        | Jun–Jul 2025     | Complete   | Complete       | Complete     | Aug 2025 |
+| `S25A`         | run21–23         | Complete   | Complete       | Complete     | Nov 2025 |
+| `run24`        | Sep 2025         | Complete   | Complete       | Complete     | Nov 2025 |
+| `run25`        | Nov 2025         | Complete   | Complete       | Complete     | Feb 2026 |
+| `S25A` take #2 | run21–23         | Complete   | Complete       | Complete     | Apr 2026 |
+| `run26`        | Jan 2026         | Complete   | Complete       | Complete     | Jun 2026 |
+| `run27`        | Mar 2026         | No Data    | No Data        | No Data      | No Data  |
+| `run28`        | May 2026         | Complete   | Complete       | Complete     | Aug 2026 |
 
 
 ## Missing Data
@@ -107,11 +107,3 @@ No data (no observations for this run).
 ### `run28`
 
 The `n2` detector was not available during run28. All spectra from spectrograph 2 are missing the near-infrared arm.
-
-Approximately 10% of visits were excluded from the coadds due to poor observing conditions (selected via `fluxCalQA`). QA plots for excluded visits are included in the release.
-
-The four visits 143228, 143229, 143231, and 143232 (proposal `S26A-100QN`) used flux standards selected from Gaia and were processed separately. The flux calibration and telluric correction for these visits may not be reliable and should be used with care.
-
-As with `run26`, coadds are split into `brn` and `bmn` combinations (`brn_run28` and `bmn_run28`). Make sure to specify the correct combination when retrieving coadds.
-
-The 1D pipeline was run with wavelength ranges of 400–960 nm for `brn` and 400–930 nm for `bmn` (note: the `brn` range changed from 400–930 nm used in `run26`). The overall redshift success rate for `brn` is ~90% for galaxies and ~95% for quasars; for `bmn` it is ~95% for both (though statistics are limited as most medium-resolution targets are stars).
