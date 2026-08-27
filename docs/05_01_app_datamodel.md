@@ -26,8 +26,8 @@ In this section, we only summarise the essential information of the datamodel th
 |                            | Detector Map                    | `pfsDetectorMap-%06d-%s%1d.fits`                  | `visit0`, `arm`, `spectrograph`                                     | Maps fiber/wavelength to detector (x,y); internal format varies (e.g. Splined, MultipleDistortions).      |
 |                            | Fiber Profiles                  | `pfsFiberProfiles-%s-%06d-%1s%1d.fits`            | `calibDate`, `visit0`, `arm`, `spectrograph`                        | Empirical, oversampled fiber profiles from 2-D flat-field images.                                         |
 |                            | pfsFiberNorms                   | `pfsFiberNorms-%s-%06d-%s.fits`                   | `calibDate`, `visit0`, `arm`                                        | Normalization coefficients for individual fibers.                                                         |
-| **Intermediate Products**  | Calibrated Images (postISRCCD)  | `postISRCCD-%1s%1s%06d-%1s%1d.fits`               | `site`, `category`, `visit`, `arm`, `spectrograph`                  | persisted version of LSST's `lsst.afw.image.Exposure` class (postISRCCD)                                  |
-|                            | Calibrated Images (calexp)      | `calexp-%1s%1s%06d-%1s%1d.fits`                   | `site`, `category`, `visit`, `arm`, `spectrograph`                  | persisted version of LSST's `lsst.afw.image.Exposure` class (calexp).                                     |
+| **Intermediate Products**  | Calibrated Images (postISRCCD)  | `postISRCCD-%1s%1s%06d-%1s%1d.fits`               | `site`, `category`, `visit`, `arm`, `spectrograph`                  | Persisted version of LSST's `lsst.afw.image.Exposure` class (postISRCCD)                                  |
+|                            | Calibrated Images (calexp)      | `calexp-%1s%1s%06d-%1s%1d.fits`                   | `site`, `category`, `visit`, `arm`, `spectrograph`                  | Persisted version of LSST's `lsst.afw.image.Exposure` class (calexp).                                     |
 | **Wavelength Calibration** | (Gen 2) arcLines                | `arcLines-%06d-%s%d.fits`                         | `visit`, `arm`, `spectrograph`                                      | Contains arc lamp line identifications for wavelength calibration.                                        |
 |                            | (Gen 3) lineCentroids           | `lineCentroids-%06d-%1s%1d.fits`                  | `visit`, `arm`, `spectrograph`                                      | Measurements of spectral line centroids.                                                                  |
 |                            | (Gen 3) linePhotometry          | `linePhotometry-%06d-%1s%1d.fits`                 | `visit`, `arm`, `spectrograph`                                      | Photometric measurements of spectral lines (e.g. flux, width).                                            |
@@ -43,7 +43,7 @@ In this section, we only summarise the essential information of the datamodel th
 |                            | pfsObject                       | `pfsObject-%05d-%05d-%s-%016x-%03d-0x%016x.fits`  | `catId`, `tract`, `patch`, `objId`, `nVisit` % 1000, `pfsVisitHash` | Individual coadded spectrum produced by combining multiple visits.                                        |
 |                            | pfsCalibrated                   | `pfsCalibrated-PF%1s-%06d-%1s-%1s.fits`           | `site`, `visit`, `outdir`, `rerun`                                  | Collection of fully calibrated spectra for each visit.                                                    |
 |                            | pfsCoadd                        | `pfsCoadd-PF%1s-%1s-%06d-%1s-%1s.fits`            | `site`, `collection`, `catId`, `outdir`, `rerun`                    | Collection of coadded spectra produced by combining multiple visits.                                      |
-|                            | (LAM 1D DRP) pfsCoZcandidates   | `pfsZcandidates-%05d-%05d-%s-%016x*fits`          | `catId`, `tract`, `patch`, `objId`                                  | Contains redshift candidate measurements, corresponding to a pfsCoadd file.                               |
+|                            | (LAM 1D DRP) pfsCoZCandidates   | `pfsZcandidates-%05d-%05d-%s-%016x*fits`          | `catId`, `tract`, `patch`, `objId`                                  | Contains redshift candidate measurements, corresponding to a pfsCoadd file.                               |
 
 
 
@@ -100,7 +100,7 @@ The variables used in the filename formats above are described below.
 | 1        | b     | Blue                  |
 | 2        | r     | Red                   |
 | 3        | n     | IR                    |
-| 4        | m     | Medium resolution red |
+| 4        | m     | Medium Resolution Red |
 
 
 !!! note "armNum"
