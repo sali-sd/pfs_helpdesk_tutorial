@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 500 895"
+     viewBox="0 0 500 855"
      style="max-width:500px;width:100%;height:auto;background:white;display:block;font-family:Arial,Helvetica,sans-serif;">
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5"
@@ -20,22 +20,22 @@
   <text x="433.0" y="80.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">pfsArm</text>
   <line x1="185" y1="80" x2="204" y2="80" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="362" y1="80" x2="380" y2="80" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <path d="M 433 111 L 433 150 L 488 150 L 488 175 L 83 175 L 83 200" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-  <ellipse cx="107.0" cy="242.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="52.0" y="199.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
-  <line x1="52.0" y1="199.4" x2="52.0" y2="242.6" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="162.0" y1="199.4" x2="162.0" y2="242.6" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="199.4" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="249.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="44.0" y="206.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
-  <line x1="44.0" y1="206.4" x2="44.0" y2="249.6" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="154.0" y1="206.4" x2="154.0" y2="249.6" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="206.4" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="256.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="36.0" y="213.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
-  <line x1="36.0" y1="213.4" x2="36.0" y2="256.6" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="146.0" y1="213.4" x2="146.0" y2="256.6" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="213.4" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <path d="M 433 111 L 433 155 L 83 155 L 83 200" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <ellipse cx="101.0" cy="248.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="46.0" y="205.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
+  <line x1="46.0" y1="205.4" x2="46.0" y2="248.6" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="156.0" y1="205.4" x2="156.0" y2="248.6" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="205.4" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="253.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="40.0" y="210.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
+  <line x1="40.0" y1="210.4" x2="40.0" y2="253.6" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="150.0" y1="210.4" x2="150.0" y2="253.6" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="210.4" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="258.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="34.0" y="215.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
+  <line x1="34.0" y1="215.4" x2="34.0" y2="258.6" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="144.0" y1="215.4" x2="144.0" y2="258.6" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="215.4" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
   <ellipse cx="83.0" cy="263.6" rx="55.0" ry="8.4" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
   <rect x="28.0" y="220.4" width="110" height="43.20" fill="#C5DCF0" stroke="none"/>
   <line x1="28.0" y1="220.4" x2="28.0" y2="263.6" stroke="#5B9BD5" stroke-width="1.5"/>
@@ -59,7 +59,7 @@
   <line x1="138" y1="242" x2="182" y2="242" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="332" y1="242" x2="360" y2="210" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="332" y1="242" x2="360" y2="274" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <path d="M 415 303 L 415 340 L 25 340 L 25 395 L 110 395" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 415 303 L 25 303 L 25 395 L 110 395" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
   <rect x="109.5" y="371.0" width="207" height="48" rx="5" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
   <text x="213.0" y="395.0" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#1A1A1A">calculateReferenceFlux</text>
   <ellipse cx="415.0" cy="417.3" rx="63.5" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
@@ -69,7 +69,7 @@
   <ellipse cx="415.0" cy="372.7" rx="63.5" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
   <text x="415.0" y="395.0" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#1A1A1A">pfsFluxReference</text>
   <line x1="317" y1="395" x2="352" y2="395" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <path d="M 415 426 L 25 426 L 25 498 L 129 498" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 415 426 L 488 426 L 488 498 L 129 498" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
   <rect x="129.0" y="474.0" width="158" height="48" rx="5" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
   <text x="208.0" y="498.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">fluxCalibrate</text>
   <ellipse cx="415.0" cy="485.4" rx="61.0" ry="7.6" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
@@ -86,117 +86,117 @@
   <text x="415.0" y="530.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">fluxCal</text>
   <line x1="287" y1="498" x2="354" y2="466" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="287" y1="498" x2="360" y2="530" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <path d="M 470 210 L 488 210 L 488 618 L 170 618" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-  <path d="M 470 530 L 488 530 L 488 780 L 170 780 L 170 743" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-  <path d="M 28 242 L 10 242 L 10 833 L 28 833" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-  <ellipse cx="115.0" cy="642.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="60.0" y="601.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="60.0" y1="601.8" x2="60.0" y2="642.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="170.0" y1="601.8" x2="170.0" y2="642.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="115.0" cy="601.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="649.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="52.0" y="608.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="52.0" y1="608.8" x2="52.0" y2="649.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="162.0" y1="608.8" x2="162.0" y2="649.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="608.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="656.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="44.0" y="615.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="44.0" y1="615.8" x2="44.0" y2="656.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="154.0" y1="615.8" x2="154.0" y2="656.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="615.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="663.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="36.0" y="622.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="36.0" y1="622.8" x2="36.0" y2="663.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="146.0" y1="622.8" x2="146.0" y2="663.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="622.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="83.0" cy="670.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="28.0" y="629.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="28.0" y1="629.8" x2="28.0" y2="670.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="138.0" y1="629.8" x2="138.0" y2="670.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="83.0" cy="629.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <text x="83.0" y="650.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">sky1d</text>
-  <ellipse cx="115.0" cy="735.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="60.0" y="694.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="60.0" y1="694.8" x2="60.0" y2="735.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="170.0" y1="694.8" x2="170.0" y2="735.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="115.0" cy="694.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="742.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="52.0" y="701.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="52.0" y1="701.8" x2="52.0" y2="742.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="162.0" y1="701.8" x2="162.0" y2="742.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="701.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="749.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="44.0" y="708.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="44.0" y1="708.8" x2="44.0" y2="749.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="154.0" y1="708.8" x2="154.0" y2="749.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="708.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="756.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="36.0" y="715.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="36.0" y1="715.8" x2="36.0" y2="756.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="146.0" y1="715.8" x2="146.0" y2="756.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="715.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="83.0" cy="763.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="28.0" y="722.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="28.0" y1="722.8" x2="28.0" y2="763.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="138.0" y1="722.8" x2="138.0" y2="763.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="83.0" cy="722.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <text x="83.0" y="743.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">fluxCal</text>
-  <ellipse cx="115.0" cy="825.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="60.0" y="784.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="60.0" y1="784.8" x2="60.0" y2="825.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="170.0" y1="784.8" x2="170.0" y2="825.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="115.0" cy="784.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="832.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="52.0" y="791.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="52.0" y1="791.8" x2="52.0" y2="832.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="162.0" y1="791.8" x2="162.0" y2="832.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="107.0" cy="791.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="839.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="44.0" y="798.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="44.0" y1="798.8" x2="44.0" y2="839.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="154.0" y1="798.8" x2="154.0" y2="839.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="99.0" cy="798.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="846.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="36.0" y="805.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="36.0" y1="805.8" x2="36.0" y2="846.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="146.0" y1="805.8" x2="146.0" y2="846.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="91.0" cy="805.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="83.0" cy="853.2" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="28.0" y="812.8" width="110" height="40.32" fill="#C5DCF0" stroke="none"/>
-  <line x1="28.0" y1="812.8" x2="28.0" y2="853.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="138.0" y1="812.8" x2="138.0" y2="853.2" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="83.0" cy="812.8" rx="55.0" ry="7.8" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <text x="83.0" y="833.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">pfsArm</text>
-  <rect x="177.5" y="719.0" width="145" height="48" rx="5" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <text x="250.0" y="743.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">coaddSpectra</text>
-  <ellipse cx="425.0" cy="738.8" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="370.0" y="691.2" width="110" height="47.52" fill="#C5DCF0" stroke="none"/>
-  <line x1="370.0" y1="691.2" x2="370.0" y2="738.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="480.0" y1="691.2" x2="480.0" y2="738.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="425.0" cy="691.2" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="417.0" cy="745.8" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="362.0" y="698.2" width="110" height="47.52" fill="#C5DCF0" stroke="none"/>
-  <line x1="362.0" y1="698.2" x2="362.0" y2="745.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="472.0" y1="698.2" x2="472.0" y2="745.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="417.0" cy="698.2" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="409.0" cy="752.8" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="354.0" y="705.2" width="110" height="47.52" fill="#C5DCF0" stroke="none"/>
-  <line x1="354.0" y1="705.2" x2="354.0" y2="752.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="464.0" y1="705.2" x2="464.0" y2="752.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="409.0" cy="705.2" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="401.0" cy="759.8" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="346.0" y="712.2" width="110" height="47.52" fill="#C5DCF0" stroke="none"/>
-  <line x1="346.0" y1="712.2" x2="346.0" y2="759.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="456.0" y1="712.2" x2="456.0" y2="759.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="401.0" cy="712.2" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="393.0" cy="766.8" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <rect x="338.0" y="719.2" width="110" height="47.52" fill="#C5DCF0" stroke="none"/>
-  <line x1="338.0" y1="719.2" x2="338.0" y2="766.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <line x1="448.0" y1="719.2" x2="448.0" y2="766.8" stroke="#5B9BD5" stroke-width="1.5"/>
-  <ellipse cx="393.0" cy="719.2" rx="55.0" ry="9.2" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
-  <text x="393.0" y="743.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">pfsCoadd</text>
-  <line x1="138" y1="650" x2="178" y2="719" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="138" y1="743" x2="178" y2="743" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="138" y1="833" x2="178" y2="767" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="323" y1="743" x2="338" y2="743" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M 470 210 L 488 210 L 488 607 L 162 607" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 470 530 L 488 530 L 488 752 L 162 752 L 162 715" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <path d="M 28 242 L 10 242 L 10 797 L 28 797" stroke="#1A1A1A" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <ellipse cx="107.0" cy="626.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="52.0" y="593.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="52.0" y1="593.8" x2="52.0" y2="626.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="162.0" y1="593.8" x2="162.0" y2="626.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="107.0" cy="593.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="631.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="46.0" y="598.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="46.0" y1="598.8" x2="46.0" y2="631.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="156.0" y1="598.8" x2="156.0" y2="631.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="598.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="636.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="40.0" y="603.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="40.0" y1="603.8" x2="40.0" y2="636.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="150.0" y1="603.8" x2="150.0" y2="636.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="603.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="641.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="34.0" y="608.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="34.0" y1="608.8" x2="34.0" y2="641.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="144.0" y1="608.8" x2="144.0" y2="641.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="608.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="83.0" cy="646.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="28.0" y="613.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="28.0" y1="613.8" x2="28.0" y2="646.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="138.0" y1="613.8" x2="138.0" y2="646.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="83.0" cy="613.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <text x="83.0" y="630.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">sky1d</text>
+  <ellipse cx="107.0" cy="711.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="52.0" y="678.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="52.0" y1="678.8" x2="52.0" y2="711.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="162.0" y1="678.8" x2="162.0" y2="711.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="107.0" cy="678.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="716.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="46.0" y="683.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="46.0" y1="683.8" x2="46.0" y2="716.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="156.0" y1="683.8" x2="156.0" y2="716.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="683.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="721.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="40.0" y="688.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="40.0" y1="688.8" x2="40.0" y2="721.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="150.0" y1="688.8" x2="150.0" y2="721.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="688.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="726.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="34.0" y="693.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="34.0" y1="693.8" x2="34.0" y2="726.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="144.0" y1="693.8" x2="144.0" y2="726.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="693.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="83.0" cy="731.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="28.0" y="698.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="28.0" y1="698.8" x2="28.0" y2="731.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="138.0" y1="698.8" x2="138.0" y2="731.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="83.0" cy="698.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <text x="83.0" y="715.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">fluxCal</text>
+  <ellipse cx="107.0" cy="793.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="52.0" y="760.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="52.0" y1="760.8" x2="52.0" y2="793.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="162.0" y1="760.8" x2="162.0" y2="793.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="107.0" cy="760.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="798.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="46.0" y="765.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="46.0" y1="765.8" x2="46.0" y2="798.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="156.0" y1="765.8" x2="156.0" y2="798.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="101.0" cy="765.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="803.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="40.0" y="770.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="40.0" y1="770.8" x2="40.0" y2="803.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="150.0" y1="770.8" x2="150.0" y2="803.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="95.0" cy="770.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="808.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="34.0" y="775.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="34.0" y1="775.8" x2="34.0" y2="808.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="144.0" y1="775.8" x2="144.0" y2="808.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="89.0" cy="775.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="83.0" cy="813.2" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="28.0" y="780.8" width="110" height="32.40" fill="#C5DCF0" stroke="none"/>
+  <line x1="28.0" y1="780.8" x2="28.0" y2="813.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="138.0" y1="780.8" x2="138.0" y2="813.2" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="83.0" cy="780.8" rx="55.0" ry="6.3" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <text x="83.0" y="797.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">pfsArm</text>
+  <rect x="180.0" y="691.0" width="150" height="48" rx="5" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <text x="255.0" y="715.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">coaddSpectra</text>
+  <ellipse cx="417.0" cy="717.3" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="362.0" y="672.7" width="110" height="44.64" fill="#C5DCF0" stroke="none"/>
+  <line x1="362.0" y1="672.7" x2="362.0" y2="717.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="472.0" y1="672.7" x2="472.0" y2="717.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="417.0" cy="672.7" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="411.0" cy="722.3" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="356.0" y="677.7" width="110" height="44.64" fill="#C5DCF0" stroke="none"/>
+  <line x1="356.0" y1="677.7" x2="356.0" y2="722.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="466.0" y1="677.7" x2="466.0" y2="722.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="411.0" cy="677.7" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="405.0" cy="727.3" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="350.0" y="682.7" width="110" height="44.64" fill="#C5DCF0" stroke="none"/>
+  <line x1="350.0" y1="682.7" x2="350.0" y2="727.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="460.0" y1="682.7" x2="460.0" y2="727.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="405.0" cy="682.7" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="399.0" cy="732.3" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="344.0" y="687.7" width="110" height="44.64" fill="#C5DCF0" stroke="none"/>
+  <line x1="344.0" y1="687.7" x2="344.0" y2="732.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="454.0" y1="687.7" x2="454.0" y2="732.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="399.0" cy="687.7" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="393.0" cy="737.3" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <rect x="338.0" y="692.7" width="110" height="44.64" fill="#C5DCF0" stroke="none"/>
+  <line x1="338.0" y1="692.7" x2="338.0" y2="737.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <line x1="448.0" y1="692.7" x2="448.0" y2="737.3" stroke="#5B9BD5" stroke-width="1.5"/>
+  <ellipse cx="393.0" cy="692.7" rx="55.0" ry="8.7" fill="#C5DCF0" stroke="#5B9BD5" stroke-width="1.5"/>
+  <text x="393.0" y="715.0" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#1A1A1A">pfsCoadd</text>
+  <line x1="138" y1="630" x2="180" y2="703" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="138" y1="715" x2="180" y2="715" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="138" y1="797" x2="180" y2="727" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="330" y1="715" x2="338" y2="715" stroke="#1A1A1A" stroke-width="1.5" marker-end="url(#arr)"/>
 </svg>
