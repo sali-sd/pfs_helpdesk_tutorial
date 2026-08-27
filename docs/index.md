@@ -2,7 +2,7 @@
 
 This webpage is an introduction to the Subaru Prime Focus Spectrograph (PFS) data reduction pipeline and data inspection tools. Detailed information regarding the Subaru PFS instrument can be found on the [PFS instrument page](https://www.naoj.org/Observing/Instruments/PFS/instrument/). Here, we present the necessary information that you may need to understand the PFS pipeline.
 
-**If you have any questions regarding this tutorial, contact us at: [pfs-data-analysis-help@ml.nao.ac.jp](pfs-data-analysis-help@ml.nao.ac.jp)**
+**If you have any questions regarding this tutorial, contact us at: [pfs-data-analysis-help@ml.nao.ac.jp](mailto:pfs-data-analysis-help@ml.nao.ac.jp)**
 
 ## Overview
 

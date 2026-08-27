@@ -22,8 +22,6 @@ Example from proposal `S25A-000QF`, catId 10094 (`brn_run26` combination, 22 obj
 - For each object a GALAXY, QSO, and STAR template is fit, with the best indicated by the `class` column in the `CLASSIFICATION` HDU.
 - Each object can have multiple redshift candidates; the best is indicated by `cRank=0` in the object `CANDIDATES` HDUs.
 
-Filename format: `{path_to_pfsCoZCandidates}/{catId}_{objGroup}/data/pfsCoZcandidates-{catId}.fits`
-
 **FITS structure:**
 
 
