@@ -2,7 +2,7 @@
 
 This section describes the main PFS data products produced by the 2D DRP pipeline. They are all stored as FITS files and follow a strict naming convention based on observation identifiers.
 
-We will show how PFS data products are stored, can be accessed and analyzed using `Butler`. Data on the [PFS Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) will be used as reference, specifically data products from proposal ID `S25A-000QF`, which is part of the **Observatory Filler Program** and available to everyone that signs up to the Science Platform. The method of accessing and analyzing PFS data products using `Butler` is universally applicable to all 2D DRP pipeline reduced data.
+We will show how PFS data products are stored, can be accessed and analyzed using `Butler`. Data on the [PFS Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) will be used as reference, specifically data products from proposal ID `S25A-000QF`, which is part of the **Observatory Filler Program** and available to everyone who signs up to the Science Platform. The method of accessing and analyzing PFS data products using `Butler` is universally applicable to all 2D DRP pipeline reduced data.
 
 As a reference, the following are all the pipeline data products:
 

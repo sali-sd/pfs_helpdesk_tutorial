@@ -50,7 +50,7 @@ Example from proposal `S25A-000QF`, catId 10094 (which represents the Observator
 
 ## Finding All Combinations in Collections
 
-You can check all `combination` names in your `collections` as such:
+You can check all `combination` names in your `collections` as follows:
 
 ```python
 from lsst.daf.butler import Butler
@@ -73,14 +73,14 @@ Available combinations in 'run26_June2026': ['bmn_run26', 'brn_run26']
 
 ## A Note about Combinations on the Science Platform
 
-From `run26_June2026` onwards (i.e. from the June 2026 processing run), all data is split into two `combinations`:
+From `run26_June2026` onwards (i.e. from the June 2026 processing run), all data are split into two `combinations`:
 
 - `brn` — combines all visits observed with the **low-resolution red arm** (`r`)
 - `bmn` — combines all visits observed with the **medium-resolution red arm** (`m`)
 
 This split is made because the two red-arm modes cover different wavelength ranges and can be difficult to coadd together. When plotting, choose the combination that matches the arm configuration of your data. The code in this tutorial uses `brn_run26` as the default for demonstration.
 
-For reference, older collections (prior to `run26_June2026`) used a single combination that merged all visits regardless of arm mode, though this led to several downstream problems for a subset of objects with both low and medium resolution data, such as with spectroscopic redshift and line measurements using the LAM1D pipeline (hence the above change was made). For example, `S25A_April2026` has only one combination:
+For reference, older collections (prior to `run26_June2026`) used a single combination that merged all visits regardless of arm mode, though this led to several downstream problems for a subset of objects with both low and medium resolution data, such as spectroscopic redshift and line measurements using the LAM1D pipeline (hence the above change was made). For example, `S25A_April2026` has only one combination:
 
 ```python
 from lsst.daf.butler import Butler

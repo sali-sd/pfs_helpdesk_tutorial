@@ -4,7 +4,7 @@
 
 `pfsConfig` records the *realized* fiber configuration for a specific **visit** (exposure).
 It is the observed counterpart to `pfsDesign`, capturing where each fiber
-actually ended up on the focal plane (as opposed to where it was intended to be). The pfsConfig files are the primary destination of all object related information, e.g. RA/Dec, catalog ID, target type, fiber status, object fluxes (from public catalogs).
+actually ended up on the focal plane (as opposed to where it was intended to be). The `pfsConfig` files are the primary source of all object-related information, e.g. RA/Dec, catalog ID, target type, fiber status, object fluxes (from public catalogs).
 
 Filename format: `pfsConfig_PFS_{visit}_{collection}.fits`
 
@@ -55,7 +55,7 @@ Example from proposal `S25A-000QF`, visit 137292 on the Science Platform:
 
 The fluxes above are collected from public catalogs such as HSC SSP, PS1, GAIA.
 
-## Checking all Visits in Collection
+## Checking All Visits in a Collection
 
 Here we show how to set up `Butler` and list all available visits in a `collection`. Simply specify under **USER-DEFINED PARAMETERS** the 2d DRP data repository location and `collection` name:
 

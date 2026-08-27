@@ -6,7 +6,7 @@ The LAM 1D pipeline is the PFS 1D data reduction pipeline developed by LAM (Labo
 - **Core library**: [drp_1d (pylibamazed)](https://github.com/Subaru-PFS/drp_1d)
 - **Datamodel**: [datamodel.txt](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt)
 
-See the above pipeline repositories and datamodel page for a full description of the pipeline, its input parameters and output data products.
+See the above pipeline repositories and datamodel page for a full description of the pipeline, its input parameters, and output data products.
 
 An installation script and full documentation are available in the **[PFS-LAM1D-Installation](https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/main/PFS-LAM1D-Installation)** directory of this repository.
 
@@ -75,7 +75,7 @@ The script performs the following steps automatically:
 1. **Checks prerequisites** — verifies all required tools are available
 2. **Creates a conda environment** — `pfs-pipeline-1.18.0` with Python 3.11
 3. **Builds C++ dependencies from source** (all installed into the conda environment, no root needed):
-  - PCRE2 10.42 — regex library required by SWIG
+    - PCRE2 10.42 — regex library required by SWIG
     - SWIG 4.1.1 — generates Python bindings for the C++ code
     - Boost 1.74.0 — C++ utility libraries
     - OpenBLAS 0.3.19 — optimised linear algebra (built with multi-architecture support)

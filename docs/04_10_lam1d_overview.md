@@ -2,7 +2,7 @@
 
 ## What is the LAM 1D DRP?
 
-We summarise here the data products produced by the LAM 1D pipeline. The pipeline operates downstream of the PFS 2D DRP and takes the `pfsCoadd` spectra as input to perform:
+This section summarises the data products produced by the LAM 1D pipeline. The pipeline operates downstream of the PFS 2D DRP and takes the `pfsCoadd` spectra as input to perform:
 
 - **Redshift determination** — fitting galaxy, QSO, and stellar templates to estimate redshifts or radial velocities
 - **Object classification** — classifying each spectrum as `GALAXY`, `QSO`, or `STAR` with associated probabilities

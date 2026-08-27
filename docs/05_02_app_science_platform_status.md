@@ -1,8 +1,8 @@
 # Science Platform Data Processing Status
 
-All PFS data taken each semester is reduced by the PFS team and made available through the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) to users. Preliminary data releases are initially made following each observing run (carried out across ~2 months, e.g. run21, run22, run23), followed by a complete semester wide data release (e.g. S25A). As improvements to the 2D and 1D pipelines are made, the PFS team may re-process data from earlier semesters (e.g. S25A take#2). The latest re-processed data will thus provide the best results in almost all cases.
+All PFS data taken each semester is reduced by the PFS team and made available through the [Science Platform](https://hscpfs.mtk.nao.ac.jp/portal/) to users. Preliminary data releases are initially made following each observing run (carried out across ~2 months, e.g. run21, run22, run23), followed by a complete semester-wide data release (e.g. S25A). As improvements to the 2D and 1D pipelines are made, the PFS team may re-process data from earlier semesters (e.g. S25A take#2). The latest re-processed data will thus provide the best results in almost all cases.
 
-Here we provide an up to date status on the data processing for each semester and any missing data. The full data release reports are available through the Science Platform and we recommend users to consult them. Below is a brief summary:
+Here we provide an up-to-date status on the data processing for each semester and any missing data. The full data release reports are available through the Science Platform and we recommend users to consult them. Below is a brief summary:
 
 ## Data Delivery Status
 
@@ -78,7 +78,7 @@ There are no missing 2D pipeline raw/arm files. However, a substantial fraction 
 | 16       | 1551                   | 926                            | 0.60              |
 
 
-This incompleteness also affected earlier releases. It was later traced to mixed low- and medium-resolution spectra in the same `pfsCoadd` file. A fix is implemented from`run26` onwards.
+This incompleteness also affected earlier releases. It was later traced to mixed low- and medium-resolution spectra in the same `pfsCoadd` file. A fix is implemented from `run26` onwards.
 
 ### `S25A` take #2
 
@@ -94,7 +94,7 @@ A small number of files are missing from the release as summarized below. These 
 | 123314 | `n4`                       |
 
 
-There is also the `pfsCoZCandidates` incompleteness from mixed-resolution coadds (same issue as `run25`). that problem is addressed from `run26` onward.
+There is also the `pfsCoZCandidates` incompleteness from mixed-resolution coadds (same issue as `run25`). That problem is addressed from `run26` onward.
 
 ### `run26`
 

@@ -3,7 +3,7 @@
 There are implementations of Python classes that represent many of the files in the PFS pipeline, supporting
 reading and writing FITS files that conform to this model.  To use them in the Python environment, you can import, e.g. `pfs.datamodel.pfsConfig`.
 
-In this section, we only summarize the essential information of the datamodel that can be helpful for users to understand how the pipeline works. Please note that the datamodel is not fixed, and a complete description with possible updates of the datamodel can be found in the dedicated GitHub document: [datamodel.txt](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
+In this section, we only summarise the essential information of the datamodel that can be helpful for users to understand how the pipeline works. Please note that the datamodel is not fixed, and a complete description with possible updates of the datamodel can be found in the dedicated GitHub document: [datamodel.txt](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt).
 
 ## Files and Their Formats
 
@@ -52,7 +52,7 @@ In this section, we only summarize the essential information of the datamodel th
 
 ---
 
-There are many variables shown in the filename as shown above, and you can check their meaning as listed below.
+The variables used in the filename formats above are described below.
 
 ### Site
 
@@ -90,7 +90,7 @@ There are many variables shown in the filename as shown above, and you can check
 
 ### Spectrograph
 
-`spectrograph` is an integer ranging from 1-4.
+`spectrograph` is an integer ranging from 1–4.
 
 ### Arm
 
@@ -103,7 +103,7 @@ There are many variables shown in the filename as shown above, and you can check
 | 4        | m     | Medium resolution red |
 
 
-!!! note armNum 
+!!! note "armNum"
     `armNum` is used only in raw filenames.
 
 ### Tract

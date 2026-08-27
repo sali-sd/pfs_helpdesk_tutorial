@@ -4,7 +4,7 @@ Once the pipeline is installed (see [Installing the Pipeline](04_09_lam1d_instal
 
 ---
 
-## Basic command
+## Basic Command
 
 ```bash
 conda activate pfs-pipeline-1.18.0
@@ -30,7 +30,7 @@ drp_1dpipe -j 20 -n0 \
 
 
 
-## Main parameters
+## Main Parameters
 
 
 | Parameter                | Description                                                                                                                                                               |
@@ -40,7 +40,7 @@ drp_1dpipe -j 20 -n0 \
 | `--workdir`              | Path to the working directory. Must contain a `calibration/` subdirectory with `LSF/`, `templates/`, `linecatalogs/` etc. inside it.                                      |
 | `--coadd_file`           | Full path to the input `pfsCoadd` FITS file containing the coadded spectra to process                                                                                     |
 | `-o`                     | Output directory where results (`pfsCoZCandidates` FITS files) will be written.                                                                                           |
-| `-p`                     | Full path to the JSON parameter file controlling pipeline parameters (wavelength range, line fitting options etc.)                                                        |
+| `-p`                     | Full path to the JSON parameter file controlling pipeline parameters (wavelength range, line fitting options, etc.)                                                       |
 | `--scheduler` (optional) | Job scheduler: `local` (default), `pbs`, or `slurm`. Use `pbs` or `slurm` for cluster batch submission.                                                                   |
 | `--loglevel` (optional)  | Logging verbosity: `DEBUG`, `INFO` (default), `WARNING`, `ERROR`, `CRITICAL`                                                                                              |
 
@@ -49,7 +49,7 @@ drp_1dpipe -j 20 -n0 \
 
 
 
-## Parameter file
+## Parameter File
 
 The full list of available parameters and their default values is defined in [drp_1dpipe/auxdir/parameters_sgq.json](https://github.com/Subaru-PFS/drp_1dpipe/blob/master/drp_1dpipe/auxdir/parameters_sgq.json) on the pipeline GitHub page. The user only needs to specify parameters they want to override — any parameter not included in the parameter file falls back to the pipeline's default values.
 
@@ -65,7 +65,7 @@ All other parameters fall back to the pipeline defaults.
 
 
 
-## Calibration files
+## Calibration Files
 
 Calibration files (templates, line catalogs, LSF files, IGM/ISM tables) are required and must be passed via `--workdir`. The latest calibration files are available at:
 

@@ -19,7 +19,7 @@ Example from proposal `S25A-000QF`, catId 10094 (`brn_run26` combination, 22 obj
 ```
 
 - Flux units for line measurements are **nJy** (continuum) and **10⁻³⁵ W/m²** (line flux).
-- For each object a GALAXY, QSO and STAR template is fit, with the best indicated by the `class` column in the `CLASSIFICATION` HDU.
+- For each object a GALAXY, QSO, and STAR template is fit, with the best indicated by the `class` column in the `CLASSIFICATION` HDU.
 - Each object can have multiple redshift candidates; the best is indicated by `cRank=0` in the object `CANDIDATES` HDUs.
 
 Filename format: `{path_to_pfsCoZCandidates}/{catId}_{objGroup}/data/pfsCoZcandidates-{catId}.fits`
@@ -87,7 +87,7 @@ The same ranked-candidate structure applies to `QSO_CANDIDATES` (HDU #10) and `S
 The following code builds a combined object table across all LAM 1D results in a `collection` with the best object classification and redshift/velocity values as indicated by the pipeline. It works in three steps:
 
 1. **Magnitude lookup** — iterates over all visits in the `collection` via `pfsMerged`, extracting per-object magnitudes from `pfsConfig` across all available filters.
-2. **LAM 1D FITS reading** — reads all `pfsCoZCandidates` FITS files from for a given `collection`, extracting the best object classification, best redshift/velocity candidate (by highest probability), warnings, and errors for each object.
+2. **LAM 1D FITS reading** — reads all `pfsCoZCandidates` FITS files for a given `collection`, extracting the best object classification, best redshift/velocity candidate (by highest probability), warnings, and errors for each object.
 3. **Combining and saving** — merges the magnitude lookup with the LAM 1D results into a single CSV file (`{collections}_all_lam1d.csv`), which can be used to browse objects by class, redshift, velocity, or objId
 
 After saving the CSV, the code plots **magnitude vs. redshift** (for GALAXY and QSO) and **magnitude vs. velocity** (for STAR), coloured by `catId`.
