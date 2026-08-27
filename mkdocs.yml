@@ -14,7 +14,7 @@ nav:
     - Preparation: 02_01_run_prepare.md
     - Data Ingestion: 02_02_run_ingestion.md
     - (Optional) Build Calibs: 02_03_run_calib.md
-    - Procees Science Data: 02_04_run_science.md
+    - Process Science Data: 02_04_run_science.md
     # - Quality Assurance (QA): 02_05_run_qa.md
   - Data Analysis:
     - Overview of PFS Data Products: 03_01_overview.md
