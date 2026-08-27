@@ -4,7 +4,7 @@
 
 `pfsCoZCandidates` is the LAM 1D output file. It bundles redshift candidates, classification results, line measurements, and quality flags for all objects in a single catalog (`catId`), following the same `pfsCoadd` structure.
 
-The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` file is produced per `combination`/`catId`/`objGroup` combination (see the [pfsCoadd](03_16_pfscoadd.md) section). The files are stored inside the Butler repository and follow the same `combination` structure as `pfsCoadd`.
+The LAM 1D pipeline is run on each `pfsCoadd` file, i.e. one `pfsCoZCandidates` file is produced per `combination`/`catId`/`objGroup` combination (see the [pfsCoadd](03_07_pfscoadd.md) section). The files are stored inside the Butler repository and follow the same `combination` structure as `pfsCoadd`.
 
 Filename format: `pfsCoZCandidates_PFS_{combination}_{catId}_{objGroup}_{collection}_{lam1d_collection}.fits`
 

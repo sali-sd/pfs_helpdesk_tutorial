@@ -11,7 +11,7 @@ processing run or observing programme — which allows `Butler` to locate the co
 
 ## Setting up Butler
 
-Before any data can be analyzed, one must first provide the location of the 2D DRP datastore repository where the reduced data products are stored. For our reference dataset (see [Overview of PFS Data Products](03_10_overview.md) for details), the datastore is located at `/shared/pfs/programs/S25A-000QF/2d/`:
+Before any data can be analyzed, one must first provide the location of the 2D DRP datastore repository where the reduced data products are stored. For our reference dataset (see [Overview of PFS Data Products](03_01_overview.md) for details), the datastore is located at `/shared/pfs/programs/S25A-000QF/2d/`:
 
 ```
 $ ls /shared/pfs/programs/S25A-000QF/2d/

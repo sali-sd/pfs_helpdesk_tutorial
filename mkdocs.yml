@@ -17,24 +17,21 @@ nav:
     - Procees Science Data: 02_04_run_science.md
     # - Quality Assurance (QA): 02_05_run_qa.md
   - Data Analysis:
-    - Overview of PFS Data Products: 03_10_overview.md
-    - Accessing PFS Data: 03_11_accessing.md
-    - pfsConfig: 03_12_pfsconfig.md
-    - pfsArm: 03_13_pfsarm.md
-    - pfsMerged: 03_14_pfsmerged.md
-    - pfsCalibrated: 03_15_pfscalibrated.md
-    - pfsCoadd: 03_16_pfscoadd.md
+    - Overview of PFS Data Products: 03_01_overview.md
+    - Accessing PFS Data: 03_02_accessing.md
+    - pfsConfig: 03_03_pfsconfig.md
+    - pfsArm: 03_04_pfsarm.md
+    - pfsMerged: 03_05_pfsmerged.md
+    - pfsCalibrated: 03_06_pfscalibrated.md
+    - pfsCoadd: 03_07_pfscoadd.md
   - LAM 1D:
-    - Installing the Pipeline: 04_09_lam1d_install.md
-    - Running the Pipeline: 04_11_lam1d_running.md
-    - Overview of LAM 1D Data Products: 04_10_lam1d_overview.md
-    - pfsCoZCandidates: 04_12_lam1d_zcandidates.md
-    - pfsCoadd Spectrum + LAM 1D Model: 04_13_lam1d_coadd_lines.md
+    - Installing the Pipeline: 04_01_lam1d_install.md
+    - Running the Pipeline: 04_02_lam1d_running.md
+    - Overview of LAM 1D Data Products: 04_03_lam1d_overview.md
+    - pfsCoZCandidates: 04_04_lam1d_zcandidates.md
+    - pfsCoadd Spectrum + LAM 1D Model: 04_05_lam1d_coadd_lines.md
   - Q&A:
-    - General: 04_00_faq_general.md
-    # - Install 2D DRP: 04_01_faq_install.md
-    # - Run 2D DRP: 04_02_faq_run.md
-    # - Data Analysis: 04_03_faq_analysis.md
+    - General: 04_06_faq_general.md
   - Appendix: 
     - Data Model: 05_01_app_datamodel.md
     - Science Platform Data Processing Status: 05_02_app_science_platform_status.md

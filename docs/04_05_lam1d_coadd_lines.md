@@ -1,6 +1,6 @@
 # pfsCoadd Spectrum + LAM 1D Model
 
-The following script uses the `objid` to plot the `pfsCoadd` spectrum of a single object overlaid with the LAM 1D best-fit model, and marks detected spectral lines. Alternatively, it can use the `{collections}_all_lam1d.csv` file produced by the object table code in the [pfsCoZCandidates](04_12_lam1d_zcandidates.md) section to search for objects by redshift/velocity or browse by index (CSV is not required for a simple `objid` search). Run that code once before using this plotter if using the second selection method.
+The following script uses the `objid` to plot the `pfsCoadd` spectrum of a single object overlaid with the LAM 1D best-fit model, and marks detected spectral lines. Alternatively, it can use the `{collections}_all_lam1d.csv` file produced by the object table code in the [pfsCoZCandidates](04_04_lam1d_zcandidates.md) section to search for objects by redshift/velocity or browse by index (CSV is not required for a simple `objid` search). Run that code once before using this plotter if using the second selection method.
 
 The code supports three modes of object selection:
 

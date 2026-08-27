@@ -1,6 +1,6 @@
 # Running the LAM 1D Pipeline
 
-Once the pipeline is installed (see [Installing the Pipeline](04_09_lam1d_install.md)), activate the conda environment and run `drp_1dpipe` with the appropriate arguments.
+Once the pipeline is installed (see [Installing the Pipeline](04_01_lam1d_install.md)), activate the conda environment and run `drp_1dpipe` with the appropriate arguments.
 
 ---
 
@@ -94,7 +94,7 @@ A successful run populates the output directory (`-o`) with the following:
 
 | Path                                 | Description                                                                                                                                                                                                                                                                                                 |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data/pfsCoZcandidates-<catId>.fits` | Main science product — one FITS file per `pfsCoadd` input, containing redshift candidates, probability distributions, and line measurements for all spectra. See [pfsCoZCandidates](04_12_lam1d_zcandidates.md) and the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt). |
+| `data/pfsCoZcandidates-<catId>.fits` | Main science product — one FITS file per `pfsCoadd` input, containing redshift candidates, probability distributions, and line measurements for all spectra. See [pfsCoZCandidates](04_04_lam1d_zcandidates.md) and the [PFS datamodel](https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt). |
 | `config.json`                        | Run configuration written by the pipeline (working directory, log directory, scheduler, concurrency, input `coadd_file`, output directory, parameter file path, stellar mode, etc.).                                                                                                                        |
 | `parameters.json`                    | Full set of pipeline parameters actually used for the run (defaults plus any overrides from `-p`).                                                                                                                                                                                                          |
 | `report.json`                        | Summary of the run: object counts and fractions by class (galaxy / qso / star), redshift-error counts/fractions per class, and aggregate line-measurement stats (line counts, positive-flux lines, etc.).                                                                                                   |
