@@ -25,7 +25,7 @@ More details can be found in [Appendix](05_01_app_datamodel.md).
 
 The PFS 2D DRP workflow is shown in the flowchart below.
 
-![Focal plane map](img/pipe2d_flowchart_gen3.png)
+![PFS 2D DRP Workflow Flowchart](img/pipe2d_flowchart_gen3.png)
 
 !!! note "Products"
     - `pfsArm`: These are wavelength-calibrated but not sky subtracted or flux calibrated single spectra from a single visit and a single arm.
