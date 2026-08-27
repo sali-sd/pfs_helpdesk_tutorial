@@ -39,7 +39,7 @@ defineCombination.py $DATASTORE PFS object --where "visit.target_name = 'OBJECT'
 defineCombination.py $DATASTORE PFS run20241025 --where "visit.day_obs = 20241025"
 ```
 
-A combination can be defined with a `--where` option, which takes a query string like for the `-d` option of `pipetask run`.
+A combination can be defined with a `--where` option, which takes the same query string syntax as the `-d` option of `pipetask run`.
 
 Alternatively, a combination can be defined by simply listing the exposure identifiers or specifying the observing dates:
 
@@ -56,7 +56,7 @@ Although we have provided here some silly examples, it is recommended that descr
 
 ---
 
-Now we can run the pipeline process a specific single exposure:
+Now we can run the pipeline to process a specific single exposure:
 
 ```bash
 # Single Exposure
@@ -108,7 +108,7 @@ butler = Butler.from_config($DATASTORE, collection=["$RERUN/object"])
 pfsObject = butler.get("pfsCoadd.single", cat_id=1, combination="object", parameters=dict(objId=55))
 ```
 
-Note that the `objId` needs to be specified in the `parameters` dictionary, rather than as a separate argument to the `get` method because it’s a parameter for the formatter that reads the dataset and not a dimension of the dataset itself.
+Note that the `objId` needs to be specified in the `parameters` dictionary, rather than as a separate argument to the `get` method, because it’s a parameter for the formatter that reads the dataset and not a dimension of the dataset itself.
 
 !!! warning
         Refrain from retrieving `pfsCoadd.single` in a loop, as it is **EXTREMELY inefficient**.

@@ -1,6 +1,6 @@
 # (Optional) Build Calibration Frames
 
-!!! Note
+!!! note
     Before running the science data processing, the pipeline requires calibration data. **The observatory provides calibration products from the PFS Science Platform (SP) for each run**, so users do not necessarily need to generate the calibration data themselves. The simplest approach is to use these pre-provided calibration products, in which case **the majority of this section can be skipped**.
 
 ## Importing Calibrations from PFS SP
@@ -40,7 +40,7 @@ Assume the following default setup:
 - The user is working in the public data repository `$WORKDIR/pfs/data/datastore` and using a publicly installed pipeline.
 - The data repository has the `PFS/defaults` collection, which links to `PFS/raw/pfsConfig`, `PFS/raw/sps`, and `PFS/calib` (see the [data ingestion page](02_02_run_ingestion.md)).
 
-Then the user can setup the following environment variables for conveniences and consistensy.
+Then the user can setup the following environment variables for convenience and consistency.
 
 ```bash
 DATASTORE="$WORKDIR/pfs/data/datastore"
@@ -108,7 +108,7 @@ The `visit` dimension can be used directly to refer to the visit number, but a v
   > - `visit.observation_type`: type of observation (e.g., `BIAS`, `DARK`, `FLAT`, `ARC`)
   > - `visit.target_name`: target name
   > - `visit.science_program`: science program name
-  > - `visit.tracking_ra`, `tracking_dec`: boresight position (ICRS)
+  > - `visit.tracking_ra`, `visit.tracking_dec`: boresight position (ICRS)
   > - `visit.zenith_angle`: zenith angle in degrees
   > - `visit.lamps`: comma-separated list of lamps that were on
   > - Other dimensions can also be used, for example: `visit IN (12..34:5) AND arm = 'r' AND spectrograph = 3`.

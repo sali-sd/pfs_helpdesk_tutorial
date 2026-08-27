@@ -26,8 +26,8 @@ tar -xvf S2Query.tar
 
 Platform-specific instructions:
 
-- UNIX: Use wget for downloading.
-- macOS: Use curl for downloading.
+- UNIX: Use `wget` for downloading.
+- macOS: Use `curl` for downloading.
 - Windows: An FTP manager is required for data transfer.
 
 
@@ -82,11 +82,11 @@ The parameters in the commands include:
 
 The ingestion process places the files (referred to as "datasets" in `butler`) in the repository and records them in the registry database. Each file is placed in a **collection**, which can be thought of as a directory-like grouping in the `butler` (and, when using a traditional filesystem datastore, it is implemented as a directory).
 
-The raw data is placed in the collection `PFS/raw/sps`, while the `PfsConfig` files are placed in the collection `PFS/raw/pfsConfig`.
+The raw data are placed in the collection `PFS/raw/sps`, while the `PfsConfig` files are placed in the collection `PFS/raw/pfsConfig`.
 
 ## Troubleshooting
 
-When ingesting data into `DATASTORE`, all files for a single visit should be ingested with a single command. For example, the following commands ingest two files from `visit=123456` separately and will fail:
+When ingesting data into `DATASTORE`, all files for a single visit must be ingested with a single command. For example, the following commands ingest two files from `visit=123456` separately and will fail:
 
 ```bash
 # The second command will fail
@@ -100,7 +100,7 @@ The correct approach is to use wildcards so that all files from `visit=123456` a
 butler ingest-raws $DATASTORE $DATADIR/raw/2026-03-18/*/PFS*123456*.fits --ingest-task lsst.obs.pfs.gen3.PfsRawIngestTask --transfer link --fail-fast
 ```
 
-If you need to re-ingest one or more visits, you can prune the previously ingested data and then repeat the procedure above:
+To re-ingest one or more visits, first prune the previously ingested data, then repeat the procedure above:
 
 ```bash
 butler prune-datasets $DATASTORE PFS/raw/sps --datasets=raw --unstore --where="instrument='PFS' AND visit=123456"

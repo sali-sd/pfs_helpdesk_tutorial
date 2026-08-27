@@ -4,7 +4,7 @@
 
 ---
 
-First, we need to set up the 2D DRP environment:
+First, set up the 2D DRP environment:
 
 ```bash
 source $WORKDIR/$(whoami)/pfs/stack_30/loadLSST.bash
@@ -34,7 +34,7 @@ This file specifies two configuration files that are important for the Gen3 midd
 
 Most of this can be ignored by the pipeline user, except for the `registry` section, which specifies the location of the registry database. The default is to use a SQLite database in the repository directory (suitable for small-scale testing without extensive parallelization), but it is recommended to use a `PostgreSQL` database for shared data repositories or if you will be doing intensive processing with many cores.
 
-To use a `PostgreSQL` database, change the `registry` section, like the following:
+To use a `PostgreSQL` database, change the `registry` section as follows:
 
 ```bash
 registry:
@@ -63,7 +63,7 @@ butler create $DATASTORE --seed-config $WORKDIR/$(whoami)/data/butler.yaml --dim
 ```
 
 !!! note
-    Please always copy the latest default `butler.yaml` and modify it accordingly every time when there is an update of the pipeline.
+    Please always copy the latest default `butler.yaml` and modify it accordingly every time there is an update to the pipeline.
 
 Then, register the instrument with `butler`. This also copies the camera configuration into the repository:
 
@@ -78,7 +78,7 @@ makePfsDefects --mko
 butler write-curated-calibrations $DATASTORE PFS --collection PFS/calib
 ```
 
-This creates a `CALIBRATION` collection `PFS/calib` in the `butler`. It will be more flexible if we change it to a `CHAIN` collection:
+This creates a `CALIBRATION` collection `PFS/calib` in the `butler`. It is more flexible as a `CHAIN` collection:
 
 ```bash
 butler remove-collections $DATASTORE PFS/calib # This command will prompt for confirmation

@@ -9,21 +9,21 @@ The basic information of the PFS 2D DRP for this section includes:
 1. LSST version: v30 (as of 2026/03/15, started from `w.2026.07`)
 2. pfs_pipe2d branch: the latest weekly release
 
-**Step 1**: We should fetch pfs_pipe2d Gen3:
+**Step 1**: Fetch pfs_pipe2d Gen3:
 
 ```bash
 cd $WORKDIR/$(whoami)/
 git clone http://github.com/Subaru-PFS/pfs_pipe2d
 ```
 
-**Step 2**: We should check out to the lastest version:
+**Step 2**: Check out the latest version:
 
 ```bash
 cd pfs_pipe2d
 git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 ```
 
-**Step 3**: We should create the target folder and start the installation:
+**Step 3**: Create the target folder and start the installation:
 
 ```bash
 mkdir -p $WORKDIR/$(whoami)/pfs/stack_30
@@ -44,7 +44,7 @@ source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
 setup pfs_pipe2d
 ```
 
-**Step 2**: We should fetch the flux model data:
+**Step 2**: Fetch the flux model data:
 
 ```bash
 mkdir -p $WORKDIR/$(whoami)/source/
@@ -53,14 +53,14 @@ wget https://hscdata.mtk.nao.ac.jp/hsc_bin_dist/pfs/fluxmodeldata-ambre-20230608
 tar xzf fluxmodeldata-ambre-20230608.tar.gz -C .
 ```
 
-**Step 3**: We can start the installation process
+**Step 3**: Start the installation:
 
 ```bash
 cd $WORKDIR/$(whoami)/source/fluxmodeldata-ambre-20230608
 ./install.py --prefix=$WORKDIR/$(whoami)/packages/
 ```
 
-Then we should declare the `fluxmodeldata` package to `eups` by the following command:
+Then, declare the `fluxmodeldata` package to `eups`:
 
 ```bash
 eups declare fluxmodeldata 20230608-full -t current -r /path/to/fluxmodeldata

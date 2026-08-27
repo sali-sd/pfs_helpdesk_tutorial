@@ -7,7 +7,7 @@ source $WORKDIR/$(whoami)/packages/stack_30/loadLSST.bash
 setup pfs_pipe2d
 ```
 
-(Optional) In most cases, users can directly use the shared installation of `drp_pfs_data`. Only in case that one wants to install curated calibs, then for individual users, they should replace the default `drp_pfs_data` package with a local version:
+(Optional) In most cases, users can directly use the shared installation of `drp_pfs_data`. If you want to install curated calibs, replace the default `drp_pfs_data` package with a local version:
 
 ```bash
 setup -jr $WORKDIR/$(whoami)/packages/drp_pfs_data
@@ -18,7 +18,7 @@ The integration test provides a check that the pipeline has been installed and i
 Start the integration test in a new directory:
 
 ```bash
-mkdir -p /$WORKDIR/$(whoami)/packages/integrationTest
+mkdir -p $WORKDIR/$(whoami)/packages/integrationTest
 cd $WORKDIR/$(whoami)/packages/integrationTest
 pfs_integration_test.sh -c 4 .
 ```

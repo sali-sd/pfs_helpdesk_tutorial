@@ -7,7 +7,7 @@ The latest PFS 2D data reduction pipeline (DRP) is now based on the third genera
 
 - `spectrograph` defines the spectrograph module with an integer ranging from `1`–`4`.
 
-- `arm` defines spectrograph's blue, red, near-IR, and medium-resolution red arms (`b`, `r`, `n`, `m`).
+- `arm` defines the spectrograph's blue, red, near-IR, and medium-resolution red arms (`b`, `r`, `n`, `m`).
 
 - `catId` specifies the catalog source of an object.
 
@@ -23,14 +23,14 @@ More details can be found in [Appendix](05_01_app_datamodel.md).
 
 ---
 
-The PFS 2D DRP generally follows the following flowchart.
+The PFS 2D DRP workflow is shown in the flowchart below.
 
->> ![Focal plane map](img/pipe2d_flowchart_gen3.png)
+![Focal plane map](img/pipe2d_flowchart_gen3.png)
 
-!!! Products
+!!! note "Products"
     - `pfsArm`: These are wavelength-calibrated but not sky subtracted or flux calibrated single spectra from a single visit and a single arm.
     - `pfsMerged`: These are arm-merged, wavelength calibrated and sky subtracted (but not flux calibrated) spectra from a single visit.
-    - `pfsCalibrated`: These are flux-calibrated, arm-merged, wavelength calibrated and sky subtracted spectra from a single visit.
+    - `pfsCalibrated`: These are flux-calibrated, arm-merged, wavelength calibrated, and sky subtracted spectra from a single visit.
     - `pfsCoadd`: These are coadded spectra, and the final products for science.
 
 <!-- ## Gen3 PFS 2D DRP
