@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_02_lam1d_running/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Running the Pipeline - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Running the Pipeline";
+        var mkdocs_page_input_path = "04_02_lam1d_running.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_02_lam1d_running/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Process Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_01_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_02_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_03_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_04_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_05_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_06_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_07_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../04_01_lam1d_install/">Installing the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Running the Pipeline</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#basic-command">Basic Command</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#main-parameters">Main Parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#parameter-file">Parameter File</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#calibration-files">Calibration Files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#outputs">Outputs</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_03_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_04_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_05_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_06_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_02_app_science_platform_status/">Science Platform Data Processing Status</a>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">LAM 1D</li>
+      <li class="breadcrumb-item active">Running the Pipeline</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_02_lam1d_running.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="running-the-lam-1d-pipeline">Running the LAM 1D Pipeline</h1>
+<p>Once the pipeline is installed (see <a href="../04_01_lam1d_install/">Installing the Pipeline</a>), activate the conda environment and run <code>drp_1dpipe</code> with the appropriate arguments.</p>
+<hr />
+<h2 id="basic-command">Basic Command</h2>
+<pre><code class="language-bash">conda activate pfs-pipeline-1.18.0
+
+drp_1dpipe -j &lt;cores&gt; -n0 \
+    --workdir &lt;path/to/working/directory&gt; \
+    --coadd_file &lt;path/to/input/pfsCoadd/file&gt; \
+    -o &lt;path/to/output/directory&gt; \
+    -p &lt;path/to/parameters/file&gt;
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-bash">drp_1dpipe -j 20 -n0 \
+    --workdir /home/sali/1dval/lam1d \
+    --coadd_file /lfs_pfs/Subaru/PFS/data/datastore_20260226/PFS/science/run26/coadd.20260430/brn/20260528T144720Z/pfsCoadd/10094/pfsCoadd_PFS_brn_run26_10094_1_PFS_science_run26_coadd_20260430_brn_20260528T144720Z.fits \
+    -o /home/sali/1dval/lam1d/results \
+    -p /home/sali/1dval/lam1d/parameters_ex.json
+</code></pre>
+<hr />
+<h2 id="main-parameters">Main Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-j &lt;cores&gt;</code></td>
+<td>Number of CPU cores to use in parallel. Use <code>$(nproc)</code> to use all available cores, or specify a number (e.g. <code>-j 20</code>). Each spectrum takes about 8–10 minutes to process.</td>
+</tr>
+<tr>
+<td><code>-n0</code></td>
+<td>No limit on the number of spectra per bunch — processes all spectra in the input file in one go. Specify a smaller number (e.g. <code>-n 100</code>) if memory is limited.</td>
+</tr>
+<tr>
+<td><code>--workdir</code></td>
+<td>Path to the working directory. Must contain a <code>calibration/</code> subdirectory with <code>LSF/</code>, <code>templates/</code>, <code>linecatalogs/</code> etc. inside it.</td>
+</tr>
+<tr>
+<td><code>--coadd_file</code></td>
+<td>Full path to the input <code>pfsCoadd</code> FITS file containing the coadded spectra to process</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>Output directory where results (<code>pfsCoZCandidates</code> FITS files) will be written.</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Full path to the JSON parameter file controlling pipeline parameters (wavelength range, line fitting options, etc.)</td>
+</tr>
+<tr>
+<td><code>--scheduler</code> (optional)</td>
+<td>Job scheduler: <code>local</code> (default), <code>pbs</code>, or <code>slurm</code>. Use <code>pbs</code> or <code>slurm</code> for cluster batch submission.</td>
+</tr>
+<tr>
+<td><code>--loglevel</code> (optional)</td>
+<td>Logging verbosity: <code>DEBUG</code>, <code>INFO</code> (default), <code>WARNING</code>, <code>ERROR</code>, <code>CRITICAL</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parameter-file">Parameter File</h2>
+<p>The full list of available parameters and their default values is defined in <a href="https://github.com/Subaru-PFS/drp_1dpipe/blob/master/drp_1dpipe/auxdir/parameters_sgq.json">drp_1dpipe/auxdir/parameters_sgq.json</a> on the pipeline GitHub page. The user only needs to specify parameters they want to override — any parameter not included in the parameter file falls back to the pipeline's default values.</p>
+<p>A working example parameter file (<code>parameters_ex.json</code>) is provided in the <a href="https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/main/PFS-LAM1D-Installation">PFS-LAM1D-Installation</a> folder of this repository. It explicitly sets only three parameters:</p>
+<ul>
+<li><code>lambdaRange</code> — wavelength range to process: <code>[4000, 9600]</code> Å</li>
+<li><code>lsf.gaussianVariableWidthFileName</code> — path to the LSF file relative to the <code>calibration/</code> directory: <code>LSF/lsf_lowres_fixed.fits</code></li>
+<li><code>spectrumModel_galaxy.lineMeasSolver.lineMeasSolve.lineModel.lineTypeFilter</code> — set to <code>"no"</code> to measure all spectral lines (both emission and absorption) for galaxies, without restricting to a specific line type</li>
+</ul>
+<p>All other parameters fall back to the pipeline defaults.</p>
+<hr />
+<h2 id="calibration-files">Calibration Files</h2>
+<p>Calibration files (templates, line catalogs, LSF files, IGM/ISM tables) are required and must be passed via <code>--workdir</code>. The latest calibration files are available at:</p>
+<pre><code>https://hscpfs.mtk.nao.ac.jp/nextcloud/s/jEqyZmicHXCNsi6?opendetails=
+</code></pre>
+<hr />
+<h2 id="outputs">Outputs</h2>
+<p>A successful run populates the output directory (<code>-o</code>) with the following:</p>
+<pre><code>&lt;output&gt;/
+├── config.json
+├── parameters.json
+├── report.json
+├── data/
+│   └── pfsCoZcandidates-&lt;catId&gt;.fits
+└── log/
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data/pfsCoZcandidates-&lt;catId&gt;.fits</code></td>
+<td>Main science product — one FITS file per <code>pfsCoadd</code> input, containing redshift candidates, probability distributions, and line measurements for all spectra. See <a href="../04_04_lam1d_zcandidates/">pfsCoZCandidates</a> and the <a href="https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt">PFS datamodel</a>.</td>
+</tr>
+<tr>
+<td><code>config.json</code></td>
+<td>Run configuration written by the pipeline (working directory, log directory, scheduler, concurrency, input <code>coadd_file</code>, output directory, parameter file path, stellar mode, etc.).</td>
+</tr>
+<tr>
+<td><code>parameters.json</code></td>
+<td>Full set of pipeline parameters actually used for the run (defaults plus any overrides from <code>-p</code>).</td>
+</tr>
+<tr>
+<td><code>report.json</code></td>
+<td>Summary of the run: object counts and fractions by class (galaxy / qso / star), redshift-error counts/fractions per class, and aggregate line-measurement stats (line counts, positive-flux lines, etc.).</td>
+</tr>
+<tr>
+<td><code>log/</code></td>
+<td>Log files for the run (scheduler, pre-processing, per-bunch jobs, merge). Useful for monitoring progress, e.g. <code>tail -f &lt;output&gt;/log/scheduler.log</code>.</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04_01_lam1d_install/" class="btn btn-neutral float-left" title="Installing the Pipeline"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04_03_lam1d_overview/" class="btn btn-neutral float-right" title="Overview of LAM 1D Data Products">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../04_01_lam1d_install/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04_03_lam1d_overview/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/05_02_app_science_platform_status/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Science Platform Data Processing Status - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Science Platform Data Processing Status";
+        var mkdocs_page_input_path = "05_02_app_science_platform_status.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/05_02_app_science_platform_status/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Process Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_01_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_02_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_03_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_04_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_05_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_06_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_07_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_01_lam1d_install/">Installing the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_02_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_03_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_04_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_05_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_06_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Science Platform Data Processing Status</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#data-delivery-status">Data Delivery Status</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#missing-data">Missing Data</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#run21">run21</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run22">run22</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run23">run23</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#s25a">S25A</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run24">run24</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run25">run25</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#s25a-take-2">S25A take #2</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run26">run26</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run27">run27</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run28">run28</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Appendix</li>
+      <li class="breadcrumb-item active">Science Platform Data Processing Status</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/05_02_app_science_platform_status.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="science-platform-data-processing-status">Science Platform Data Processing Status</h1>
+<p>All PFS data taken each semester is reduced by the PFS team and made available through the <a href="https://hscpfs.mtk.nao.ac.jp/portal/">Science Platform</a> to users. Preliminary data releases are initially made following each observing run (carried out across ~2 months, e.g. run21, run22, run23), followed by a complete semester-wide data release (e.g. S25A). As improvements to the 2D and 1D pipelines are made, the PFS team may re-process data from earlier semesters (e.g. S25A take#2). The latest re-processed data will thus provide the best results in almost all cases.</p>
+<p>Here we provide an up-to-date status on the data processing for each semester and any missing data. The full data release reports are available through the Science Platform and we recommend users to consult them. Below is a brief summary:</p>
+<h2 id="data-delivery-status">Data Delivery Status</h2>
+<table>
+<thead>
+<tr>
+<th>Run</th>
+<th>Observing period</th>
+<th>2D results</th>
+<th>LAM 1D results</th>
+<th>Calibrations</th>
+<th>Release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>run21</code></td>
+<td>Mar–Apr 2025</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Jun 2025</td>
+</tr>
+<tr>
+<td><code>run22</code></td>
+<td>May–Jun 2025</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Jul 2025</td>
+</tr>
+<tr>
+<td><code>run23</code></td>
+<td>Jun–Jul 2025</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Aug 2025</td>
+</tr>
+<tr>
+<td><code>S25A</code></td>
+<td>run21–23</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Nov 2025</td>
+</tr>
+<tr>
+<td><code>run24</code></td>
+<td>Sep 2025</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Nov 2025</td>
+</tr>
+<tr>
+<td><code>run25</code></td>
+<td>Nov 2025</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Feb 2026</td>
+</tr>
+<tr>
+<td><code>S25A</code> take #2</td>
+<td>run21–23</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Apr 2026</td>
+</tr>
+<tr>
+<td><code>run26</code></td>
+<td>Jan 2026</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Jun 2026</td>
+</tr>
+<tr>
+<td><code>run27</code></td>
+<td>Mar 2026</td>
+<td>No Data</td>
+<td>No Data</td>
+<td>No Data</td>
+<td>No Data</td>
+</tr>
+<tr>
+<td><code>run28</code></td>
+<td>May 2026</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Complete</td>
+<td>Aug 2026</td>
+</tr>
+</tbody>
+</table>
+<h2 id="missing-data">Missing Data</h2>
+<p>For each run or reprocessing release, any known missing files or incomplete products are noted below.</p>
+<h3 id="run21"><code>run21</code></h3>
+<p>The following arms are missing due to processing failures. Due to the way flux calibration works, visits with missing <code>r</code>/<code>m</code> arms do not contribute to the coadd.</p>
+<table>
+<thead>
+<tr>
+<th>Visit</th>
+<th>Missing arm + spectrograph</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>122148</td>
+<td><code>n2</code></td>
+</tr>
+<tr>
+<td>122195</td>
+<td><code>b1</code> <code>b2</code> <code>b4</code> <code>m2</code></td>
+</tr>
+<tr>
+<td>122196</td>
+<td><code>b1</code> <code>b2</code> <code>b4</code> <code>m2</code></td>
+</tr>
+<tr>
+<td>122305</td>
+<td><code>r4</code></td>
+</tr>
+<tr>
+<td>122522</td>
+<td><code>n2</code></td>
+</tr>
+<tr>
+<td>122733</td>
+<td><code>b1</code> <code>b2</code> <code>b4</code> <code>r1</code> <code>r2</code> <code>r4</code></td>
+</tr>
+<tr>
+<td>122734</td>
+<td><code>b1</code> <code>b2</code> <code>b4</code> <code>r1</code> <code>r2</code> <code>r4</code></td>
+</tr>
+<tr>
+<td>122776</td>
+<td><code>b4</code> <code>r4</code></td>
+</tr>
+<tr>
+<td>122777</td>
+<td><code>b4</code> <code>r4</code></td>
+</tr>
+<tr>
+<td>122778</td>
+<td><code>b4</code> <code>r4</code></td>
+</tr>
+<tr>
+<td>122779</td>
+<td><code>b4</code> <code>r4</code></td>
+</tr>
+<tr>
+<td>122896</td>
+<td><code>n1</code></td>
+</tr>
+<tr>
+<td>122951</td>
+<td><code>n3</code></td>
+</tr>
+<tr>
+<td>123314</td>
+<td><code>n4</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="run22"><code>run22</code></h3>
+<p>There is no missing 2D arm data from processing failures. For 1D data, see the <code>run25</code> notes below.</p>
+<h3 id="run23"><code>run23</code></h3>
+<p>There is no missing 2D arm data from processing failures. For 1D data, see the <code>run25</code> notes below.</p>
+<h3 id="s25a"><code>S25A</code></h3>
+<p>There is no missing 2D arm data from processing failures. For 1D data, see the <code>run25</code> notes below.</p>
+<h3 id="run24"><code>run24</code></h3>
+<p>There is no missing 2D arm data from processing failures. For 1D data, see the <code>run25</code> notes below.</p>
+<h3 id="run25"><code>run25</code></h3>
+<p>There are no missing 2D pipeline raw/arm files. However, a substantial fraction of objects present in <code>pfsCoadd</code> are missing from <code>pfsCoZCandidates</code>, i.e. 1D data (about 20–30% of files are strongly affected; the fraction depends on the object mix). For the observatory filler (<code>catId=10094</code>, modified config), examples include:</p>
+<table>
+<thead>
+<tr>
+<th>objGroup</th>
+<th>N objects (<code>pfsCoadd</code>)</th>
+<th>N objects (<code>pfsCoZCandidates</code>)</th>
+<th>Fraction retained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td>1462</td>
+<td>1182</td>
+<td>0.81</td>
+</tr>
+<tr>
+<td>8</td>
+<td>1217</td>
+<td>842</td>
+<td>0.69</td>
+</tr>
+<tr>
+<td>12</td>
+<td>1124</td>
+<td>629</td>
+<td>0.56</td>
+</tr>
+<tr>
+<td>14</td>
+<td>1593</td>
+<td>322</td>
+<td>0.20</td>
+</tr>
+<tr>
+<td>16</td>
+<td>1551</td>
+<td>926</td>
+<td>0.60</td>
+</tr>
+</tbody>
+</table>
+<p>This incompleteness also affected earlier releases. It was later traced to mixed low- and medium-resolution spectra in the same <code>pfsCoadd</code> file. A fix is implemented from <code>run26</code> onwards.</p>
+<h3 id="s25a-take-2"><code>S25A</code> take #2</h3>
+<p>A small number of files are missing from the release as summarized below. These are not due to processing errors but to data acquisition issues during the observations (i.e., the raw data are missing).</p>
+<table>
+<thead>
+<tr>
+<th>Visit</th>
+<th>Missing arm + spectrograph</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>122148</td>
+<td><code>n2</code></td>
+</tr>
+<tr>
+<td>122522</td>
+<td><code>n2</code></td>
+</tr>
+<tr>
+<td>122896</td>
+<td><code>n1</code></td>
+</tr>
+<tr>
+<td>122951</td>
+<td><code>n3</code></td>
+</tr>
+<tr>
+<td>123314</td>
+<td><code>n4</code></td>
+</tr>
+</tbody>
+</table>
+<p>There is also the <code>pfsCoZCandidates</code> incompleteness from mixed-resolution coadds (same issue as <code>run25</code>). That problem is addressed from <code>run26</code> onward.</p>
+<h3 id="run26"><code>run26</code></h3>
+<p>There are no missing raw/arm files. Separate <code>brn</code> / <code>bmn</code> coadds resolved the earlier problem of objects missing from <code>pfsCoZCandidates</code> when resolutions were mixed in one <code>pfsCoadd</code> file. In all releases from this run onwards, all data will be split into <code>brn</code> and <code>bmn</code> combinations that the user will have to specify.</p>
+<h3 id="run27"><code>run27</code></h3>
+<p>No data (no observations for this run).</p>
+<h3 id="run28"><code>run28</code></h3>
+<p>The <code>n2</code> detector was not available during run28. All spectra from spectrograph 2 are missing the near-infrared arm.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../05_01_app_datamodel/" class="btn btn-neutral float-left" title="Data Model"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../05_01_app_datamodel/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

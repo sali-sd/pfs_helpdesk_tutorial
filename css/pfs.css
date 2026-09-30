@@ -1,0 +1,256 @@
+body {
+    font-family: "Helvetica","Helvetica Neue",Arial,sans-serif; 
+    /* font-family: ""; */
+    font-weight: normal;
+    font-size: 1.0em;
+    line-height: 1.8;
+}
+
+
+h1, h2, h3, h4, h5, h6, legend {
+    font-family: "Helvetica","Helvetica Neue",Arial,sans-serif; 
+    line-height: 1.4;
+    margin-bottom: 1em;
+}
+
+.section h2 {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.section h3 {
+    margin-top: 45px;
+    margin-bottom: 10px;
+}
+
+.section h4,
+.section h5,
+.section h6 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 1.05em;
+}
+
+h5 {
+    font-size: 1.0em;
+}
+
+.btn {
+    font-family: "";
+}
+
+/* .icon-home:before {
+    content: "";
+} */
+
+/* .section p {
+    margin-left: 1.5em;
+    margin-bottom: 0.7em;
+} */
+
+.section p {
+    margin-bottom: 0.7em;
+}
+
+.section ol,
+.section ul {
+    margin-left: 1.5em;
+}
+
+
+.section li {
+    margin: 0em 0;
+}
+
+.section ol li,
+.section ul li,
+p {
+    line-height: 1.5em;
+}
+
+.section table {
+    margin-left:30px;
+}
+
+.section hr {
+    margin-top: 0px;
+}
+
+/* .wy-side-nav-search > a, .wy-side-nav-search .wy-dropdown > a {
+    font-size: 150%;
+    font-weight: bolder;
+} */
+
+
+.wy-side-nav-search a {
+    max-width: 100px;
+    background-color: unset !important;
+    color: unset !important;
+}
+
+.wy-side-nav-search a::after {
+    /* max-width: 256px !important; */
+    margin-left: -50px;
+    font-size: x-large;
+    /*font-weight: bolder;*/
+    white-space: nowrap;
+    content: "PFS DRP Tutorial";
+}
+
+/*
+.wy-breadcrumbs {
+    display: none;
+    border-bottom-style: none;
+}
+
+.rst-content div hr {
+    display: none;
+}
+*/
+
+
+.rst-content footer {
+    font-size: x-small;
+    /*display: none;*/
+}
+
+.wy-nav-side {
+    background: #007f7f;
+    width: 300px;
+}
+
+.rst-versions .rst-current-version {
+    display: none;
+}
+
+.rst-versions {
+    border-top-style: none;
+}
+
+.wy-menu-vertical {
+    /* border-top: solid 1px #fcfcfc; */
+    border-top: none;
+    color: #fcfcfc;
+}
+.wy-menu-vertical a {
+    color: #fcfcfc;
+}
+
+.wy-menu-vertical li.current {
+    background: #1abc9c;
+}
+
+.wy-menu-vertical li.current a {
+    color: #f4f4f4;
+}
+
+.wy-menu-vertical a:hover {
+    background: #1abc9c;
+}
+
+.wy-menu-vertical li.current a:hover {
+    /* color: #fcfcfc; */
+    background: #007f7f;
+    /* border-top: solid 1px #f4f4f4; */
+    /* border-bottom: solid 1px #f4f4f4; */
+}
+
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current > a {
+    color: #404040;
+    border: none;
+}
+
+.wy-menu-vertical li ul li a {
+    /* color: #b3b3b3; */
+    color: #fcfcfc;
+}
+
+.wy-menu-vertical span {
+    /* color: #838383; */
+    color: #fcfcfc;
+}
+
+.wy-menu-vertical a.reference.internal.current {
+    background-color: #f0ffff;
+    color: #404040
+}
+
+
+
+.wy-side-nav-search {
+    background-color: #007f7f;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+.wy-nav-content-wrap {
+    /* background: rgba(0,0,0,0.05); */
+    background: #fcfcfc;
+}
+
+.wy-nav-content {
+    /* max-width: 800px; */
+    max-width: 1000px;
+}
+
+.rst-versions {
+    border-top: solid 1px #fcfcfc;
+    font-family: "";
+}
+
+.rst-versions .rst-current-version {
+    /* background-color: #272525; */
+    background-color: #007f7f;
+}
+
+.caption-text {
+    font-size: medium;
+    text-decoration: underline;
+}
+
+
+/*
+    https://github.com/readthedocs/sphinx_rtd_theme/issues/117
+    https://github.com/readthedocs/sphinx_rtd_theme/issues/295
+ */
+.wy-table-responsive table td, .wy-table-responsive table th {
+    white-space: normal !important;
+}
+
+.wy-table-responsive {
+    overflow : visible !important;
+}
+
+.rst-versions {
+    border-top-style: none;
+}
+
+.wy-body-for-nav div.admonition {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.admonition.note {
+    background-color: #dcecf7; /* Light blue background */
+    border-left: 4px solid #007acc; /* Blue border */
+}
+
+.admonition.warning {
+    background-color: #f8f0e3; /* Light yellow background */
+    border-left: 4px solid #ffa000; /* Orange border */
+}
+
+.admonition.danger {
+    background-color: #fbc7c7; /* Light red background */
+    border-left: 4px solid #d32f2f; /* Red border */
+} 
+

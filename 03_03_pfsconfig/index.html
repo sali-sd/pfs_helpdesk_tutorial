@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/03_03_pfsconfig/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>pfsConfig - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pfsConfig";
+        var mkdocs_page_input_path = "03_03_pfsconfig.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/03_03_pfsconfig/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Process Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../03_01_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_02_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">pfsConfig</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#checking-all-visits-in-a-collection">Checking All Visits in a Collection</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#viewing-fiber-distribution-in-a-visit">Viewing Fiber Distribution in a Visit</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#list-all-visits-exposures-for-an-object">List all Visits (Exposures) for an Object</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_04_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_05_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_06_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_07_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_01_lam1d_install/">Installing the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_02_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_03_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_04_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_05_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_06_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_02_app_science_platform_status/">Science Platform Data Processing Status</a>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Data Analysis</li>
+      <li class="breadcrumb-item active">pfsConfig</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/03_03_pfsconfig.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="pfsconfig">pfsConfig</h1>
+<h2 id="overview">Overview</h2>
+<p><code>pfsConfig</code> records the <em>realized</em> fiber configuration for a specific <strong>visit</strong> (exposure).
+It is the observed counterpart to <code>pfsDesign</code>, capturing where each fiber
+actually ended up on the focal plane (as opposed to where it was intended to be). The <code>pfsConfig</code> files are the primary source of all object-related information, e.g. RA/Dec, catalog ID, target type, fiber status, object fluxes (from public catalogs).</p>
+<p>Filename format: <code>pfsConfig_PFS_{visit}_{collection}.fits</code></p>
+<p>Example from proposal <code>S25A-000QF</code>, visit 137292 on the Science Platform:</p>
+<pre><code>/shared/pfs/programs/S25A-000QF/2d/run26_June2026/pfsConfig/20260111/137292/
+    pfsConfig_PFS_137292_run26_June2026.fits
+</code></pre>
+<p><strong>FITS structure:</strong></p>
+<table>
+<thead>
+<tr>
+<th>HDU</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#0</td>
+<td>PDU</td>
+<td>Header</td>
+<td>Actual telescope boresight RA/Dec (degrees)</td>
+</tr>
+<tr>
+<td>#1</td>
+<td>CONFIG</td>
+<td>Binary table</td>
+<td>Per-fiber target and position data</td>
+</tr>
+<tr>
+<td>#2</td>
+<td>PHOTOMETRY</td>
+<td>Binary table</td>
+<td>Per-fiber flux measurements in multiple filters</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CONFIG table columns (key fields):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fiberId</code></td>
+<td>32-bit int</td>
+<td>Fiber identifier (starts at 1)</td>
+</tr>
+<tr>
+<td><code>catId</code></td>
+<td>32-bit int</td>
+<td>Source catalog identifier</td>
+</tr>
+<tr>
+<td><code>objId</code></td>
+<td>64-bit int</td>
+<td>Unique object identifier</td>
+</tr>
+<tr>
+<td><code>ra</code>, <code>dec</code></td>
+<td>64-bit float</td>
+<td>Target position (degrees)</td>
+</tr>
+<tr>
+<td><code>targetType</code></td>
+<td>32-bit int</td>
+<td>Target class (e.g. SCIENCE, SKY, FLUXSTD,...)</td>
+</tr>
+<tr>
+<td><code>fiberStatus</code></td>
+<td>32-bit int</td>
+<td>Fiber health (e.g. GOOD, BROKENFIBER, BLOCKED,...)</td>
+</tr>
+<tr>
+<td><code>pfiNominal</code></td>
+<td>2×32-bit float</td>
+<td>Intended fiber position on the focal plane (mm)</td>
+</tr>
+<tr>
+<td><code>pfiCenter</code></td>
+<td>2×32-bit float</td>
+<td>Actual measured fiber position on the focal plane (mm)</td>
+</tr>
+<tr>
+<td><code>proposalId</code></td>
+<td>string</td>
+<td>Subaru proposal ID (e.g. <code>S24B-001QN</code>)</td>
+</tr>
+<tr>
+<td><code>obCode</code></td>
+<td>string</td>
+<td>Observing Block code within a proposal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PHOTOMETRY table columns (key fields):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Units</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fiberFlux</code></td>
+<td>nJy</td>
+<td>Flux within ~1 arcsec fiber aperture (seeing-corrected)</td>
+</tr>
+<tr>
+<td><code>psfFlux</code></td>
+<td>nJy</td>
+<td>Flux from PSF fitting to infinite radius</td>
+</tr>
+<tr>
+<td><code>totalFlux</code></td>
+<td>nJy</td>
+<td>Total flux (PSF for point sources; extended model for galaxies)</td>
+</tr>
+<tr>
+<td><code>filterName</code></td>
+<td>—</td>
+<td>Filter name specifying the transmission curve</td>
+</tr>
+</tbody>
+</table>
+<p>The fluxes above are collected from public catalogs such as HSC SSP, PS1, GAIA.</p>
+<h2 id="checking-all-visits-in-a-collection">Checking All Visits in a Collection</h2>
+<p>Here we show how to set up <code>Butler</code> and list all available visits in a <code>collection</code>. Simply specify under <strong>USER-DEFINED PARAMETERS</strong> the 2d DRP data repository location and <code>collection</code> name:</p>
+<pre><code class="language-python">from lsst.daf.butler import Butler
+
+# ==== USER-DEFINED PARAMETERS ====
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
+collections = &quot;run26_June2026&quot;                       # collection name
+
+# ==== QUERY ALL VISITS FROM BUTLER AND PRINT ALL VISITS ====
+butler      = Butler(repo, collections=collections)
+all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
+print(f&quot;Total visits: {len(all_visits)}&quot;)
+print(f&quot;Visits: {all_visits}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Total visits: 426
+Visits: [137067, 137068, 137070, 137071, 137073, 137074, 137076, 137077, 137277, 137278, 137280, 137281, 137283, 137284, 137286, 137287, 137289, 137290, 137292, 137293, 137295, 137296, 137298, 137299, 137301, 137302, 137308, 137309, 137311, 137312, 137314, 137315, 137317, 137318, 137321, 137322, 137326, 137327, 137329, 137330, 137332, 137333, 137335, 137336, 137338, 137339, 137341, 137342, 137344, 137345, 137347, 137348, 137350, 137351, 137353, 137354, 137421, 137422, 137423, 137424, 137426, 137427, 137428, 137429, 137431, 137432, 137433, 137434, 137436, 137437, 137438, 137439, 137441, 137442, 137443, 137444, 137446, 137447, 137448, 137449, 137452, 137453, 137454, 137455, 137457, 137458, 137459, 137460, 137462, 137463, 137464, 137465, 137467, 137468, 137469, 137470, 137472, 137473, 137474, 137475, 137477, 137478, 137479, 137480, 137482, 137483, 137484, 137485, 137487, 137488, 137489, 137490, 137492, 137493, 137494, 137495, 137497, 137498, 137499, 137500, 137558, 137559, 137560, 137561, 137563, 137564, 137565, 137566, 137568, 137569, 137570, 137571, 137573, 137574, 137575, 137576, 137583, 137584, 137585, 137586, 137588, 137589, 137590, 137591, 137593, 137594, 137595, 137596, 137598, 137599, 137600, 137601, 137603, 137604, 137605, 137606, 137608, 137609, 137610, 137611, 137613, 137614, 137615, 137616, 137618, 137619, 137620, 137621, 137623, 137624, 137625, 137626, 137628, 137629, 137630, 137631, 137703, 137704, 137705, 137706, 137708, 137709, 137710, 137711, 137713, 137714, 137715, 137716, 137718, 137719, 137720, 137721, 137723, 137724, 137725, 137726, 137728, 137729, 137730, 137733, 137734, 137735, 137736, 137738, 137739, 137740, 137741, 137743, 137744, 137745, 137746, 137748, 137749, 137750, 137751, 137753, 137754, 137755, 137756, 137758, 137759, 137760, 137761, 137763, 137764, 137765, 137766, 137768, 137769, 137770, 137771, 137773, 137774, 137775, 137776, 137778, 137779, 137780, 137781, 138223, 138224, 138226, 138227, 138229, 138230, 138232, 138233, 138235, 138236, 138238, 138239, 138241, 138242, 138245, 138246, 138248, 138249, 138251, 138252, 138254, 138255, 138257, 138258, 138260, 138261, 138263, 138264, 138266, 138267, 138269, 138270, 138272, 138273, 138399, 138400, 138403, 138404, 138406, 138407, 138409, 138410, 138415, 138416, 138418, 138419, 138421, 138422, 138424, 138425, 138427, 138428, 138430, 138431, 138433, 138434, 138436, 138437, 138439, 138440, 138442, 138443, 138445, 138446, 138448, 138449, 138588, 138589, 138592, 138593, 138596, 138597, 138600, 138601, 138604, 138605, 138608, 138609, 138612, 138613, 138616, 138617, 138620, 138621, 138624, 138625, 138628, 138629, 138631, 138632, 138635, 138636, 138639, 138640, 138643, 138644, 138647, 138648, 138651, 138652, 138655, 138656, 138659, 138660, 138807, 138808, 138811, 138812, 138815, 138816, 138819, 138820, 138823, 138824, 138827, 138828, 138831, 138832, 138835, 138836, 138839, 138840, 138843, 138844, 138847, 138848, 138851, 138852, 138855, 138856, 138859, 138860, 138863, 138864, 138867, 138868, 138871, 138872, 138875, 138876, 138988, 138989, 138990, 138991, 138999, 139000, 139003, 139004, 139007, 139008, 139013, 139014, 139017, 139018, 139028, 139029, 139442, 139443, 139445, 139446, 139448, 139449, 139451, 139452, 139530, 139531, 139532, 139533, 139535, 139536, 139537, 139538, 139540, 139541, 139542, 139543, 139545, 139546, 139547, 139553, 139554, 139555, 139556, 139722, 139723, 139725, 139726]
+</code></pre>
+<h2 id="viewing-fiber-distribution-in-a-visit">Viewing Fiber Distribution in a Visit</h2>
+<p>The following code shows the distribution of all fibers (SCIENCE, SKY, FLUX STANDARDS) on the focal plane for a given visit. As before, specify the 2d DRP data repository location and <code>collection</code> name, along with the visit number (or increment through visits in the <code>collection</code> using a simple index):</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from lsst.daf.butler import Butler
+from pfs.datamodel import TargetType
+
+# ==== USER-DEFINED PARAMETERS ====
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
+collections = &quot;run26_June2026&quot;                       # collection name
+VISIT       = 137292 # Inspects and plots fiber positions in specified visit
+VISIT_INDEX = 0      # Used if VISIT is None. Increment through visits in collections (0 = first, 1 = second, etc.)
+
+# ==== QUERY ALL FULLY-PROCESSED VISITS FROM BUTLER ====
+butler     = Butler(repo, collections=collections)
+all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
+print(f&quot;Total visits in Collections ({collections}): {len(all_visits)}&quot;)
+
+if VISIT is not None:
+    if VISIT not in all_visits:
+        raise ValueError(f&quot;Visit {VISIT} not found in collections '{collections}'&quot;)
+    visit = VISIT
+    print(f&quot;Using specified visit={visit}&quot;)
+else:
+    visit = all_visits[VISIT_INDEX]
+    print(f&quot;Selected visit index {VISIT_INDEX}: visit={visit}&quot;)
+
+# ==== LOAD FIBER CONFIGURATION FOR THE SELECTED VISIT ====
+pfsConfig = butler.get('pfsConfig', dict(visit=visit))
+sci       = pfsConfig.select(targetType=TargetType.SCIENCE,  fiberStatus=1)
+sky       = pfsConfig.select(targetType=TargetType.SKY,      fiberStatus=1)
+fluxstd   = pfsConfig.select(targetType=TargetType.FLUXSTD,  fiberStatus=1)
+
+# ==== PLOT RA/DEC POSITIONS OF ALL FIBER TYPES FOR THE SELECTED VISIT ====
+fig, ax = plt.subplots(figsize=(7, 7))
+fig.subplots_adjust(top=0.90, bottom=0.10, left=0.12, right=0.97)
+
+ax.scatter(sci.ra,     sci.dec,     s=6,  marker='o', color='black',    label=f'SCIENCE ({len(sci.ra)})',      zorder=3)
+ax.scatter(sky.ra,     sky.dec,     s=12, marker='^', color='limegreen', label=f'SKY ({len(sky.ra)})',          zorder=2)
+ax.scatter(fluxstd.ra, fluxstd.dec, s=12, marker='s', color='orangered', label=f'FLUXSTD ({len(fluxstd.ra)})', zorder=2)
+
+ax.set_xlabel('RA [deg]')
+ax.set_ylabel('Dec [deg]')
+ax.set_title(f'Fiber Positions  Visit={visit}\nCollections ({collections})')
+ax.legend(loc='upper right', fancybox=True, framealpha=0.5)
+ax.invert_xaxis()
+ax.minorticks_on()
+plt.savefig(f'pfsConfig_fiber_distribution_visit={visit}.png', dpi=150, bbox_inches='tight')
+plt.show()
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Total visits in Collections (run26_June2026): 426
+Using specified visit=137292
+</code></pre>
+<p><img alt="Fiber positions for visit 137292" src="../figures/pfsConfig_fiber_distribution_visit%3D137292.png" /></p>
+<h2 id="list-all-visits-exposures-for-an-object">List all Visits (Exposures) for an Object</h2>
+<p>If you have the <code>objId</code> of a specific object you have observed, the following code prints a summary of all visits that contain that object, including its catalog ID and magnitude.</p>
+<pre><code class="language-python">import numpy as np
+from astropy.io import fits
+from lsst.daf.butler import Butler
+from pfs.datamodel import TargetType
+
+# ==== USER-DEFINED PARAMETERS ====
+repo        = &quot;/shared/pfs/programs/S25A-000QF/2d/&quot;  # path to the 2d DRP repository
+collections = &quot;run26_June2026&quot;                       # collection name
+objid       = 89100543080260387                      # input object id
+
+# ==== GET ALL PFSCONFIG FILE REFERENCES FROM BUTLER ====
+butler     = Butler(repo, collections=collections)
+all_visits = sorted({ref.dataId['visit'] for ref in butler.registry.queryDatasets('pfsMerged')})
+all_refs   = list(butler.registry.queryDatasets('pfsConfig',
+                  where=f&quot;visit IN ({','.join(str(v) for v in all_visits)})&quot;))
+
+# ==== SCAN ALL PFSCONFIG FILES TO FIND WHICH VISITS CONTAIN THE OBJECT ====
+objid_visits = []
+info_ref     = None
+
+for ref in all_refs:
+    uri = butler.getURI(ref)
+    with fits.open(uri.path) as hdul:
+        objids = hdul[1].data['objId']
+        if objid in objids:
+            objid_visits.append(ref.dataId['visit'])
+            if info_ref is None:
+                info_ref = ref
+
+if not objid_visits:
+    raise ValueError(f&quot;objId {objid} not found in any pfsConfig in collections '{collections}'&quot;)
+
+objid_visits = sorted(set(objid_visits))
+print(f&quot;ObjId={objid} found in {len(objid_visits)} visit(s): {objid_visits}&quot;)
+
+# ==== LOAD OBJECT DETAILS FROM THE FIRST MATCHING VISIT ====
+pfsConfig    = butler.get('pfsConfig', dict(visit=objid_visits[0]))
+sci          = pfsConfig.select(targetType=TargetType.SCIENCE, fiberStatus=1)
+sci_mask     = sci.objId == objid
+idx          = np.where(sci_mask)[0][0]
+filter_names = list(sci.filterNames[0])
+first_filter = filter_names[0]
+total_flux   = np.array([list(f) for f in sci.totalFlux], dtype=float)
+psf_flux     = np.array([list(f) for f in sci.psfFlux],   dtype=float)
+flux         = np.where((total_flux &gt; 0) &amp; np.isfinite(total_flux), total_flux, psf_flux)
+with np.errstate(divide='ignore', invalid='ignore'):
+    mag = np.where(flux &gt; 0, -2.5 * np.log10(flux) + 31.4, np.nan)
+
+print(f&quot;\nObject info (from visit {objid_visits[0]}):&quot;)
+print(f&quot;  ObjId        = {int(sci.objId[idx])}&quot;)
+print(f&quot;  CatId        = {int(sci.catId[idx])}&quot;)
+print(f&quot;  Spectrograph = {int(sci.spectrograph[idx])}&quot;)
+print(f&quot;  Mag ({first_filter}) = {mag[idx, 0]:.3f} AB&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>ObjId=89100543080260387 found in 2 visit(s): [137292, 137293]
+
+Object info (from visit 137292):
+  ObjId        = 89100543080260387
+  CatId        = 10094
+  Spectrograph = 3
+  Mag (g_ps1) = 20.816 AB
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_02_accessing/" class="btn btn-neutral float-left" title="Accessing PFS Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../03_04_pfsarm/" class="btn btn-neutral float-right" title="pfsArm">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../03_02_accessing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../03_04_pfsarm/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

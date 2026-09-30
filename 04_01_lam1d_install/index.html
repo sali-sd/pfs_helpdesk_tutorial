@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://Subaru-PFS.github.io/pfs_helpdesk_tutorial/04_01_lam1d_install/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Installing the Pipeline - PFS Pipe2D</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/pfs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Installing the Pipeline";
+        var mkdocs_page_input_path = "04_01_lam1d_install.md";
+        var mkdocs_page_url = "/pfs_helpdesk_tutorial/04_01_lam1d_install/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../img/logo.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+                <p class="caption"><span class="caption-text">Introduction</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">PFS Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../00_01_pfs_pipeline/">PFS 2D Pipeline</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Installation</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_01_install_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_02_install_pipe2d/">Install 2D DRP</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../01_03_integration_test/">Integration Test</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Run 2D DRP</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_01_run_prepare/">Preparation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_02_run_ingestion/">Data Ingestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_03_run_calib/">(Optional) Build Calibs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02_04_run_science/">Process Science Data</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Data Analysis</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_01_overview/">Overview of PFS Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_02_accessing/">Accessing PFS Data</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_03_pfsconfig/">pfsConfig</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_04_pfsarm/">pfsArm</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_05_pfsmerged/">pfsMerged</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_06_pfscalibrated/">pfsCalibrated</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03_07_pfscoadd/">pfsCoadd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">LAM 1D</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Installing the Pipeline</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-the-script-does">What the script does</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation-locations">Installation locations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#selecting-a-pipeline-version">Selecting a pipeline version</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alternative-docker-installation">Alternative: Docker installation</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_02_lam1d_running/">Running the Pipeline</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_03_lam1d_overview/">Overview of LAM 1D Data Products</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_04_lam1d_zcandidates/">pfsCoZCandidates</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_05_lam1d_coadd_lines/">pfsCoadd Spectrum + LAM 1D Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Q&A</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04_06_faq_general/">General</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Appendix</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_01_app_datamodel/">Data Model</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../05_02_app_science_platform_status/">Science Platform Data Processing Status</a>
+                    </li>
+                </ul>
+            
+            <hr style="margin: 1em 0; border: none; border-top: 1.5px solid #ccc;" />
+            <div style="text-align: center; margin: -1.5em 1em 0 1em; font-size: large; color: #D4AF37;">
+                <span style="font-size: 2em; vertical-align: center; color: #D4AF37;"> &#x2709; </span> For Inquiries:<br>
+                <a href="mailto:pfs-data-analysis-help@ml.nao.ac.jp"" style="margin: -1em 0;">pfs-data-analysis-help@ml.nao.ac.jp</a>
+            </div>
+
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PFS Pipe2D</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">LAM 1D</li>
+      <li class="breadcrumb-item active">Installing the Pipeline</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial/edit/master/docs/04_01_lam1d_install.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installing-the-lam-1d-pipeline">Installing the LAM 1D Pipeline</h1>
+<p>The LAM 1D pipeline is the PFS 1D data reduction pipeline developed by LAM (Laboratoire d'Astrophysique de Marseille). It performs redshift fitting and line measurements on coadded PFS spectra.</p>
+<ul>
+<li><strong>Pipeline</strong>: <a href="https://github.com/Subaru-PFS/drp_1dpipe">drp_1dpipe</a></li>
+<li><strong>Core library</strong>: <a href="https://github.com/Subaru-PFS/drp_1d">drp_1d (pylibamazed)</a></li>
+<li><strong>Datamodel</strong>: <a href="https://github.com/Subaru-PFS/datamodel/blob/master/datamodel.txt">datamodel.txt</a></li>
+</ul>
+<p>See the above pipeline repositories and datamodel page for a full description of the pipeline, its input parameters, and output data products.</p>
+<p>An installation script and full documentation are available in the <strong><a href="https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/main/PFS-LAM1D-Installation">PFS-LAM1D-Installation</a></strong> directory of this repository.</p>
+<hr />
+<h2 id="requirements">Requirements</h2>
+<p><strong>Operating system:</strong> AlmaLinux 9 (tested and supported)</p>
+<p><strong>Required tools</strong> (other than Anaconda, all others should be included in AlmaLinux 9 by default):</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conda</code></td>
+<td>Python environment management (Miniconda or Anaconda)</td>
+</tr>
+<tr>
+<td><code>gcc</code> / <code>g++</code></td>
+<td>C++ compiler for building native libraries</td>
+</tr>
+<tr>
+<td><code>cmake</code> ≥ 3.15</td>
+<td>Build system</td>
+</tr>
+<tr>
+<td><code>make</code></td>
+<td>Build tool</td>
+</tr>
+<tr>
+<td><code>git</code></td>
+<td>Cloning source repositories</td>
+</tr>
+<tr>
+<td><code>curl</code></td>
+<td>Downloading source tarballs</td>
+</tr>
+<tr>
+<td><code>unzip</code></td>
+<td>Extracting zip archives</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Disk space:</strong> ~10 GB free in your home directory</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Root / sudo access is <strong>not</strong> required. Everything installs into your home directory.</p>
+</div>
+<hr />
+<h2 id="installation">Installation</h2>
+<p>Download the installation script from the <a href="https://github.com/sali-sd/pfs_helpdesk_tutorial/tree/main/PFS-LAM1D-Installation">PFS-LAM1D-Installation</a> folder of this repository:</p>
+<pre><code class="language-bash">curl -O https://raw.githubusercontent.com/sali-sd/pfs_helpdesk_tutorial/main/PFS-LAM1D-Installation/install_lam1d_pipeline.sh
+</code></pre>
+<p>Then run it:</p>
+<pre><code class="language-bash">bash install_lam1d_pipeline.sh
+</code></pre>
+<p>The script takes approximately <strong>30–60 minutes</strong> to complete, as it compiles several C++ libraries from source.</p>
+<p>When finished, activate the environment and confirm the version:</p>
+<pre><code class="language-bash">conda activate pfs-pipeline-1.18.0
+drp_1dpipe --version
+</code></pre>
+<hr />
+<h2 id="what-the-script-does">What the script does</h2>
+<p>The script performs the following steps automatically:</p>
+<ol>
+<li><strong>Checks prerequisites</strong> — verifies all required tools are available</li>
+<li><strong>Creates a conda environment</strong> — <code>pfs-pipeline-1.18.0</code> with Python 3.11</li>
+<li><strong>Builds C++ dependencies from source</strong> (all installed into the conda environment, no root needed):<ul>
+<li>PCRE2 10.42 — regex library required by SWIG</li>
+<li>SWIG 4.1.1 — generates Python bindings for the C++ code</li>
+<li>Boost 1.74.0 — C++ utility libraries</li>
+<li>OpenBLAS 0.3.19 — optimised linear algebra (built with multi-architecture support)</li>
+<li>GSL 2.5 — GNU Scientific Library</li>
+<li>FFTW 3.3.8 — Fast Fourier Transform library</li>
+<li>Eigen 3.4.0 — C++ linear algebra header library</li>
+<li>LBFGSpp 0.4.0 — L-BFGS optimiser header library</li>
+</ul>
+</li>
+<li><strong>Installs Python packages</strong> — numpy, astropy, cython, pandas, h5py, jsonschema, scipy, pytest, ninja</li>
+<li><strong>Installs PFS datamodel</strong> — from the Subaru-PFS GitHub</li>
+<li><strong>Installs drp_1d (pylibamazed)</strong> — the core C++ algorithms library, compiled against the dependencies above</li>
+<li><strong>Installs drp_1dpipe</strong> — the Python pipeline</li>
+<li><strong>Runs the test suite</strong> — verifies the installation is working correctly</li>
+</ol>
+<hr />
+<h2 id="installation-locations">Installation locations</h2>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~/anaconda3/envs/pfs-pipeline-1.18.0/</code></td>
+<td>Conda environment with all installed software</td>
+</tr>
+<tr>
+<td><code>~/pfs-pipeline-src/</code></td>
+<td>Downloaded source tarballs and build files (can be deleted after installation)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="selecting-a-pipeline-version">Selecting a pipeline version</h2>
+<p>The version installed can be changed by editing the variables at the top of <code>install_lam1d_pipeline.sh</code> before running it:</p>
+<pre><code class="language-bash">D1D_VERSION=&quot;1.18.0&quot;      # drp_1d version number (used for local directory naming only)
+D1D_BRANCH=&quot;pfs-1.18.0&quot;   # drp_1d git tag used for checkout (always prefixed with &quot;pfs-&quot;)
+D1DP_VERSION=&quot;1.18.0&quot;     # drp_1dpipe version number (used for local directory naming only)
+D1DP_BRANCH=&quot;1.18.0&quot;      # drp_1dpipe git tag used for checkout
+</code></pre>
+<p>To find available versions, check the tags on each repository:</p>
+<ul>
+<li><a href="https://github.com/Subaru-PFS/drp_1dpipe/tags">drp_1dpipe tags</a></li>
+<li><a href="https://github.com/Subaru-PFS/drp_1d/tags">drp_1d tags</a></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>drp_1d</code> tags are always prefixed with <code>pfs-</code> (e.g. <code>pfs-1.18.0</code>), while <code>drp_1dpipe</code> tags are not (e.g. <code>1.18.0</code>).</p>
+</div>
+<hr />
+<h2 id="alternative-docker-installation">Alternative: Docker installation</h2>
+<p>A <code>Dockerfile-almalinux9</code> is provided in the <a href="https://github.com/Subaru-PFS/drp_1dpipe">drp_1dpipe repository</a> for users who prefer a containerised environment. This approach requires Docker and root (or sudo) access. Installation instructions are provided in the above pipeline repository page.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../03_07_pfscoadd/" class="btn btn-neutral float-left" title="pfsCoadd"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04_02_lam1d_running/" class="btn btn-neutral float-right" title="Running the Pipeline">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Subaru-PFS/pfs_helpdesk_tutorial" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../03_07_pfscoadd/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../04_02_lam1d_running/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
